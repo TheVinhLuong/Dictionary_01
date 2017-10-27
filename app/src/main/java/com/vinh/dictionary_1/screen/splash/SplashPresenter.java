@@ -41,14 +41,15 @@ final class SplashPresenter implements SplashContract.Presenter {
     private void assetHandler() {
         SharedPrefsImplement sharedPrefs = SharedPrefsImplement.getInstance();
         if (sharedPrefs.get(Constant.PREF_DICT_DB_COPIED, Boolean.class)) {
-           //TODO: Implement the db is copied's next scenario
+            //TODO: Implement the db is copied's next scenario
         } else {
-            mViewModel.showLoadingDialog(MainApplication.getInstance()
-                    .getString(R.string.msg_loading_please_wait));
+            mViewModel.showLoadingDialog(
+                    MainApplication.getInstance().getString(R.string.msg_loading_please_wait));
             Observable observable = unzipDatabase(MainApplication.getInstance()).subscribeOn(
                     SchedulerProvider.getInstance().io())
                     .observeOn(SchedulerProvider.getInstance().ui())
-                    .doOnError(throwable -> {})
+                    .doOnError(throwable -> {
+                    })
                     .doOnComplete(() -> {
                         sharedPrefs.put(Constant.PREF_DICT_DB_COPIED, true);
                         mViewModel.dismissLoadingDialog();
@@ -61,7 +62,7 @@ final class SplashPresenter implements SplashContract.Presenter {
         return Observable.create(emitter -> {
             try {
                 String path = "/data/data/" + context.getPackageName() + "/";
-                String dbZipName = "dicts.zip";
+                String dbZipName = "databases.zip";
                 byte[] buffer;
                 int bufferLength = 0;
                 File f = new File(path);
@@ -80,7 +81,7 @@ final class SplashPresenter implements SplashContract.Presenter {
                         }
                         bos.close();
                         fos.close();
-                    }else {
+                    } else {
                         File dir = new File(filePath);
                         dir.mkdir();
                     }
