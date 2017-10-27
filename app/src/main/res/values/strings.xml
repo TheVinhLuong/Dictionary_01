@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SmartDictionary</string>
+    <string name="msg_loading_please_wait">Đang tải, xin hãy chờ...</string>
+</resources>
