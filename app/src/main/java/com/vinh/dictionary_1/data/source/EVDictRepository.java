@@ -18,17 +18,17 @@ public class EVDictRepository implements EVDictDatasource.LocalDataSource{
     
     @Override
     public Flowable<List<Word>> getLocalEVWordsDetail(String queryWord, int limitCount) {
-        return mEVDictLocalDatasource.getEVWordsDetail(queryWord, limitCount);
+        return mEVDictLocalDatasource.getLocalEVWordsDetail(queryWord, limitCount);
     }
     
     @Override
     public Flowable<Word> getLocalEVWordDetail(String queryWord) {
-        return mEVDictLocalDatasource.getEVWordDetail(queryWord);
+        return mEVDictLocalDatasource.getLocalEVWordDetail(queryWord);
     }
     
     @Override
     public Flowable<Word> getLocalEVWordFromOffset(String queryWord, int offset) {
-        return mEVDictLocalDatasource.getEVWordFromOffset(queryWord, offset);
+        return mEVDictLocalDatasource.getLocalEVWordFromOffset(queryWord, offset);
     }
     
 }

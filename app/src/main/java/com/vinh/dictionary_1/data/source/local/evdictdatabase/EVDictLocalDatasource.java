@@ -25,17 +25,17 @@ public class EVDictLocalDatasource implements EVDictDatasource.LocalDataSource {
     }
 
     @Override
-    public Flowable<List<Word>> getEVWordsDetail(String queryWord, int limitCount) {
+    public Flowable<List<Word>> getLocalEVWordsDetail(String queryWord, int limitCount) {
         return mEVDictDAO.getEVWordsDetail(queryWord, limitCount);
     }
 
     @Override
-    public Flowable<Word> getEVWordDetail(String queryWord) {
+    public Flowable<Word> getLocalEVWordDetail(String queryWord) {
         return mEVDictDAO.getEVWordDetail(queryWord);
     }
 
     @Override
-    public Flowable<Word> getEVWordFromOffset(String queryWord, int offset) {
+    public Flowable<Word> getLocalEVWordFromOffset(String queryWord, int offset) {
         return mEVDictDAO.getEVWordFromOffset(queryWord, offset);
     }
 }

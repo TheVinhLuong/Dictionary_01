@@ -9,9 +9,8 @@ import java.util.List;
  * Created by VinhTL on 27/10/2017.
  */
 
-public class VEDictLocalDatasource implements VEDictDatasource.LocalDataSource{
-    private static VEDictLocalDatasource
-            sInstance;
+public class VEDictLocalDatasource implements VEDictDatasource.LocalDataSource {
+    private static VEDictLocalDatasource sInstance;
     private VEDictDAO mVEDictDAO;
 
     public static VEDictLocalDatasource getInstance(VEDictDAO VEDictDAO) {
@@ -26,12 +25,12 @@ public class VEDictLocalDatasource implements VEDictDatasource.LocalDataSource{
     }
 
     @Override
-    public Flowable<List<Word>> getVEWordsDetail(String queryWord, int limitCount) {
+    public Flowable<List<Word>> getLocalVEWordsDetail(String queryWord, int limitCount) {
         return mVEDictDAO.getVEWordsDetail(queryWord, limitCount);
     }
 
     @Override
-    public Flowable<Word> getVEWordDetail(String queryWord) {
+    public Flowable<Word> getLocalVEWordDetail(String queryWord) {
         return mVEDictDAO.getVEWordDetail(queryWord);
     }
 }
