@@ -45,4 +45,5 @@ public class SplashViewModel implements SplashContract.ViewModel {
             mLoadingDialog.dismiss();
         }
     }
+    
 }
