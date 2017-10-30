@@ -5,4 +5,7 @@
     <string name="title_nav_daily_words">Từ vựng hằng ngày</string>
     <string name="title_nav_online_translate">Dịch câu</string>
     <string name="title_nav_quick_search">Cửa sổ tra từ nhanh</string>
+    
+    <string name="drawer_open_content_desc_res">Open drawer</string>
+    <string name="drawer_close_content_desc_res">Close drawer</string>
 </resources>
