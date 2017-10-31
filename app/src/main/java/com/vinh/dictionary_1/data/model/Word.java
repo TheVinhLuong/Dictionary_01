@@ -33,7 +33,11 @@ public class Word {
     @ColumnInfo(name = "word_ko_dau")
     private String mWordWithoutDiacritic;
 
+    public Word() {
+    }
+
     public Word(WordBuilder wordBuilder) {
+        this.mType = wordBuilder.mType;
         this.mWord = wordBuilder.mWord;
         this.mEVDescription = wordBuilder.mEVDescription;
         this.mShortVietnameseDescription = wordBuilder.mShortVietnameseDescription;
@@ -103,8 +107,24 @@ public class Word {
         return mWordWithoutDiacritic;
     }
 
+    public String getVEDescription() {
+        return mVEDescription;
+    }
+
+    public String getEVDescription() {
+        return mEVDescription;
+    }
+
+    public void setEVDescription(String EVDescription) {
+        mEVDescription = EVDescription;
+    }
+
+    public void setVEDescription(String VEDescription) {
+        mVEDescription = VEDescription;
+    }
+
     public void setWordWithoutDiacritic(String wordWithoutDiacritic) {
-        this.mWordWithoutDiacritic = wordWithoutDiacritic;
+        mWordWithoutDiacritic = wordWithoutDiacritic;
     }
 
     public static class WordBuilder {
