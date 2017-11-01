@@ -1,25 +1,23 @@
-package com.vinh.dictionary_1.screen.splash;
+package com.vinh.dictionary_1.screen.home;
 
+import android.view.MenuItem;
 import com.vinh.dictionary_1.screen.BasePresenter;
 import com.vinh.dictionary_1.screen.BaseViewModel;
 
 /**
  * This specifies the contract between the view and the presenter.
  */
-interface SplashContract {
+interface HomeContract {
     /**
-     * ViewModel.
+     * View.
      */
     interface ViewModel extends BaseViewModel<Presenter> {
-        void showLoadingDialog(String message);
-        void dismissLoadingDialog();
-        void switchToHomeActivity();
+        boolean onOptionsItemSelected(MenuItem item);
     }
 
     /**
      * Presenter.
      */
     interface Presenter extends BasePresenter {
-        
     }
 }

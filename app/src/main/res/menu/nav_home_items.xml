@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/item_nav_bookmarked_words"
+            android:icon="@drawable/ic_bookmark_words"
+            android:title="@string/title_nav_bookmarked_words"/>
+        <item
+            android:id="@+id/item_nav_daily_words"
+            android:icon="@drawable/ic_daily_words"
+            android:title="@string/title_nav_daily_words"/>
+        <item
+            android:id="@+id/item_nav_online_translate"
+            android:icon="@drawable/ic_online_translate"
+            android:title="@string/title_nav_online_translate"/>
+        <item
+            android:id="@+id/item_nav_quick_search_window"
+            android:icon="@drawable/ic_quick_search_window"
+            android:title="@string/title_nav_quick_search"
+            app:actionViewClass="android.widget.ImageView"
+            />
+    </group>
+</menu>

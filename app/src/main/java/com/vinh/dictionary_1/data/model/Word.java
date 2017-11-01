@@ -63,6 +63,14 @@ public class Word {
         this.mWord = word;
     }
 
+    public String getEVDescription() {
+        return mEVDescription;
+    }
+
+    public void setEVDescription(String evDescription) {
+        this.mEVDescription = evDescription;
+    }
+
     public String getShortVietnameseDescription() {
         return mShortVietnameseDescription;
     }
@@ -86,21 +94,13 @@ public class Word {
     public void setAlikeWord(String alikeWord) {
         this.mAlikeWord = alikeWord;
     }
-    
+
     public String getWordWithoutDiacritic() {
         return mWordWithoutDiacritic;
     }
 
     public String getVEDescription() {
         return mVEDescription;
-    }
-
-    public String getEVDescription() {
-        return mEVDescription;
-    }
-
-    public void setEVDescription(String EVDescription) {
-        mEVDescription = EVDescription;
     }
 
     public void setVEDescription(String VEDescription) {

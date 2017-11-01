@@ -1,8 +1,11 @@
 package com.vinh.dictionary_1.screen.splash;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import com.vinh.dictionary_1.screen.home.HomeActivity;
 import com.vinh.dictionary_1.utis.DialogManager;
+import com.vinh.dictionary_1.utis.navigator.Navigator;
 
 /**
  * Exposes the data to be used in the Splash screen.
@@ -44,5 +47,12 @@ public class SplashViewModel implements SplashContract.ViewModel {
         if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
             mLoadingDialog.dismiss();
         }
+    }
+
+    @Override
+    public void switchToHomeActivity() {
+        Navigator navigator = new Navigator((Activity) mContext);
+        navigator.startActivity(HomeActivity.class);
+        navigator.finishActivity();
     }
 }

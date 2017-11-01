@@ -5,6 +5,7 @@ package com.vinh.dictionary_1.utis;
  */
 
 public class Constant {
+
     public static final String PREF_DICT_DB_COPIED = "PREF_DICT_DB_COPIED";
     public static final String REGEX_WORD_PHONETIC = "(\\/[^></�]+\\/)|(\\[[^></�]+\\])";
     public static final String DB_NAME_ENGLISH_VIETNAMESE = "ev.db";

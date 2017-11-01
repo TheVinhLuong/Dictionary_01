@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.vinh.dictionary_1.screen.home.HomeViewModel"
+            />
+        <variable
+            name="activity"
+            type="com.vinh.dictionary_1.screen.home.HomeActivity"/>
+        <variable
+            name="toolbarDrawerToggle"
+            type="android.support.v7.app.ActionBarDrawerToggle"/>
+    </data>
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/navigation_drawer_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_light_green"
+        android:fitsSystemWindows="true"
+        app:supportActionBarToggle="@{toolbarDrawerToggle}"
+        tools:context="com.vinh.dictionary_1.screen.home.HomeActivity"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_home"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_light_grey"
+                app:supportActionBar="@{activity}"
+                >
+
+            </android.support.v7.widget.Toolbar>
+        </LinearLayout>
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/navigation_home"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/color_light_green"
+            android:layout_gravity="start"
+            app:navigationListener="@{activity}"
+            app:quickSearchBadge="@{@drawable/ic_tick}"
+            app:menu="@menu/nav_home_items"
+            app:itemIconTint="@android:color/white"
+            app:itemTextColor="@color/color_light_grey"/>
+    </android.support.v4.widget.DrawerLayout>
+</layout>
