@@ -41,7 +41,7 @@ final class SplashPresenter implements SplashContract.Presenter {
     private void assetHandler() {
         SharedPrefsImplement sharedPrefs = SharedPrefsImplement.getInstance();
         if (sharedPrefs.get(Constant.PREF_DICT_DB_COPIED, Boolean.class)) {
-            //TODO: Implement the db is copied's next scenario
+           //TODO move to home screen
         } else {
             mViewModel.showLoadingDialog(
                     MainApplication.getInstance().getString(R.string.msg_loading_please_wait));
