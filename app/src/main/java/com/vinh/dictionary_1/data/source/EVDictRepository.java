@@ -30,5 +30,4 @@ public class EVDictRepository implements EVDictDatasource.LocalDataSource{
     public Flowable<Word> getLocalEVWordFromOffset(String queryWord, int offset) {
         return mEVDictLocalDatasource.getLocalEVWordFromOffset(queryWord, offset);
     }
-    
 }

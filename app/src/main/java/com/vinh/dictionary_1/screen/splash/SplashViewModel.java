@@ -41,9 +41,8 @@ public class SplashViewModel implements SplashContract.ViewModel {
 
     @Override
     public void dismissLoadingDialog() {
-        if(mLoadingDialog != null && mLoadingDialog.isShowing()){
+        if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
             mLoadingDialog.dismiss();
         }
     }
-    
 }
