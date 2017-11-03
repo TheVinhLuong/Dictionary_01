@@ -1,0 +1,114 @@
+@font-face {
+    font-family: 'feast';
+    src: url('file:///android_asset/fonts/arial.ttf');
+}
+
+* {
+	font-size: 101%;
+	font-family: 'feast';
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+}
+
+.m5t {
+	font-weight: normal;
+    color: #3D3D3D;
+    line-height: 140%;
+	padding-top:10px;
+	padding-bottom:25px;
+	padding-right:0px;
+	padding-left:0px;
+	background-color: #f7f6f6;    
+}
+
+.wbold {
+}
+
+.wbold_backup {
+	color: #E68A00; 
+}
+
+.k3 {
+    border-style: solid;
+}
+
+.p10l {
+    padding-left: 10px;
+}
+
+.ovf {
+    overflow: hidden;
+}
+
+.p10 {
+    padding: 10px;
+}
+
+.w {
+    color: Black;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.fl {
+    float: left;
+}
+
+.cB {
+    color: Black;
+}
+
+.p5l {
+    padding-left: 5px;
+}
+
+.ub {
+    color: Black;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.m {
+    background-image: url("file:///android_asset/arrow.png");
+    background-position: left 4px;
+    background-repeat: no-repeat;
+	color: #FF3F80;
+    margin-top: 5px;
+    padding-left: 17px;
+}
+
+.e {
+    margin-left: 10px;
+}
+
+.em {
+    margin-left: 10px;
+    padding-bottom: 2px;
+}
+
+a:link {color:#0262be;}
+
+.id {
+    background-image: url("Icon_ketqua.png");
+    background-position: left 9px;
+    background-repeat: no-repeat;
+    margin-left: 10px;
+    margin-top: 5px;
+    padding-left: 10px;
+}
+
+.im {
+    background-image: url("Icon_ketqua.png");
+    background-position: left 9px;
+    background-repeat: no-repeat;
+    margin-left: 20px;
+    padding-left: 10px;
+}
+.eim {
+    margin-left: 40px;
+}
+
+ .ei {
+    margin-left: 40px;
+}

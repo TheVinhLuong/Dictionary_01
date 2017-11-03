@@ -6,6 +6,10 @@
     <string name="title_nav_online_translate">Dịch câu</string>
     <string name="title_nav_quick_search">Cửa sổ tra từ nhanh</string>
     
+    <string name="label_lang_uk">UK</string>
+    <string name="label_lang_us">US</string>
+    
     <string name="drawer_open_content_desc_res">Open drawer</string>
     <string name="drawer_close_content_desc_res">Close drawer</string>
+    <string name="search_word_hint">Nhập từ cần tra</string>
 </resources>
