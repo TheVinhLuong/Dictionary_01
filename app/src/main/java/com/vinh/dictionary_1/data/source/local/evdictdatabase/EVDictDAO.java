@@ -18,6 +18,9 @@ public interface EVDictDAO {
     @Query("SELECT word ,av  ,dnpn , mean FROM word_tbl WHERE word = :queryWord LIMIT 1")
     Flowable<Word> getEVWordDetail(String queryWord);
 
+    @Query("SELECT word ,av  ,dnpn , mean FROM word_tbl WHERE word = :queryWord LIMIT 1")
+    Word getEVWordDetailSync(String queryWord);
+
     @Query("SELECT word ,av ,dnpn ,mean FROM word_tbl WHERE word >= :queryWord LIMIT 1 OFFSET :offset")
     Flowable<Word> getEVWordFromOffset(String queryWord, int offset);
 }

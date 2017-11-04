@@ -2,8 +2,12 @@ package com.vinh.dictionary_1.data.source.local.evdictdatabase;
 
 import com.vinh.dictionary_1.data.model.Word;
 import com.vinh.dictionary_1.data.source.EVDictDatasource;
+import com.vinh.dictionary_1.utis.Constant;
+import com.vinh.dictionary_1.utis.rx.SchedulerProvider;
 import io.reactivex.Flowable;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by VinhTL on 27/10/2017.
@@ -12,6 +16,7 @@ import java.util.List;
 public class EVDictLocalDatasource implements EVDictDatasource.LocalDataSource {
     private static EVDictLocalDatasource sInstance;
     private EVDictDAO mEVDictDAO;
+    private Pattern mPhoneticPattern;
 
     public static EVDictLocalDatasource getInstance(EVDictDAO EVDictDAO) {
         if (sInstance == null) {
@@ -21,21 +26,48 @@ public class EVDictLocalDatasource implements EVDictDatasource.LocalDataSource {
     }
 
     private EVDictLocalDatasource(EVDictDAO EVDictDAO) {
+        mPhoneticPattern = Pattern.compile(Constant.REGEX_WORD_PHONETIC);
         mEVDictDAO = EVDictDAO;
     }
 
     @Override
-    public Flowable<List<Word>> getLocalEVWordsDetail(String queryWord, int limitCount) {
-        return mEVDictDAO.getEVWordsDetail(queryWord, limitCount);
+    public Flowable<List<Word>> getLocalWordsDetail(String queryWord, int limitCount) {
+        return mEVDictDAO.getEVWordsDetail(queryWord, limitCount)
+                .observeOn(SchedulerProvider.getInstance().io())
+                .map(words -> {
+                    boolean derived;
+                    for (Word word : words) {
+                        derived = false;
+                        if (word.getShortDescription().contains("@")) {
+                            derived = true;
+                            Word originalWord = (getLocalWordDetailSync(
+                                    word.getShortDescription().replace("@", "").replace("-", " ")));
+                            word.setEVDescription(originalWord.getEVDescription());
+                            word.setShortDescription(originalWord.getShortDescription());
+                        }
+                        Matcher matcher = mPhoneticPattern.matcher(word.getEVDescription());
+                        if (!derived && matcher.find()) {
+                            word.setPronounce(matcher.group().replace("[", "/").replace("]", "/"));
+                        } else {
+                            word.setPronounce("");
+                        }
+                    }
+                    return words;
+                });
     }
 
     @Override
-    public Flowable<Word> getLocalEVWordDetail(String queryWord) {
+    public Flowable<Word> getLocalWordDetail(String queryWord) {
         return mEVDictDAO.getEVWordDetail(queryWord);
     }
 
     @Override
-    public Flowable<Word> getLocalEVWordFromOffset(String queryWord, int offset) {
+    public Word getLocalWordDetailSync(String queryWord) {
+        return mEVDictDAO.getEVWordDetailSync(queryWord);
+    }
+
+    @Override
+    public Flowable<Word> getLocalWordFromOffset(String queryWord, int offset) {
         return mEVDictDAO.getEVWordFromOffset(queryWord, offset);
     }
 }

@@ -6,13 +6,14 @@ import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 import android.support.annotation.NonNull;
 import com.vinh.dictionary_1.data.source.local.DictTypeConverter;
+import java.io.Serializable;
 
 /**
  * Created by VinhTL on 27/10/2017.
  */
 
 @Entity(tableName = "word_tbl")
-public class Word {
+public class Word implements Serializable{
     private String mType;
     @NonNull
     @PrimaryKey
@@ -22,7 +23,7 @@ public class Word {
     @TypeConverters(DictTypeConverter.class)
     private String mEVDescription;
     @ColumnInfo(name = "mean")
-    private String mShortVietnameseDescription;
+    private String mShortDescription;
     private String mPronounce;
     @ColumnInfo(name = "dnpn", typeAffinity = ColumnInfo.BLOB)
     @TypeConverters({ DictTypeConverter.class })
@@ -36,14 +37,16 @@ public class Word {
     public Word() {
     }
 
+    
+
     public Word(WordBuilder wordBuilder) {
         this.mType = wordBuilder.mType;
         this.mWord = wordBuilder.mWord;
         this.mEVDescription = wordBuilder.mEVDescription;
-        this.mShortVietnameseDescription = wordBuilder.mShortVietnameseDescription;
+        this.mShortDescription = wordBuilder.mShortDescription;
         this.mPronounce = wordBuilder.mPronounce;
         this.mAlikeWord = wordBuilder.mAlikeWord;
-        this.mVEDescription = wordBuilder.mVeDescription;
+        this.mVEDescription = wordBuilder.mVEDescription;
         this.mWordWithoutDiacritic = wordBuilder.mWordWithoutDiacritic;
     }
 
@@ -71,12 +74,12 @@ public class Word {
         this.mEVDescription = evDescription;
     }
 
-    public String getShortVietnameseDescription() {
-        return mShortVietnameseDescription;
+    public String getShortDescription() {
+        return mShortDescription;
     }
 
-    public void setShortVietnameseDescription(String shortVietnameseDescription) {
-        this.mShortVietnameseDescription = shortVietnameseDescription;
+    public void setShortDescription(String shortDescription) {
+        this.mShortDescription = shortDescription;
     }
 
     public String getPronounce() {
@@ -115,10 +118,10 @@ public class Word {
         private String mType;
         private String mWord;
         private String mEVDescription;
-        private String mShortVietnameseDescription;
+        private String mShortDescription;
         private String mPronounce;
         private String mAlikeWord;
-        private String mVeDescription;
+        private String mVEDescription;
         private String mWordWithoutDiacritic;
 
         public WordBuilder() {
@@ -140,7 +143,7 @@ public class Word {
         }
 
         public WordBuilder shortVietnameseDescription(String shortVietnameseDescription) {
-            this.mShortVietnameseDescription = shortVietnameseDescription;
+            this.mShortDescription = shortVietnameseDescription;
             return this;
         }
 
@@ -155,7 +158,7 @@ public class Word {
         }
 
         public WordBuilder veDescription(String veDescription) {
-            this.mVeDescription = veDescription;
+            this.mVEDescription = veDescription;
             return this;
         }
 
