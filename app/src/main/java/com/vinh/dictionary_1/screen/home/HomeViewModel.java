@@ -10,6 +10,7 @@ import com.vinh.dictionary_1.BR;
 import com.vinh.dictionary_1.R;
 import com.vinh.dictionary_1.data.source.SettingRepository;
 import com.vinh.dictionary_1.data.source.local.sharedpref.SettingLocalDataSource;
+import com.vinh.dictionary_1.screen.home.wordlist.WordListFragment;
 import com.vinh.dictionary_1.utis.rx.SchedulerProvider;
 
 import static com.vinh.dictionary_1.data.model.annotation.DictTypeName.DB_NAME_ENGLISH_VIETNAMESE;
@@ -31,13 +32,13 @@ public class HomeViewModel extends BaseObservable implements HomeContract.ViewMo
     private TextWatcher mTextWatcher;
 
     private SettingRepository mSettingRepository;
+
     private Context mContext;
 
     HomeViewModel(Context context) {
         mContext = context;
         mSettingRepository = new SettingRepository(SettingLocalDataSource.getInstance());
-        //TODO: For later use
-        //        setFragment(WordListFragment.newInstance());
+        setFragment(WordListFragment.newInstance());
         if (mSettingRepository.getCurrentDictType()
                 .subscribeOn(SchedulerProvider.getInstance().io())
                 .blockingSingle()
@@ -94,6 +95,7 @@ public class HomeViewModel extends BaseObservable implements HomeContract.ViewMo
         return mContext.getString(resourceId);
     }
 
+
     @Bindable
     public boolean isDrawerOpen() {
         return mIsDrawerOpen;
@@ -112,10 +114,9 @@ public class HomeViewModel extends BaseObservable implements HomeContract.ViewMo
     public void setFragment(Fragment fragment) {
         mFragment = fragment;
         notifyPropertyChanged(BR.fragment);
-        //TODO: For later use
-        //        if (fragment instanceof WordListFragment) {
-        //            setTextWatcher((WordListFragment) fragment);
-        //        }
+        if (fragment instanceof WordListFragment) {
+            setTextWatcher((WordListFragment) fragment);
+        }
     }
 
     @Bindable

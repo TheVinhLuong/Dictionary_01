@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.vinh.dictionary_1.screen.worddetail.WordDetailViewModel"
+            />
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_light_grey"
+        >
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_light_grey"
+            android:orientation="vertical"
+
+            tools:context="com.vinh.dictionary_1.screen.worddetail.WordDetailActivity"
+            >
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_30"
+                android:layout_marginEnd="@dimen/dp_12"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginRight="@dimen/dp_12"
+                android:layout_marginStart="@dimen/dp_12"
+                android:layout_marginTop="@dimen/dp_30"
+                >
+                <TextView
+                    android:id="@+id/text_word"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="@dimen/dp_80"
+                    android:maxWidth="@dimen/dp_80"
+                    android:text="@{viewModel.word.word}"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/sp_25"
+                    android:textStyle="bold"
+
+                    />
+                <ImageView
+                    android:id="@+id/image_bookmark"
+                    android:layout_width="@dimen/dp_40"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_toEndOf="@id/text_word"
+                    android:layout_toRightOf="@id/text_word"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_star_bookmarked"
+
+
+                    />
+                <TextView
+                    android:id="@+id/text_pronounce"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="@dimen/dp_80"
+                    android:maxWidth="@dimen/dp_80"
+                    android:layout_below="@id/text_word"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="@{viewModel.word.pronounce}"
+                    android:textColor="@color/color_medium_grey"
+                    android:textSize="@dimen/sp_15"
+                    android:textStyle="italic"
+                    />
+                <LinearLayout
+                    android:id="@+id/linear_layout_speak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_toEndOf="@id/text_pronounce"
+                    android:layout_toRightOf="@id/text_pronounce"
+                    android:layout_below="@id/image_bookmark"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:orientation="horizontal"
+                    >
+                    <ImageView
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:src="@drawable/ic_speaker"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/label_lang_uk"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/sp_15"
+                        android:textStyle="bold"
+                        />
+                    <ImageView
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:src="@drawable/ic_speaker"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/label_lang_us"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/sp_15"
+                        android:textStyle="bold"
+                        />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <WebView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_light_grey"
+                app:webViewClient="@{viewModel.wordDetailWebViewClient}"
+                app:webViewContent="@{viewModel.wordDescription}"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+</layout>
