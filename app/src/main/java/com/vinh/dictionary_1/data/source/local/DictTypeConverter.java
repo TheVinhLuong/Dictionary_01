@@ -12,7 +12,7 @@ public class DictTypeConverter {
             + " charset=UTF-8\">\n<link rel=\"Stylesheet\" type=\"text/css\" href=\"dic.css\">";
 
     @TypeConverter
-    public static String fromBlob(byte[] blob) {
+    public static String fromBlob(byte[] blob){
         StringBuilder stringBuilder = new StringBuilder();
         try {
             stringBuilder.append(META).append(new String(blob, "UTF-8"));
