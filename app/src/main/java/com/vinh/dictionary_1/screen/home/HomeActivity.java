@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import com.vinh.dictionary_1.R;
 import com.vinh.dictionary_1.databinding.ActivityHomeBinding;
 import com.vinh.dictionary_1.screen.BaseActivity;
+import java.util.List;
 
 /**
  * Home Screen.
@@ -28,18 +30,19 @@ public class HomeActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = new HomeViewModel();
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_home);
+        mViewModel = new HomeViewModel(this);
 
         HomeContract.Presenter presenter = new HomePresenter(mViewModel);
         mViewModel.setPresenter(presenter);
-
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_home);
         mActionBarDrawerToggle =
                 new ActionBarDrawerToggle(this, mBinding.navigationDrawerHome, mBinding.toolbarHome,
                         R.string.drawer_open_content_desc_res,
                         R.string.drawer_close_content_desc_res);
         mActionBarDrawerToggle.setDrawerIndicatorEnabled(true);
+
         mBinding.setViewModel((HomeViewModel) mViewModel);
+
         mBinding.setActivity(this);
         mBinding.setToolbarDrawerToggle(mActionBarDrawerToggle);
     }
@@ -101,5 +104,28 @@ public class HomeActivity extends BaseActivity
         } else {
             quickTranslate.setVisibility(View.GONE);
         }
+    }
+
+    public void onWordDetailFragmentAttach() {
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        //TODO: For later use
+        //        for (Fragment fragment : fragments) {
+        //            if (fragment instanceof WordDetailFragment) {
+        //                return;
+        //            }
+        //        }
+        mBinding.linearLayoutSearchHelper.setVisibility(View.INVISIBLE);
+    }
+
+    public void onWordDetailFragmentDetach(Fragment detachfragment) {
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        for (Fragment fragment : fragments) {
+            //TODO: For later use
+            //            if (fragment instanceof WordDetailFragment && fragment != 
+            // detachfragment) {
+            //                return;
+            //            }
+        }
+        mBinding.linearLayoutSearchHelper.setVisibility(View.VISIBLE);
     }
 }

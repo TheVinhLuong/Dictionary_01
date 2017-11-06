@@ -13,11 +13,18 @@ interface HomeContract {
      */
     interface ViewModel extends BaseViewModel<Presenter> {
         boolean onOptionsItemSelected(MenuItem item);
+
+        void onChangeDictTouched();
+
+        void setDictType(String dictType);
+
+        String getStringResource(int resourceId);
     }
 
     /**
      * Presenter.
      */
     interface Presenter extends BasePresenter {
+        void onChangeDictTouched();
     }
 }

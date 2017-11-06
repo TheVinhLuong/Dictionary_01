@@ -3,8 +3,8 @@ package com.vinh.dictionary_1.screen.splash;
 import android.content.Context;
 import com.vinh.dictionary_1.MainApplication;
 import com.vinh.dictionary_1.R;
-import com.vinh.dictionary_1.data.source.local.sharedpref.SharedPrefsImplement;
-import com.vinh.dictionary_1.utis.Constant;
+import com.vinh.dictionary_1.data.source.SettingRepository;
+import com.vinh.dictionary_1.data.source.local.sharedpref.SettingLocalDataSource;
 import com.vinh.dictionary_1.utis.rx.SchedulerProvider;
 import io.reactivex.Observable;
 import java.io.BufferedInputStream;
@@ -16,6 +16,8 @@ import java.io.InputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import static com.vinh.dictionary_1.data.model.annotation.DictTypeName.DB_NAME_ENGLISH_VIETNAMESE;
+
 /**
  * Listens to user actions from the UI ({@link SplashActivity}), retrieves the data and updates
  * the UI as required.
@@ -23,10 +25,12 @@ import java.util.zip.ZipInputStream;
 final class SplashPresenter implements SplashContract.Presenter {
     private static final String TAG = SplashPresenter.class.getSimpleName();
 
-    private final SplashContract.ViewModel mViewModel;
+    private SplashContract.ViewModel mViewModel;
+    private SettingRepository mSettingRepository;
 
     SplashPresenter(SplashContract.ViewModel viewModel) {
         mViewModel = viewModel;
+        mSettingRepository = new SettingRepository(SettingLocalDataSource.getInstance());
         assetHandler();
     }
 
@@ -39,9 +43,11 @@ final class SplashPresenter implements SplashContract.Presenter {
     }
 
     private void assetHandler() {
-        SharedPrefsImplement sharedPrefs = SharedPrefsImplement.getInstance();
-        if (sharedPrefs.get(Constant.PREF_DICT_DB_COPIED, Boolean.class)) {
-           mViewModel.switchToHomeActivity();
+        if (mSettingRepository.getCurrentDictType().blockingSingle().equals("")) {
+            mSettingRepository.setCurrentDictType(DB_NAME_ENGLISH_VIETNAMESE);
+        }
+        if (mSettingRepository.isDatabaseCopied().blockingSingle()) {
+            mViewModel.switchToHomeActivity();
         } else {
             mViewModel.showLoadingDialog(
                     MainApplication.getInstance().getString(R.string.msg_loading_please_wait));
@@ -51,7 +57,7 @@ final class SplashPresenter implements SplashContract.Presenter {
                     .doOnError(throwable -> {
                     })
                     .doOnComplete(() -> {
-                        sharedPrefs.put(Constant.PREF_DICT_DB_COPIED, true);
+                        mSettingRepository.setDatabaseState(true);
                         mViewModel.dismissLoadingDialog();
                     });
             observable.subscribe();
