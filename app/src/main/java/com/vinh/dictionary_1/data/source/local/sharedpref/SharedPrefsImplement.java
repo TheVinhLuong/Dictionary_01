@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
  * Created by VinhTL on 26/10/2017.
  */
 
-public class SharedPrefsImplement implements SharedPrefApi {
+public class SharedPrefsImplement implements SharedPrefsApi {
     private static final String PREFS_NAME = "SmartDictionarySharedPreferences";
     private static SharedPreferences sSharedPreferences;
     private static SharedPrefsImplement sSharedPrefsImplement;
@@ -56,10 +56,5 @@ public class SharedPrefsImplement implements SharedPrefApi {
             editor.putLong(key, (Long) data);
         }
         editor.apply();
-    }
-
-    @Override
-    public void clear() {
-        sSharedPreferences.edit().clear();
     }
 }

@@ -5,6 +5,8 @@
     <string name="title_nav_daily_words">Từ vựng hằng ngày</string>
     <string name="title_nav_online_translate">Dịch câu</string>
     <string name="title_nav_quick_search">Cửa sổ tra từ nhanh</string>
+    <string name="title_db_vietnamese_english">V-A</string>
+    <string name="title_db_english_vietnamese">A-V</string>
     
     <string name="label_lang_uk">UK</string>
     <string name="label_lang_us">US</string>

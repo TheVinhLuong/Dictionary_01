@@ -6,23 +6,27 @@
     >
 
     <data>
+        <import type="android.text.TextWatcher"/>
         <variable
             name="viewModel"
             type="com.vinh.dictionary_1.screen.home.HomeViewModel"
             />
         <variable
             name="activity"
-            type="com.vinh.dictionary_1.screen.home.HomeActivity"/>
+            type="com.vinh.dictionary_1.screen.home.HomeActivity"
+            />
         <variable
             name="toolbarDrawerToggle"
-            type="android.support.v7.app.ActionBarDrawerToggle"/>
+            type="android.support.v7.app.ActionBarDrawerToggle"
+            />
     </data>
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/navigation_drawer_home"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_light_green"
+        android:background="@color/color_light_grey"
         android:fitsSystemWindows="true"
+        app:drawerState="@{viewModel.isDrawerOpen}"
         app:supportActionBarToggle="@{toolbarDrawerToggle}"
         tools:context="com.vinh.dictionary_1.screen.home.HomeActivity"
         >
@@ -34,24 +38,73 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar_home"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="?attr/actionBarSize"
                 android:background="@color/color_light_grey"
                 app:supportActionBar="@{activity}"
                 >
-
+                <LinearLayout
+                    android:id="@+id/linear_layout_search_helper"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    >
+                    <EditText
+                        android:id="@+id/input_field"
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="@dimen/dp_40"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/dp_10"
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:layout_weight="5"
+                        android:background="@drawable/edit_text_background"
+                        android:hint="@string/search_word_hint"
+                        android:paddingLeft="@dimen/dp_12"
+                        android:paddingRight="@dimen/dp_12"
+                        android:paddingStart="@dimen/dp_12"
+                        android:textCursorDrawable="@drawable/color_edittext_cursor"
+                        app:textWatcher="@{viewModel.textWatcher}"
+                        >
+                        <requestFocus/>
+                    </EditText>
+                    <TextView
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="@dimen/dp_40"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/dp_10"
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_round_corner"
+                        android:gravity="center"
+                        android:onClick="@{(v) -> viewModel.onChangeDictTouched()}"
+                        android:text="@{viewModel.dictType}"
+                        android:textColor="@color/color_light_grey"
+                        android:textSize="@dimen/sp_15"
+                        android:textStyle="bold"
+                        />
+                </LinearLayout>
             </android.support.v7.widget.Toolbar>
+
+            <FrameLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_light_grey"
+                app:fragment="@{viewModel.fragment}"
+                />
+
         </LinearLayout>
 
         <android.support.design.widget.NavigationView
             android:id="@+id/navigation_home"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@color/color_light_green"
             android:layout_gravity="start"
+            android:background="@color/color_light_green"
+            app:itemIconTint="@android:color/white"
+            app:itemTextColor="@color/color_light_grey"
+            app:menu="@menu/nav_home_items"
             app:navigationListener="@{activity}"
             app:quickSearchBadge="@{@drawable/ic_tick}"
-            app:menu="@menu/nav_home_items"
-            app:itemIconTint="@android:color/white"
-            app:itemTextColor="@color/color_light_grey"/>
+            />
     </android.support.v4.widget.DrawerLayout>
 </layout>
