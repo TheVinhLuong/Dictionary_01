@@ -9,11 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.vinh.dictionary_1.R;
 import com.vinh.dictionary_1.data.model.Word;
-import com.vinh.dictionary_1.data.source.BookmarkedWordRepository;
 import com.vinh.dictionary_1.data.source.EVDictRepository;
 import com.vinh.dictionary_1.data.source.VEDictRepository;
-import com.vinh.dictionary_1.data.source.local.bookmarkerworddatabase.BookmarkedWordDatabase;
-import com.vinh.dictionary_1.data.source.local.bookmarkerworddatabase.BookmarkedWordLocalDatasource;
 import com.vinh.dictionary_1.data.source.local.evdictdatabase.EVDictDatabase;
 import com.vinh.dictionary_1.data.source.local.evdictdatabase.EVDictLocalDatasource;
 import com.vinh.dictionary_1.data.source.local.vedictdatabase.VEDictDatabase;
@@ -44,12 +41,8 @@ public class WordDetailFragment extends BaseFragment {
                 EVDictDatabase.getInstance(getActivity()).evDictDAO()));
         VEDictRepository veDictRepository = new VEDictRepository(VEDictLocalDatasource.getInstance(
                 VEDictDatabase.getInstance(getActivity()).veDictDAO()));
-        BookmarkedWordRepository bookmarkedWordRepository = new BookmarkedWordRepository(
-                BookmarkedWordLocalDatasource.getInstance(
-                        BookmarkedWordDatabase.getInstance(getActivity()).bookmarkedWordDAO()));
         WordDetailContract.Presenter presenter =
-                new WordDetailPresenter(mViewModel, evDictRepository, veDictRepository,
-                        bookmarkedWordRepository);
+                new WordDetailPresenter(mViewModel, evDictRepository, veDictRepository);
         mViewModel.setPresenter(presenter);
     }
 

@@ -1,23 +1,19 @@
 package com.vinh.dictionary_1.screen.worddetail;
 
 import android.content.Context;
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
 import android.webkit.WebViewClient;
-import com.vinh.dictionary_1.BR;
 import com.vinh.dictionary_1.data.model.Word;
 
 /**
  * Exposes the data to be used in the WordDetail screen.
  */
 
-public class WordDetailViewModel extends BaseObservable implements WordDetailContract.ViewModel {
+public class WordDetailViewModel implements WordDetailContract.ViewModel {
 
     private WordDetailContract.Presenter mPresenter;
     private Context mContext;
     private Word mWord;
     private String mWordDescription;
-    private boolean mBookmarkState;
     private WebViewClient mWordDetailWebViewClient;
 
     public WordDetailViewModel(Context context) {
@@ -39,13 +35,6 @@ public class WordDetailViewModel extends BaseObservable implements WordDetailCon
         mPresenter = presenter;
         mWordDetailWebViewClient = new WordDetailPresenter.WordDetailWebViewClient(mContext,
                 mPresenter.getDictRepository());
-        if (mPresenter.isWordBookmarked(mWord.getWord())) {
-            mWord.setBookmarked(true);
-            setBookmarkState(true);
-        } else {
-            mWord.setBookmarked(false);
-            setBookmarkState(false);
-        }
     }
 
     public Word getWord() {
@@ -57,49 +46,17 @@ public class WordDetailViewModel extends BaseObservable implements WordDetailCon
         mWord = word;
         if (mWord.getEVDescription() != null) {
             mWordDescription = mWord.getEVDescription();
-        } else if (mWord.getVEDescription() != null) {
-            mWordDescription = mWord.getVEDescription();
         } else {
-            mWordDescription = "<div class='m5t'></div>";
+            mWordDescription = mWord.getVEDescription();
         }
-        mBookmarkState = mWord.isBookmarked();
     }
 
-    @Override
-    public void speakUS(String word) {
-        mPresenter.speakUS(word);
-    }
-
-    @Override
-    public void speakUK(String word) {
-        mPresenter.speakUK(word);
-    }
-
-    @Override
-    public void onBookmarkIconTouch() {
-        mPresenter.onBookmarkIconTouch(!mWord.isBookmarked());
-        mWord.setBookmarked(!mWord.isBookmarked());
-        setBookmarkState(mWord.isBookmarked());
-    }
-
-    @Bindable
-    public boolean isBookmarkState() {
-        return mBookmarkState;
-    }
-
-    public void setBookmarkState(boolean bookmarkState) {
-        mBookmarkState = bookmarkState;
-        notifyPropertyChanged(BR.bookmarkState);
-    }
-
-    @Bindable
     public String getWordDescription() {
         return mWordDescription;
     }
 
     public void setWordDescription(String wordDescription) {
         mWordDescription = wordDescription;
-        notifyPropertyChanged(BR.wordDescription);
     }
 
     public WebViewClient getWordDetailWebViewClient() {

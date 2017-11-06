@@ -15,12 +15,9 @@ import android.view.ViewGroup;
 import com.vinh.dictionary_1.R;
 import com.vinh.dictionary_1.data.model.Word;
 import com.vinh.dictionary_1.data.source.EVDictRepository;
-import com.vinh.dictionary_1.data.source.SearchedWordRepository;
 import com.vinh.dictionary_1.data.source.VEDictRepository;
 import com.vinh.dictionary_1.data.source.local.evdictdatabase.EVDictDatabase;
 import com.vinh.dictionary_1.data.source.local.evdictdatabase.EVDictLocalDatasource;
-import com.vinh.dictionary_1.data.source.local.searchedworddatabase.SearchedWordDatabase;
-import com.vinh.dictionary_1.data.source.local.searchedworddatabase.SearchedWordLocalDatasource;
 import com.vinh.dictionary_1.data.source.local.vedictdatabase.VEDictDatabase;
 import com.vinh.dictionary_1.data.source.local.vedictdatabase.VEDictLocalDatasource;
 import com.vinh.dictionary_1.databinding.FragmentWordListBinding;
@@ -45,20 +42,15 @@ public class WordListFragment extends BaseFragment implements TextWatcher {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         List<Word> words = new ArrayList<>();
-        WordListAdapter
-                wordListAdapter = new WordListAdapter(getActivity(), words);
+        WordListAdapter wordListAdapter = new WordListAdapter(getActivity(), words);
         EVDictRepository evDictRepository = new EVDictRepository(EVDictLocalDatasource.getInstance(
                 EVDictDatabase.getInstance(getActivity()).evDictDAO()));
         VEDictRepository veDictRepository = new VEDictRepository(VEDictLocalDatasource.getInstance(
                 VEDictDatabase.getInstance(getActivity()).veDictDAO()));
-        SearchedWordRepository searchedWordRepository = new SearchedWordRepository(
-                SearchedWordLocalDatasource.getInstance(
-                        SearchedWordDatabase.getInstance(getActivity()).searchedWordDAO()));
         mViewModel = new WordListViewModel(wordListAdapter);
 
         WordListContract.Presenter presenter =
-                new WordListPresenter(mViewModel, evDictRepository, veDictRepository,
-                        searchedWordRepository);
+                new WordListPresenter(mViewModel, evDictRepository, veDictRepository);
         mViewModel.setPresenter(presenter);
         setUpBroadcastReceiver();
     }
