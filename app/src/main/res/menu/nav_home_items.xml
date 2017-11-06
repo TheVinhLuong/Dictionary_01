@@ -4,7 +4,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/item_nav_bookmarked_words"
-            android:icon="@drawable/ic_bookmark_words"
+            android:icon="@drawable/ic_bookmark_word_list"
             android:title="@string/title_nav_bookmarked_words"/>
         <item
             android:id="@+id/item_nav_daily_words"
