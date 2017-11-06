@@ -82,7 +82,7 @@ public class WordListFragment extends BaseFragment implements TextWatcher {
         mViewModel.onStop();
         super.onStop();
     }
-    
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -103,7 +103,7 @@ public class WordListFragment extends BaseFragment implements TextWatcher {
     public void afterTextChanged(Editable editable) {
 
     }
-    
+
     public void setUpBroadcastReceiver() {
         mBroadcastReceiver = new BroadcastReceiver() {
             @Override
