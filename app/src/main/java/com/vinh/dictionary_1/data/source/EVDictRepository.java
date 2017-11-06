@@ -9,25 +9,30 @@ import java.util.List;
  * Created by VinhTL on 30/10/2017.
  */
 
-public class EVDictRepository implements EVDictDatasource.LocalDataSource{
+public class EVDictRepository implements EVDictDatasource.LocalDataSource {
     private EVDictLocalDatasource mEVDictLocalDatasource;
 
     public EVDictRepository(EVDictLocalDatasource EVDictLocalDatasource) {
         mEVDictLocalDatasource = EVDictLocalDatasource;
     }
-    
+
     @Override
-    public Flowable<List<Word>> getLocalEVWordsDetail(String queryWord, int limitCount) {
-        return mEVDictLocalDatasource.getLocalEVWordsDetail(queryWord, limitCount);
+    public Flowable<List<Word>> getLocalWordsDetail(String queryWord, int limitCount) {
+        return mEVDictLocalDatasource.getLocalWordsDetail(queryWord, limitCount);
     }
-    
+
     @Override
-    public Flowable<Word> getLocalEVWordDetail(String queryWord) {
-        return mEVDictLocalDatasource.getLocalEVWordDetail(queryWord);
+    public Flowable<Word> getLocalWordDetail(String queryWord) {
+        return mEVDictLocalDatasource.getLocalWordDetail(queryWord);
     }
-    
+
     @Override
-    public Flowable<Word> getLocalEVWordFromOffset(String queryWord, int offset) {
-        return mEVDictLocalDatasource.getLocalEVWordFromOffset(queryWord, offset);
+    public Word getLocalWordDetailSync(String queryWord) {
+        return mEVDictLocalDatasource.getLocalWordDetailSync(queryWord);
+    }
+
+    @Override
+    public Flowable<Word> getLocalWordFromOffset(String queryWord, int offset) {
+        return mEVDictLocalDatasource.getLocalWordFromOffset(queryWord, offset);
     }
 }

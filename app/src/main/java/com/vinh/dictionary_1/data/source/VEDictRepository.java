@@ -3,7 +3,6 @@ package com.vinh.dictionary_1.data.source;
 import com.vinh.dictionary_1.data.model.Word;
 import com.vinh.dictionary_1.data.source.local.vedictdatabase.VEDictLocalDatasource;
 import io.reactivex.Flowable;
-import com.vinh.dictionary_1.MainApplication;
 import java.util.List;
 
 /**
@@ -18,12 +17,12 @@ public class VEDictRepository implements VEDictDatasource.LocalDataSource{
     }
     
     @Override
-    public Flowable<List<Word>> getLocalVEWordsDetail(String queryWord, int limitCount) {
-        return mVEDictLocalDatasource.getLocalVEWordsDetail(queryWord, limitCount);
+    public Flowable<List<Word>> getLocalWordsDetail(String queryWord, int limitCount) {
+        return mVEDictLocalDatasource.getLocalWordsDetail(queryWord, limitCount);
     }
     
     @Override
-    public Flowable<Word> getLocalVEWordDetail(String queryWord) {
-        return mVEDictLocalDatasource.getLocalVEWordDetail(queryWord);
+    public Flowable<Word> getLocalWordDetail(String queryWord) {
+        return mVEDictLocalDatasource.getLocalWordDetail(queryWord);
     }
 }

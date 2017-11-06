@@ -12,14 +12,18 @@ public class DictTypeConverter {
             + " charset=UTF-8\">\n<link rel=\"Stylesheet\" type=\"text/css\" href=\"dic.css\">";
 
     @TypeConverter
-    public static String fromBlob(byte[] blob) throws UnsupportedEncodingException {
+    public static String fromBlob(byte[] blob) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(META).append(new String(blob, "UTF-8"));
+        try {
+            stringBuilder.append(META).append(new String(blob, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         return stringBuilder.toString();
     }
 
     @TypeConverter
-    public static byte[] fromString(String string) throws UnsupportedEncodingException {
+    public static byte[] fromString(String string) {
         return string.getBytes();
     }
 }

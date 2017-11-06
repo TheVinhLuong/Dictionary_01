@@ -25,12 +25,13 @@ public class VEDictLocalDatasource implements VEDictDatasource.LocalDataSource {
     }
 
     @Override
-    public Flowable<List<Word>> getLocalVEWordsDetail(String queryWord, int limitCount) {
+    public Flowable<List<Word>> getLocalWordsDetail(String queryWord, int limitCount) {
         return mVEDictDAO.getVEWordsDetail(queryWord, limitCount);
     }
 
     @Override
-    public Flowable<Word> getLocalVEWordDetail(String queryWord) {
+    public Flowable<Word> getLocalWordDetail(String queryWord) {
         return mVEDictDAO.getVEWordDetail(queryWord);
     }
+    
 }
