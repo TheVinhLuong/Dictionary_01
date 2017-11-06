@@ -66,7 +66,7 @@ public class WordListViewModel
         ((AppCompatActivity) mFragmentWordListBinding.wordRecyclerView.getContext())
                 .getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_container, wordDetailFragment,
+                .add(R.id.fragment_container, wordDetailFragment,
                         Constant.FRAGMENT_TAG_WORD_DETAIL)
                 .addToBackStack(null)
                 .commit();

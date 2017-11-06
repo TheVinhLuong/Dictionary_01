@@ -36,7 +36,7 @@ public class WordDetailFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
         mViewModel = new WordDetailViewModel(getActivity());
-        mViewModel.setWord((Word) bundle.getSerializable(Constant.ARGUMENT_WORD));
+        mViewModel.setWord((Word)bundle.getSerializable(Constant.ARGUMENT_WORD));
         EVDictRepository evDictRepository = new EVDictRepository(EVDictLocalDatasource.getInstance(
                 EVDictDatabase.getInstance(getActivity()).evDictDAO()));
         VEDictRepository veDictRepository = new VEDictRepository(VEDictLocalDatasource.getInstance(
@@ -56,11 +56,11 @@ public class WordDetailFragment extends BaseFragment {
         binding.setViewModel((WordDetailViewModel) mViewModel);
         return binding.getRoot();
     }
-
+    
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        ((HomeActivity) context).onWordDetailFragmentAttach();
+        ((HomeActivity)context).onWordDetailFragmentAttach();
     }
 
     @Override
@@ -74,10 +74,10 @@ public class WordDetailFragment extends BaseFragment {
         mViewModel.onStop();
         super.onStop();
     }
-
+    
     @Override
     public void onDetach() {
         super.onDetach();
-        ((HomeActivity) getActivity()).onWordDetailFragmentDetach(this);
+        ((HomeActivity)getActivity()).onWordDetailFragmentDetach(this);
     }
 }

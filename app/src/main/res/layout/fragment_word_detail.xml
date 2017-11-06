@@ -91,6 +91,7 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:onClick="@{(v) -> viewModel.speakUK(viewModel.word.word)}"
                         android:orientation="horizontal"
                         >
                         <ImageView
@@ -112,6 +113,7 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:onClick="@{(v) -> viewModel.speakUS(viewModel.word.word)}"
                         android:orientation="horizontal"
                         >
                         <ImageView
