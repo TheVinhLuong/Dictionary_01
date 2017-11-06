@@ -47,7 +47,9 @@ public class EVDictLocalDatasource implements EVDictDatasource.LocalDataSource {
                         }
                         Matcher matcher = mPhoneticPattern.matcher(word.getEVDescription());
                         if (!derived && matcher.find()) {
-                            word.setPronounce(matcher.group().replace("[", "/").replace("]", "/"));
+                            word.setPronounce(matcher.group()
+                                    .replace("[", "/")
+                                    .replace("]", "/"));
                         } else {
                             word.setPronounce("");
                         }
