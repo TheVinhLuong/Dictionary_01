@@ -61,7 +61,8 @@ public class WordListViewModel
         ViewUtils.hideSoftKeyboard(view.getContext());
         Bundle bundle = new Bundle();
         bundle.putSerializable(Constant.ARGUMENT_WORD, (Word) item);
-        WordDetailFragment wordDetailFragment = WordDetailFragment.newInstance();
+        WordDetailFragment wordDetailFragment = WordDetailFragment
+                .newInstance();
         wordDetailFragment.setArguments(bundle);
         ((AppCompatActivity) mFragmentWordListBinding.wordRecyclerView.getContext())
                 .getSupportFragmentManager()

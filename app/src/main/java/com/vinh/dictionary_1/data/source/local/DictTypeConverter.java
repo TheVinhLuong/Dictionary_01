@@ -2,6 +2,7 @@ package com.vinh.dictionary_1.data.source.local;
 
 import android.arch.persistence.room.TypeConverter;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 
 /**
  * Created by VinhTL on 27/10/2017.
@@ -12,7 +13,10 @@ public class DictTypeConverter {
             + " charset=UTF-8\">\n<link rel=\"Stylesheet\" type=\"text/css\" href=\"dic.css\">";
 
     @TypeConverter
-    public static String fromBlob(byte[] blob){
+    public static String fromBlob(byte[] blob) {
+        if (blob == null) {
+            return null;
+        }
         StringBuilder stringBuilder = new StringBuilder();
         try {
             stringBuilder.append(META).append(new String(blob, "UTF-8"));
@@ -24,6 +28,9 @@ public class DictTypeConverter {
 
     @TypeConverter
     public static byte[] fromString(String string) {
-        return string.getBytes();
+        if (string != null) {
+            return string.getBytes(Charset.forName("UTF-8"));
+        }
+        return null;
     }
 }

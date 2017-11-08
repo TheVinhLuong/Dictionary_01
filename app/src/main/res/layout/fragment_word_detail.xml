@@ -62,8 +62,8 @@
                     android:src="@drawable/ic_star_bookmarked"
                     app:bookmarkState="@{viewModel.bookmarkState}"
                     android:onClick="@{(v) -> viewModel.onBookmarkIconTouch()}"
-
                     />
+            
                 <TextView
                     android:id="@+id/text_pronounce"
                     android:layout_width="wrap_content"
@@ -111,6 +111,7 @@
                             android:textStyle="bold"
                             />
                     </LinearLayout>
+                    
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
