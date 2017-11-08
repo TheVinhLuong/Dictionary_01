@@ -2,6 +2,7 @@ package com.vinh.dictionary_1.data.model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 import android.support.annotation.NonNull;
@@ -33,6 +34,8 @@ public class Word implements Serializable{
     private String mVEDescription;
     @ColumnInfo(name = "word_ko_dau")
     private String mWordWithoutDiacritic;
+    @Ignore
+    private boolean mBookmarked;
 
     public Word() {
     }
@@ -112,6 +115,14 @@ public class Word implements Serializable{
 
     public void setWordWithoutDiacritic(String wordWithoutDiacritic) {
         mWordWithoutDiacritic = wordWithoutDiacritic;
+    }
+
+    public boolean isBookmarked() {
+        return mBookmarked;
+    }
+
+    public void setBookmarked(boolean bookmarked) {
+        this.mBookmarked = bookmarked;
     }
 
     public static class WordBuilder {
