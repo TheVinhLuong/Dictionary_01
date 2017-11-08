@@ -10,6 +10,7 @@ import java.util.Locale;
 
 public class WordSpeaker {
     private static WordSpeaker sWordSpeaker;
+
     private TextToSpeech mUKTextToSpeech, mUSTextToSpeech;
 
     public WordSpeaker(Context context) {
@@ -24,7 +25,7 @@ public class WordSpeaker {
             }
         });
     }
-
+    
     public static WordSpeaker getInstance() {
         return sWordSpeaker;
     }
