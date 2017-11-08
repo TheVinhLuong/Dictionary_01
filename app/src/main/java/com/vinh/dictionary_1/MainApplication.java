@@ -1,6 +1,7 @@
 package com.vinh.dictionary_1;
 
 import android.app.Application;
+import com.vinh.dictionary_1.data.model.WordSpeaker;
 import com.vinh.dictionary_1.data.source.local.sharedpref.SharedPrefsImplement;
 
 /**
@@ -18,5 +19,6 @@ public class MainApplication extends Application {
         super.onCreate();
         sInstance = this;
         SharedPrefsImplement.init(this);
+        WordSpeaker.init(this);
     }
 }

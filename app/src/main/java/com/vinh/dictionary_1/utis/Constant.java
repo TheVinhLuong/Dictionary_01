@@ -22,4 +22,6 @@ public class Constant {
     public static final int DRAWER_HOME_CLOSE_CONTENT_DESC_RES = 0;
 
     public static final String FRAGMENT_TAG_WORD_DETAIL = "FRAGMENT_TAG_WORD_DETAIL";
+    public static final String FRAGMENT_TAG_WORD_SEARCH_LIST = "FRAGMENT_TAG_WORD_SEARCH_LIST";
 }
+

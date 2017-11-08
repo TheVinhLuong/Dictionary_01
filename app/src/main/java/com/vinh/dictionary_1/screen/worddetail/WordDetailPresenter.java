@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import com.vinh.dictionary_1.R;
+import com.vinh.dictionary_1.data.model.WordSpeaker;
 import com.vinh.dictionary_1.data.source.DictRepository;
 import com.vinh.dictionary_1.data.source.EVDictRepository;
 import com.vinh.dictionary_1.data.source.VEDictRepository;
@@ -25,6 +26,7 @@ final class WordDetailPresenter implements WordDetailContract.Presenter {
     private EVDictRepository mEVDictRepository;
     private VEDictRepository mVEDictRepository;
     private DictRepository mDictRepository;
+    private WordSpeaker mWordSpeaker;
 
     WordDetailPresenter(WordDetailContract.ViewModel viewModel, EVDictRepository evDictRepository,
             VEDictRepository veDictRepository) {
@@ -32,6 +34,7 @@ final class WordDetailPresenter implements WordDetailContract.Presenter {
         mEVDictRepository = evDictRepository;
         mVEDictRepository = veDictRepository;
         mDictRepository = new DictRepository(mEVDictRepository);
+        mWordSpeaker = WordSpeaker.getInstance();
     }
 
     @Override
@@ -47,11 +50,21 @@ final class WordDetailPresenter implements WordDetailContract.Presenter {
         return mDictRepository;
     }
 
+    @Override
+    public void speakUS(String word) {
+        mWordSpeaker.speakUS(word);
+    }
+
+    @Override
+    public void speakUK(String word) {
+        mWordSpeaker.speakUK(word);
+    }
+
     public static class WordDetailWebViewClient extends WebViewClient {
         private Context context;
         private DictRepository mDictRepository;
 
-        WordDetailWebViewClient(Context context, DictRepository dictRepository) {
+        public WordDetailWebViewClient(Context context, DictRepository dictRepository) {
             this.context = context;
             this.mDictRepository = dictRepository;
         }
@@ -71,7 +84,7 @@ final class WordDetailPresenter implements WordDetailContract.Presenter {
                                 wordDetailFragment.setArguments(bundle);
                                 ((AppCompatActivity) context).getSupportFragmentManager()
                                         .beginTransaction()
-                                        .replace(R.id.fragment_container, wordDetailFragment)
+                                        .add(R.id.fragment_container, wordDetailFragment)
                                         .addToBackStack(null)
                                         .commit();
                             }

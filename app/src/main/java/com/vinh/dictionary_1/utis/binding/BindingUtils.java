@@ -20,6 +20,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import com.vinh.dictionary_1.R;
 import com.vinh.dictionary_1.screen.home.HomeActivity;
+import com.vinh.dictionary_1.utis.Constant;
 
 public final class BindingUtils {
 
@@ -78,7 +79,7 @@ public final class BindingUtils {
     public static void setFragment(FrameLayout frameLayout, Fragment fragment) {
         ((AppCompatActivity) frameLayout.getContext()).getSupportFragmentManager()
                 .beginTransaction()
-                .replace(frameLayout.getId(), fragment)
+                .add(frameLayout.getId(), fragment, Constant.FRAGMENT_TAG_WORD_SEARCH_LIST)
                 .addToBackStack(null)
                 .commit();
     }

@@ -26,7 +26,6 @@
             android:layout_height="match_parent"
             android:background="@color/color_light_grey"
             android:orientation="vertical"
-
             tools:context="com.vinh.dictionary_1.screen.worddetail.WordDetailActivity"
             >
 
@@ -89,36 +88,50 @@
                     android:layout_marginTop="@dimen/dp_10"
                     android:orientation="horizontal"
                     >
-                    <ImageView
-                        android:layout_width="@dimen/dp_20"
-                        android:layout_height="@dimen/dp_20"
-                        android:src="@drawable/ic_speaker"
-                        />
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="@string/label_lang_uk"
-                        android:textColor="@color/color_black"
-                        android:textSize="@dimen/sp_15"
-                        android:textStyle="bold"
-                        />
-                    <ImageView
-                        android:layout_width="@dimen/dp_20"
-                        android:layout_height="@dimen/dp_20"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_marginStart="@dimen/dp_10"
-                        android:src="@drawable/ic_speaker"
-                        />
-                    <TextView
+                        android:onClick="@{(v) -> viewModel.speakUK(viewModel.word.word)}"
+                        android:orientation="horizontal"
+                        >
+                        <ImageView
+                            android:layout_width="@dimen/dp_20"
+                            android:layout_height="@dimen/dp_20"
+                            android:src="@drawable/ic_speaker"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="@string/label_lang_uk"
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/sp_15"
+                            android:textStyle="bold"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="@string/label_lang_us"
-                        android:textColor="@color/color_black"
-                        android:textSize="@dimen/sp_15"
-                        android:textStyle="bold"
-                        />
+                        android:onClick="@{(v) -> viewModel.speakUS(viewModel.word.word)}"
+                        android:orientation="horizontal"
+                        >
+                        <ImageView
+                            android:layout_width="@dimen/dp_20"
+                            android:layout_height="@dimen/dp_20"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:layout_marginStart="@dimen/dp_10"
+                            android:src="@drawable/ic_speaker"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="@string/label_lang_us"
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/sp_15"
+                            android:textStyle="bold"
+                            />
+                    </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
 
