@@ -33,6 +33,7 @@ public class WordDetailViewModel implements WordDetailContract.ViewModel {
     @Override
     public void setPresenter(WordDetailContract.Presenter presenter) {
         mPresenter = presenter;
+        
         mWordDetailWebViewClient = new WordDetailPresenter.WordDetailWebViewClient(mContext,
                 mPresenter.getDictRepository());
     }
@@ -49,6 +50,16 @@ public class WordDetailViewModel implements WordDetailContract.ViewModel {
         } else {
             mWordDescription = mWord.getVEDescription();
         }
+    }
+
+    @Override
+    public void speakUS(String word) {
+        mPresenter.speakUS(word);
+    }
+
+    @Override
+    public void speakUK(String word) {
+        mPresenter.speakUK(word);        
     }
 
     public String getWordDescription() {

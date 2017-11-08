@@ -27,8 +27,8 @@ final class WordListPresenter implements WordListContract.Presenter {
     private SettingRepository mSharedPrefRepository;
     private String mCurrentQueryWord = "";
 
-    WordListPresenter(WordListContract.ViewModel viewModel,
-            EVDictRepository evDictRepository, VEDictRepository veDictRepository) {
+    WordListPresenter(WordListContract.ViewModel viewModel, EVDictRepository evDictRepository,
+            VEDictRepository veDictRepository) {
         mViewModel = viewModel;
         mEVDictRepository = evDictRepository;
         mVEDictRepository = veDictRepository;
@@ -48,6 +48,7 @@ final class WordListPresenter implements WordListContract.Presenter {
 
     @Override
     public void onItemWordListClicked(Word word) {
+
     }
 
     @Override

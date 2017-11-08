@@ -1,5 +1,6 @@
 package com.vinh.dictionary_1.screen.home;
 
+import android.animation.ValueAnimator;
 import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -8,9 +9,11 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import com.vinh.dictionary_1.R;
 import com.vinh.dictionary_1.databinding.ActivityHomeBinding;
@@ -27,6 +30,8 @@ public class HomeActivity extends BaseActivity
     private HomeContract.ViewModel mViewModel;
     private ActivityHomeBinding mBinding;
     private ActionBarDrawerToggle mActionBarDrawerToggle;
+    private ValueAnimator mBurgerToArrowAnimator;
+    private boolean mustPreventDrawerOpenOnNavIconTouch = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +46,15 @@ public class HomeActivity extends BaseActivity
                         R.string.drawer_open_content_desc_res,
                         R.string.drawer_close_content_desc_res);
         mActionBarDrawerToggle.setDrawerIndicatorEnabled(true);
+        mBurgerToArrowAnimator = ValueAnimator.ofFloat(1, 0);
+        mBurgerToArrowAnimator.addUpdateListener(valueAnimator -> {
+            float slideOffset = (Float) valueAnimator.getAnimatedValue();
+            mActionBarDrawerToggle.onDrawerSlide(mBinding.navigationDrawerHome, slideOffset);
+        });
+        mBurgerToArrowAnimator.setInterpolator(new DecelerateInterpolator());
+        mBurgerToArrowAnimator.setDuration(500);
 
         mBinding.setViewModel((HomeViewModel) mViewModel);
-
         mBinding.setActivity(this);
         mBinding.setToolbarDrawerToggle(mActionBarDrawerToggle);
     }
@@ -94,7 +105,19 @@ public class HomeActivity extends BaseActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return mViewModel.onOptionsItemSelected(item);
+        if (!mustPreventDrawerOpenOnNavIconTouch) {
+            return mViewModel.onOptionsItemSelected(item);
+        } else {
+            onBackPressed();
+        }
+        return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            super.onBackPressed();
+        }
     }
 
     public void toggleQuickSearch() {
@@ -115,6 +138,10 @@ public class HomeActivity extends BaseActivity
             }
         }
         mBinding.linearLayoutSearchHelper.setVisibility(View.INVISIBLE);
+        mBinding.navigationDrawerHome.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        mustPreventDrawerOpenOnNavIconTouch = true;
+        mBurgerToArrowAnimator.start();
+        mBurgerToArrowAnimator.setFloatValues(0, 1);
     }
 
     public void onWordDetailFragmentDetach(Fragment detachfragment) {
@@ -125,5 +152,9 @@ public class HomeActivity extends BaseActivity
             }
         }
         mBinding.linearLayoutSearchHelper.setVisibility(View.VISIBLE);
+        mBinding.navigationDrawerHome.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        mustPreventDrawerOpenOnNavIconTouch = false;
+        mBurgerToArrowAnimator.start();
+        mBurgerToArrowAnimator.setFloatValues(1, 0);
     }
 }

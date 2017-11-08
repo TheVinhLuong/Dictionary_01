@@ -48,7 +48,7 @@ public class WordListFragment extends BaseFragment implements TextWatcher {
         VEDictRepository veDictRepository = new VEDictRepository(VEDictLocalDatasource.getInstance(
                 VEDictDatabase.getInstance(getActivity()).veDictDAO()));
         mViewModel = new WordListViewModel(wordListAdapter);
-        
+
         WordListContract.Presenter presenter =
                 new WordListPresenter(mViewModel, evDictRepository, veDictRepository);
         mViewModel.setPresenter(presenter);
