@@ -48,7 +48,7 @@ final class WordListPresenter implements WordListContract.Presenter {
 
     @Override
     public void onItemWordListClicked(Word word) {
-
+       
     }
 
     @Override

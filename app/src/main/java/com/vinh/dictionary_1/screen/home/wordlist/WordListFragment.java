@@ -42,7 +42,8 @@ public class WordListFragment extends BaseFragment implements TextWatcher {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         List<Word> words = new ArrayList<>();
-        WordListAdapter wordListAdapter = new WordListAdapter(getActivity(), words);
+        WordListAdapter
+                wordListAdapter = new WordListAdapter(getActivity(), words);
         EVDictRepository evDictRepository = new EVDictRepository(EVDictLocalDatasource.getInstance(
                 EVDictDatabase.getInstance(getActivity()).evDictDAO()));
         VEDictRepository veDictRepository = new VEDictRepository(VEDictLocalDatasource.getInstance(

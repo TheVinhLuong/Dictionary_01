@@ -41,17 +41,13 @@ public class EVDictLocalDatasource implements EVDictDatasource.LocalDataSource {
                         if (word.getShortDescription().contains("@")) {
                             derived = true;
                             Word originalWord = (getLocalWordDetailSync(
-                                    word.getShortDescription()
-                                            .replace("@", "")
-                                            .replace("-", " ")));
+                                    word.getShortDescription().replace("@", "").replace("-", " ")));
                             word.setEVDescription(originalWord.getEVDescription());
                             word.setShortDescription(originalWord.getShortDescription());
                         }
                         Matcher matcher = mPhoneticPattern.matcher(word.getEVDescription());
                         if (!derived && matcher.find()) {
-                            word.setPronounce(matcher.group()
-                                    .replace("[", "/")
-                                    .replace("]", "/"));
+                            word.setPronounce(matcher.group().replace("[", "/").replace("]", "/"));
                         } else {
                             word.setPronounce("");
                         }

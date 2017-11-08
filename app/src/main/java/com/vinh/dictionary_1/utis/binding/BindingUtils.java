@@ -104,4 +104,13 @@ public final class BindingUtils {
     public static void setWebViewClient(WebView webView, WebViewClient webViewClient) {
         webView.setWebViewClient(webViewClient);
     }
+
+    @BindingAdapter({ "bookmarkState" })
+    public static void setBookmarkState(ImageView imageView, boolean isBookmarked) {
+        if (isBookmarked) {
+            imageView.setImageResource(R.drawable.ic_star_bookmarked);
+        } else {
+            imageView.setImageResource(R.drawable.ic_star_bookmark);
+        }
+    }
 }

@@ -47,11 +47,11 @@ public class WordListAdapter extends BaseRecyclerViewAdapter<WordListAdapter.Ite
         return mWords.size();
     }
 
-    public void setItemClickListener(OnRecyclerViewItemClickListener<Word> itemClickListener) {
+    void setItemClickListener(OnRecyclerViewItemClickListener<Word> itemClickListener) {
         mItemClickListener = itemClickListener;
     }
 
-    public void changeDataSet(List<Word> words) {
+    void changeDataSet(List<Word> words) {
         mWords.clear();
         if (words != null) {
             mWords.addAll(words);

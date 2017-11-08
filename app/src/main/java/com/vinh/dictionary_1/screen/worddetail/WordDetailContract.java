@@ -16,8 +16,9 @@ interface WordDetailContract {
         void setWord(Word word);
         void speakUS(String word);
         void speakUK(String word);
+        void onBookmarkIconTouch();
     }
-    
+
     /**
      * Presenter.
      */
@@ -25,5 +26,7 @@ interface WordDetailContract {
         DictRepository getDictRepository();
         void speakUS(String word);
         void speakUK(String word);
+        boolean isWordBookmarked(String word);
+        void onBookmarkIconTouch(boolean bookmark);
     }
 }
