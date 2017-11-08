@@ -19,7 +19,6 @@ interface HomeContract {
         void setDictType(String dictType);
 
         String getStringResource(int resourceId);
-        
     }
 
     /**

@@ -32,7 +32,7 @@ public class HomeViewModel extends BaseObservable implements HomeContract.ViewMo
     private TextWatcher mTextWatcher;
 
     private SettingRepository mSettingRepository;
-
+    
     private Context mContext;
 
     HomeViewModel(Context context) {
@@ -94,7 +94,6 @@ public class HomeViewModel extends BaseObservable implements HomeContract.ViewMo
     public String getStringResource(int resourceId) {
         return mContext.getString(resourceId);
     }
-
 
     @Bindable
     public boolean isDrawerOpen() {
