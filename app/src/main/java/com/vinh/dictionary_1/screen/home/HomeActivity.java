@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import com.vinh.dictionary_1.R;
 import com.vinh.dictionary_1.databinding.ActivityHomeBinding;
 import com.vinh.dictionary_1.screen.BaseActivity;
+import com.vinh.dictionary_1.screen.worddetail.WordDetailFragment;
 import java.util.List;
 
 /**
@@ -108,23 +109,20 @@ public class HomeActivity extends BaseActivity
 
     public void onWordDetailFragmentAttach() {
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
-        //TODO: For later use
-        //        for (Fragment fragment : fragments) {
-        //            if (fragment instanceof WordDetailFragment) {
-        //                return;
-        //            }
-        //        }
+        for (Fragment fragment : fragments) {
+            if (fragment instanceof WordDetailFragment) {
+                return;
+            }
+        }
         mBinding.linearLayoutSearchHelper.setVisibility(View.INVISIBLE);
     }
 
     public void onWordDetailFragmentDetach(Fragment detachfragment) {
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
         for (Fragment fragment : fragments) {
-            //TODO: For later use
-            //            if (fragment instanceof WordDetailFragment && fragment != 
-            // detachfragment) {
-            //                return;
-            //            }
+            if (fragment instanceof WordDetailFragment && fragment != detachfragment) {
+                return;
+            }
         }
         mBinding.linearLayoutSearchHelper.setVisibility(View.VISIBLE);
     }
