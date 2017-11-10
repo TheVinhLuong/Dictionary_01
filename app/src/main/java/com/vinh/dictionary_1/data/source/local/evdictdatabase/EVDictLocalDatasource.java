@@ -85,7 +85,7 @@ public class EVDictLocalDatasource implements EVDictDatasource.LocalDataSource {
     }
 
     @Override
-    public Flowable<Word> getLocalWordFromOffset(String queryWord, int offset) {
-        return mEVDictDAO.getEVWordFromOffset(queryWord, offset);
+    public Flowable<Word> getRandomWord() {
+        return mEVDictDAO.getEVRandomWord();
     }
 }

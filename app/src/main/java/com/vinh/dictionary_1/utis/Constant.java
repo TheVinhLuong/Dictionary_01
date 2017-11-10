@@ -8,7 +8,8 @@ public class Constant {
 
     public static final String PREF_DICT_DB_COPIED = "PREF_DICT_DB_COPIED";
     public static final String PREF_CHOSEN_DICT_TYPE = "PREF_CHOSEN_DICT_TYPE";
-
+    public static final String PREF_USER_LAST_TIME_USAGE = "PREF_USER_LAST_TIME_USAGE";
+    
     public static final String INTENT_ACTION_CHANGE_DICT =
             "com.vinh.dictionary_1.action.change_dict";
 
