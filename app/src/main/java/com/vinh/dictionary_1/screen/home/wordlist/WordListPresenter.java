@@ -5,6 +5,7 @@ import android.content.Intent;
 import com.vinh.dictionary_1.data.model.Word;
 import com.vinh.dictionary_1.data.source.DictRepository;
 import com.vinh.dictionary_1.data.source.EVDictRepository;
+import com.vinh.dictionary_1.data.source.SearchedWordRepository;
 import com.vinh.dictionary_1.data.source.SettingRepository;
 import com.vinh.dictionary_1.data.source.VEDictRepository;
 import com.vinh.dictionary_1.data.source.local.sharedpref.SettingLocalDataSource;
@@ -25,15 +26,17 @@ final class WordListPresenter implements WordListContract.Presenter {
     private VEDictRepository mVEDictRepository;
     private DictRepository mDictRepository;
     private SettingRepository mSharedPrefRepository;
+    private SearchedWordRepository mSearchedWordRepository;
     private String mCurrentQueryWord = "";
 
     WordListPresenter(WordListContract.ViewModel viewModel, EVDictRepository evDictRepository,
-            VEDictRepository veDictRepository) {
+            VEDictRepository veDictRepository, SearchedWordRepository searchedWordRepository) {
         mViewModel = viewModel;
         mEVDictRepository = evDictRepository;
         mVEDictRepository = veDictRepository;
         mDictRepository = new DictRepository();
         mSharedPrefRepository = new SettingRepository(SettingLocalDataSource.getInstance());
+        mSearchedWordRepository = searchedWordRepository;
         reSetDatasource();
     }
 
@@ -48,7 +51,7 @@ final class WordListPresenter implements WordListContract.Presenter {
 
     @Override
     public void onItemWordListClicked(Word word) {
-       
+        mSearchedWordRepository.insertSearchedWord(word);
     }
 
     @Override

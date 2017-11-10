@@ -39,9 +39,13 @@ public class WordDetailViewModel extends BaseObservable implements WordDetailCon
         mPresenter = presenter;
         mWordDetailWebViewClient = new WordDetailPresenter.WordDetailWebViewClient(mContext,
                 mPresenter.getDictRepository());
-        boolean isWordBookmarked = mPresenter.isWordBookmarked(mWord.getWord());
-        mWord.setBookmarked(isWordBookmarked);
-        setBookmarkState(isWordBookmarked);
+        if (mPresenter.isWordBookmarked(mWord.getWord())) {
+            mWord.setBookmarked(true);
+            setBookmarkState(true);
+        } else {
+            mWord.setBookmarked(false);
+            setBookmarkState(false);
+        }
     }
 
     public Word getWord() {
@@ -53,8 +57,10 @@ public class WordDetailViewModel extends BaseObservable implements WordDetailCon
         mWord = word;
         if (mWord.getEVDescription() != null) {
             mWordDescription = mWord.getEVDescription();
-        } else {
+        } else if (mWord.getVEDescription() != null) {
             mWordDescription = mWord.getVEDescription();
+        } else {
+            mWordDescription = "<div class='m5t'></div>";
         }
         mBookmarkState = mWord.isBookmarked();
     }
@@ -86,12 +92,14 @@ public class WordDetailViewModel extends BaseObservable implements WordDetailCon
         notifyPropertyChanged(BR.bookmarkState);
     }
 
+    @Bindable
     public String getWordDescription() {
         return mWordDescription;
     }
 
     public void setWordDescription(String wordDescription) {
         mWordDescription = wordDescription;
+        notifyPropertyChanged(BR.wordDescription);
     }
 
     public WebViewClient getWordDetailWebViewClient() {

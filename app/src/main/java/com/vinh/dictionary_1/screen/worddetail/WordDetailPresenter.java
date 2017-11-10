@@ -71,8 +71,9 @@ final class WordDetailPresenter implements WordDetailContract.Presenter {
         if (mBookmarkedWord == null) {
             mBookmarkedWord = new BookmarkedWord(word);
             return false;
+        } else {
+            return true;
         }
-        return true;
     }
 
     @Override

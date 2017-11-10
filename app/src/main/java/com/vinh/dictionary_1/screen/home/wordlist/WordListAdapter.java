@@ -21,7 +21,7 @@ public class WordListAdapter extends BaseRecyclerViewAdapter<WordListAdapter.Ite
     private List<Word> mWords;
     private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Word> mItemClickListener;
 
-    protected WordListAdapter(@NonNull Context context, List<Word> words) {
+    WordListAdapter(@NonNull Context context, List<Word> words) {
         super(context);
         mWords = new ArrayList<>();
         if (words != null) {
