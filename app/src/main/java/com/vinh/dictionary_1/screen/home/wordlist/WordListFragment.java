@@ -15,9 +15,12 @@ import android.view.ViewGroup;
 import com.vinh.dictionary_1.R;
 import com.vinh.dictionary_1.data.model.Word;
 import com.vinh.dictionary_1.data.source.EVDictRepository;
+import com.vinh.dictionary_1.data.source.SearchedWordRepository;
 import com.vinh.dictionary_1.data.source.VEDictRepository;
 import com.vinh.dictionary_1.data.source.local.evdictdatabase.EVDictDatabase;
 import com.vinh.dictionary_1.data.source.local.evdictdatabase.EVDictLocalDatasource;
+import com.vinh.dictionary_1.data.source.local.searchedworddatabase.SearchedWordDatabase;
+import com.vinh.dictionary_1.data.source.local.searchedworddatabase.SearchedWordLocalDatasource;
 import com.vinh.dictionary_1.data.source.local.vedictdatabase.VEDictDatabase;
 import com.vinh.dictionary_1.data.source.local.vedictdatabase.VEDictLocalDatasource;
 import com.vinh.dictionary_1.databinding.FragmentWordListBinding;
@@ -48,10 +51,14 @@ public class WordListFragment extends BaseFragment implements TextWatcher {
                 EVDictDatabase.getInstance(getActivity()).evDictDAO()));
         VEDictRepository veDictRepository = new VEDictRepository(VEDictLocalDatasource.getInstance(
                 VEDictDatabase.getInstance(getActivity()).veDictDAO()));
+        SearchedWordRepository searchedWordRepository = new SearchedWordRepository(
+                SearchedWordLocalDatasource.getInstance(
+                        SearchedWordDatabase.getInstance(getActivity()).searchedWordDAO()));
         mViewModel = new WordListViewModel(wordListAdapter);
 
         WordListContract.Presenter presenter =
-                new WordListPresenter(mViewModel, evDictRepository, veDictRepository);
+                new WordListPresenter(mViewModel, evDictRepository, veDictRepository,
+                        searchedWordRepository);
         mViewModel.setPresenter(presenter);
         setUpBroadcastReceiver();
     }
