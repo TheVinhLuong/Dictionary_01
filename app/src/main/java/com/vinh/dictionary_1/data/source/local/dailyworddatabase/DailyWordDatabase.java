@@ -5,7 +5,6 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import com.vinh.dictionary_1.data.model.DailyWord;
-
 import static com.vinh.dictionary_1.data.source.local.dailyworddatabase.DailyWordDatabase
         .DATABASE_VERSION;
 
@@ -14,6 +13,7 @@ import static com.vinh.dictionary_1.data.source.local.dailyworddatabase.DailyWor
  */
 @Database(entities = DailyWord.class, version = DATABASE_VERSION)
 public abstract class DailyWordDatabase extends RoomDatabase {
+
     private static DailyWordDatabase sDailyWordDatabase;
 
     public static final int DATABASE_VERSION = 1;
