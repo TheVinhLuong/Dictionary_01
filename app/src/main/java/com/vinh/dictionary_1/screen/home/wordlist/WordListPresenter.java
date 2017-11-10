@@ -2,10 +2,11 @@ package com.vinh.dictionary_1.screen.home.wordlist;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
+import com.google.gson.Gson;
 import com.vinh.dictionary_1.data.model.Word;
 import com.vinh.dictionary_1.data.source.DictRepository;
 import com.vinh.dictionary_1.data.source.EVDictRepository;
-import com.vinh.dictionary_1.data.source.SearchedWordRepository;
 import com.vinh.dictionary_1.data.source.SettingRepository;
 import com.vinh.dictionary_1.data.source.VEDictRepository;
 import com.vinh.dictionary_1.data.source.local.sharedpref.SettingLocalDataSource;
@@ -26,17 +27,15 @@ final class WordListPresenter implements WordListContract.Presenter {
     private VEDictRepository mVEDictRepository;
     private DictRepository mDictRepository;
     private SettingRepository mSharedPrefRepository;
-    private SearchedWordRepository mSearchedWordRepository;
     private String mCurrentQueryWord = "";
 
-    WordListPresenter(WordListContract.ViewModel viewModel, EVDictRepository evDictRepository,
-            VEDictRepository veDictRepository, SearchedWordRepository searchedWordRepository) {
+    WordListPresenter(WordListContract.ViewModel viewModel,
+            EVDictRepository evDictRepository, VEDictRepository veDictRepository) {
         mViewModel = viewModel;
         mEVDictRepository = evDictRepository;
         mVEDictRepository = veDictRepository;
         mDictRepository = new DictRepository();
         mSharedPrefRepository = new SettingRepository(SettingLocalDataSource.getInstance());
-        mSearchedWordRepository = searchedWordRepository;
         reSetDatasource();
     }
 
@@ -51,7 +50,7 @@ final class WordListPresenter implements WordListContract.Presenter {
 
     @Override
     public void onItemWordListClicked(Word word) {
-        mSearchedWordRepository.insertSearchedWord(word);
+        Log.d("wtf", new Gson().toJson(word));
     }
 
     @Override
@@ -68,8 +67,8 @@ final class WordListPresenter implements WordListContract.Presenter {
         reSetDatasource();
         onTextChange(mCurrentQueryWord);
     }
-
-    private void reSetDatasource() {
+    
+    private void reSetDatasource(){
         if (mSharedPrefRepository.getCurrentDictType()
                 .blockingSingle()
                 .equals(DB_NAME_ENGLISH_VIETNAMESE)) {

@@ -14,9 +14,6 @@ interface WordDetailContract {
      */
     interface ViewModel extends BaseViewModel<Presenter> {
         void setWord(Word word);
-        void speakUS(String word);
-        void speakUK(String word);
-        void onBookmarkIconTouch();
     }
 
     /**
@@ -24,9 +21,5 @@ interface WordDetailContract {
      */
     interface Presenter extends BasePresenter {
         DictRepository getDictRepository();
-        void speakUS(String word);
-        void speakUK(String word);
-        boolean isWordBookmarked(String word);
-        void onBookmarkIconTouch(boolean bookmark);
     }
 }

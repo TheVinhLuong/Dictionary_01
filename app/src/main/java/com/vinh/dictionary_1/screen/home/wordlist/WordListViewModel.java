@@ -26,7 +26,7 @@ public class WordListViewModel
     private FragmentWordListBinding mFragmentWordListBinding;
     private RecyclerView.OnScrollListener mOnScrollListener;
 
-    public WordListViewModel(WordListAdapter adapter) {
+    WordListViewModel(WordListAdapter adapter) {
         mAdapter = adapter;
         mAdapter.setItemClickListener(this);
         mOnScrollListener = new RecyclerView.OnScrollListener() {
@@ -61,13 +61,12 @@ public class WordListViewModel
         ViewUtils.hideSoftKeyboard(view.getContext());
         Bundle bundle = new Bundle();
         bundle.putSerializable(Constant.ARGUMENT_WORD, (Word) item);
-        WordDetailFragment wordDetailFragment = WordDetailFragment
-                .newInstance();
+        WordDetailFragment wordDetailFragment = WordDetailFragment.newInstance();
         wordDetailFragment.setArguments(bundle);
         ((AppCompatActivity) mFragmentWordListBinding.wordRecyclerView.getContext())
                 .getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.fragment_container, wordDetailFragment,
+                .replace(R.id.fragment_container, wordDetailFragment,
                         Constant.FRAGMENT_TAG_WORD_DETAIL)
                 .addToBackStack(null)
                 .commit();
