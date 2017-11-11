@@ -3,6 +3,7 @@ package com.vinh.dictionary_1;
 import android.app.Application;
 import com.vinh.dictionary_1.data.model.WordSpeaker;
 import com.vinh.dictionary_1.data.source.local.sharedpref.SharedPrefsImplement;
+import com.vinh.dictionary_1.data.source.remote.api.service.TranslateServiceClient;
 
 /**
  * Created by VinhTL on 26/10/2017.
@@ -20,5 +21,6 @@ public class MainApplication extends Application {
         sInstance = this;
         SharedPrefsImplement.init(this);
         WordSpeaker.init(this);
+        TranslateServiceClient.initialize(this);
     }
 }
