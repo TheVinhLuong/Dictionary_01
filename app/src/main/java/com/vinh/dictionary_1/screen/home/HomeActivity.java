@@ -1,6 +1,7 @@
 package com.vinh.dictionary_1.screen.home;
 
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -18,8 +19,9 @@ import android.widget.ImageView;
 import com.vinh.dictionary_1.R;
 import com.vinh.dictionary_1.databinding.ActivityHomeBinding;
 import com.vinh.dictionary_1.screen.BaseActivity;
-import com.vinh.dictionary_1.screen.home.wordlist.WordListFragment;
 import com.vinh.dictionary_1.screen.worddetail.WordDetailFragment;
+import com.vinh.dictionary_1.utis.Constant;
+import com.vinh.dictionary_1.utis.ViewUtils;
 import java.util.List;
 
 /**
@@ -58,6 +60,7 @@ public class HomeActivity extends BaseActivity
         mBinding.setViewModel((HomeViewModel) mViewModel);
         mBinding.setActivity(this);
         mBinding.setToolbarDrawerToggle(mActionBarDrawerToggle);
+        mBinding.setOnTouchListener((HomeViewModel) mViewModel);
     }
 
     @Override
@@ -118,6 +121,8 @@ public class HomeActivity extends BaseActivity
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
             super.onBackPressed();
+            ViewUtils.hideSoftKeyboard(this);
+            mBinding.inputField.setText("");
         }
     }
 
@@ -131,36 +136,41 @@ public class HomeActivity extends BaseActivity
         }
     }
 
-    public void onWordDetailFragmentAttach() {
+    public void onFragmentCreated() {
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        if (fragments.size() == 2) {
+            mBinding.navigationDrawerHome.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            mustPreventDrawerOpenOnNavIconTouch = true;
+            mBurgerToArrowAnimator.start();
+            mBurgerToArrowAnimator.setFloatValues(0, 1);
+        }
         for (Fragment fragment : fragments) {
             if (fragment instanceof WordDetailFragment) {
-                return;
+                mBinding.linearLayoutSearchHelper.setVisibility(View.INVISIBLE);
+                break;
             }
         }
-        mBinding.linearLayoutSearchHelper.setVisibility(View.INVISIBLE);
-        mBinding.navigationDrawerHome.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-        mustPreventDrawerOpenOnNavIconTouch = true;
-        mBurgerToArrowAnimator.start();
-        mBurgerToArrowAnimator.setFloatValues(0, 1);
     }
 
-    public void onWordDetailFragmentDetach(Fragment detachfragment) {
+    public void onFragmentDetach(Fragment detachfragment) {
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
-        for (Fragment fragment : fragments) {
-            if (fragment instanceof WordDetailFragment && fragment != detachfragment) {
-                return;
+        if (fragments.size() > 2) {
+            return;
+        } else {
+            for (Fragment fragment : fragments) {
+                if (fragment instanceof WordDetailFragment) {
+                    return;
+                }
             }
         }
         mBinding.linearLayoutSearchHelper.setVisibility(View.VISIBLE);
-        for (Fragment fragment : fragments) {
-            if (fragment instanceof WordListFragment && fragment != detachfragment) {
-                return;
-            }
+        if (fragments.size() == 1) {
+            Intent intent = new Intent(Constant.INTENT_ACTION_UPDATE_SEARCHED_WORDS);
+            sendBroadcast(intent);
+            mBinding.navigationDrawerHome.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+            mustPreventDrawerOpenOnNavIconTouch = false;
+            mBurgerToArrowAnimator.start();
+            mBurgerToArrowAnimator.setFloatValues(1, 0);
         }
-        mBinding.navigationDrawerHome.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-        mustPreventDrawerOpenOnNavIconTouch = false;
-        mBurgerToArrowAnimator.start();
-        mBurgerToArrowAnimator.setFloatValues(1, 0);
     }
 }

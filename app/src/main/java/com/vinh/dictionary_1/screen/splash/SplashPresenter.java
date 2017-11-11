@@ -20,6 +20,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -147,7 +148,11 @@ final class SplashPresenter implements SplashContract.Presenter {
                     if (startNum <= endNum) {
                         DailyWord dailyWord = mDailyWordRepository.getWord(word.getWord());
                         if (dailyWord == null) {
-                            mDailyWordRepository.insertDailyWord(new DailyWord(word));
+                            dailyWord = new DailyWord(word);
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.add(Calendar.DATE, (int) (startNum - endNum));
+                            dailyWord.setDate(mDateFormat.format(calendar.getTime()));
+                            mDailyWordRepository.insertDailyWord(dailyWord);
                             generateDailyWord(startNum + 1, endNum);
                         } else {
                             generateDailyWord(startNum, endNum);

@@ -31,7 +31,6 @@ import java.util.List;
  * WordList Screen.
  */
 public class WordListFragment extends BaseFragment implements TextWatcher {
-
     private WordListContract.ViewModel mViewModel;
     private BroadcastReceiver mBroadcastReceiver;
 
@@ -60,6 +59,7 @@ public class WordListFragment extends BaseFragment implements TextWatcher {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
+        ((HomeActivity) getActivity()).onFragmentCreated();
         FragmentWordListBinding fragmentWordListBinding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_word_list, container, false);
         fragmentWordListBinding.setViewModel((WordListViewModel) mViewModel);
@@ -70,12 +70,6 @@ public class WordListFragment extends BaseFragment implements TextWatcher {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        ((HomeActivity) context).onWordDetailFragmentAttach();
     }
 
     @Override
@@ -99,7 +93,7 @@ public class WordListFragment extends BaseFragment implements TextWatcher {
     @Override
     public void onDetach() {
         super.onDetach();
-        ((HomeActivity) getActivity()).onWordDetailFragmentDetach(this);
+        ((HomeActivity) getActivity()).onFragmentDetach(this);
     }
 
     @Override

@@ -22,14 +22,21 @@
         >
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/word_recycler_view"
+            android:id="@+id/daily_word_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:layoutManager="LinearLayoutManager"
             app:recyclerAdapter="@{viewModel.dailyWordAdapter}"
             app:snapHelper="@{viewModel.snapHelper}"
             android:orientation="horizontal"
             />
-
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/searched_word_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager"
+            app:recyclerAdapter="@{viewModel.searchedWordAdapter}"
+            android:orientation="vertical"
+            />
     </LinearLayout>
 </layout>

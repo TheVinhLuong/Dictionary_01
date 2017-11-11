@@ -1,7 +1,11 @@
 package com.vinh.dictionary_1.screen.home.homelist;
 
+import android.content.Context;
+import android.content.Intent;
 import com.vinh.dictionary_1.data.model.DailyWord;
+import com.vinh.dictionary_1.data.model.Word;
 import com.vinh.dictionary_1.data.source.DailyWordRepository;
+import com.vinh.dictionary_1.data.source.SearchedWordRepository;
 import com.vinh.dictionary_1.utis.rx.SchedulerProvider;
 
 /**
@@ -13,12 +17,16 @@ final class HomeListPresenter implements HomeListContract.Presenter {
 
     private final HomeListContract.ViewModel mViewModel;
     private DailyWordRepository mDailyWordRepository;
+    private SearchedWordRepository mSearchedWordRepository;
 
     HomeListPresenter(HomeListContract.ViewModel viewModel,
-            DailyWordRepository dailyWordRepository) {
+            DailyWordRepository dailyWordRepository,
+            SearchedWordRepository searchedWordRepository) {
         mViewModel = viewModel;
         mDailyWordRepository = dailyWordRepository;
         getDailyWord();
+        mSearchedWordRepository = searchedWordRepository;
+        getSearchedWord();
     }
 
     @Override
@@ -30,14 +38,33 @@ final class HomeListPresenter implements HomeListContract.Presenter {
     }
 
     @Override
-    public void onItemWordListClicked(DailyWord word) {
+    public void onItemDailyWordListClicked(DailyWord word) {
 
     }
 
+    @Override
+    public void onItemSearchedWordListClicked(Word word) {
+
+    }
+    
+    @Override
+    public void onBroadcastReceiverReceive(Context context, Intent intent) {
+        getDailyWord();
+        getSearchedWord();
+    }
+    
     private void getDailyWord() {
         mDailyWordRepository.getAllDailyWord()
                 .subscribeOn(SchedulerProvider.getInstance().io())
                 .observeOn(SchedulerProvider.getInstance().ui())
-                .subscribe(dailyWords -> mViewModel.changeDataSet(dailyWords));
+                .subscribe(mViewModel::changeDailyWordDataSet);
     }
+
+    private void getSearchedWord() {
+        mSearchedWordRepository.getAllSeachedWord()
+                .subscribeOn(SchedulerProvider.getInstance().io())
+                .observeOn(SchedulerProvider.getInstance().ui())
+                .subscribe(mViewModel::changeSearchedWordDataSet);
+    }
+    
 }
