@@ -15,7 +15,7 @@ import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 @Dao
 public interface SearchedWordDAO {
 
-    @Query("SELECT * FROM word_tbl")
+    @Query("SELECT * FROM word_tbl LIMIT 30")
     Flowable<List<Word>> getAllSeachedWord();
 
     @Insert(onConflict = REPLACE)

@@ -134,6 +134,7 @@ public class Word implements Serializable{
         private String mAlikeWord;
         private String mVEDescription;
         private String mWordWithoutDiacritic;
+        private boolean mBookmarked;
 
         public WordBuilder() {
         }
@@ -153,8 +154,8 @@ public class Word implements Serializable{
             return this;
         }
 
-        public WordBuilder shortVietnameseDescription(String shortVietnameseDescription) {
-            this.mShortDescription = shortVietnameseDescription;
+        public WordBuilder shortDescription(String shortDescription) {
+            this.mShortDescription = shortDescription;
             return this;
         }
 
@@ -175,6 +176,11 @@ public class Word implements Serializable{
 
         public WordBuilder wordWithoutDiacritic(String wordWithoutDiacritic) {
             this.mWordWithoutDiacritic = wordWithoutDiacritic;
+            return this;
+        }
+
+        public WordBuilder setBookmarked(boolean bookmarked) {
+            this.mBookmarked = bookmarked;
             return this;
         }
 
