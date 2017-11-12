@@ -19,9 +19,11 @@ import android.widget.ImageView;
 import com.vinh.dictionary_1.R;
 import com.vinh.dictionary_1.databinding.ActivityHomeBinding;
 import com.vinh.dictionary_1.screen.BaseActivity;
+import com.vinh.dictionary_1.screen.translate.TranslateActivity;
 import com.vinh.dictionary_1.screen.worddetail.WordDetailFragment;
 import com.vinh.dictionary_1.utis.Constant;
 import com.vinh.dictionary_1.utis.ViewUtils;
+import com.vinh.dictionary_1.utis.navigator.Navigator;
 import java.util.List;
 
 /**
@@ -97,7 +99,9 @@ public class HomeActivity extends BaseActivity
                 //TODO: Implement handler;
                 break;
             case R.id.item_nav_online_translate:
-                //TODO: Implement handler;
+                Navigator navigator = new Navigator(this);
+                navigator.startActivity(TranslateActivity.class);
+                mBinding.navigationDrawerHome.closeDrawers();
                 break;
             case R.id.item_nav_quick_search_window:
                 toggleQuickSearch();

@@ -63,7 +63,7 @@
                         android:layout_marginRight="@dimen/dp_10"
                         android:layout_weight="5"
                         android:background="@drawable/edit_text_background"
-                        android:hint="@string/search_word_hint"
+                        android:hint="@string/hint_search_word"
                         android:paddingLeft="@dimen/dp_12"
                         android:paddingRight="@dimen/dp_12"
                         android:paddingStart="@dimen/dp_12"

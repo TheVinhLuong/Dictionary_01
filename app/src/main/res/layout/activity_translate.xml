@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.vinh.dictionary_1.screen.translate.TranslateViewModel"
+            />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_light_grey"
+        android:orientation="vertical"
+        tools:context="com.vinh.dictionary_1.screen.translate.TranslateActivity"
+        >
+        <ImageView
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:onClick="@{(v) -> viewModel.onBackArrowTouched()}"
+            android:padding="10dp"
+            android:src="@drawable/ic_back_arrow"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_20"
+            android:gravity="center"
+            >
+            <Spinner
+                android:id="@+id/spinner_source_lang"
+                android:layout_width="@dimen/dp_120"
+                android:layout_height="@dimen/dp_60"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                app:spinnerData="@{viewModel.langNaturalNameList}"
+                />
+            <ImageView
+                android:layout_width="@dimen/dp_60"
+                android:layout_height="@dimen/dp_60"
+                android:layout_centerHorizontal="true"
+                android:onClick="@{(v) -> viewModel.onSwapLanguageTouched()}"
+                android:padding="@dimen/dp_12"
+                android:src="@drawable/ic_swap_language"
+                />
+            <Spinner
+                android:id="@+id/spinner_target_lang"
+                android:layout_width="@dimen/dp_120"
+                android:layout_height="@dimen/dp_60"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                app:spinnerData="@{viewModel.langNaturalNameList}"
+                />
+        </RelativeLayout>
+        <EditText
+            android:id="@+id/edit_text_input"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_120"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_20"
+            android:background="@color/color_mild_grey"
+            android:gravity="top|start"
+            android:hint="@string/hint_input_text"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:padding="@dimen/dp_12"
+            />
+
+        <TextView
+            android:id="@+id/text_output"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_120"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@color/color_mild_grey"
+            android:gravity="top|start"
+            android:padding="@dimen/dp_12"
+            android:text="@{viewModel.translatedText}"
+            />
+
+        <android.support.v7.widget.AppCompatButton
+            android:layout_width="@dimen/dp_120"
+            android:layout_height="@dimen/dp_40"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginTop="10dp"
+            android:background="@color/color_light_green"
+            android:onClick="@{(v) -> viewModel.onTranslateButtonTouch()}"
+            android:text="@string/title_translate"
+            android:textColor="@color/color_light_grey"
+            />
+    </LinearLayout>
+
+</layout>
