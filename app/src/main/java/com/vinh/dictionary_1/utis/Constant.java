@@ -27,5 +27,7 @@ public class Constant {
 
     public static final String FRAGMENT_TAG_WORD_DETAIL = "FRAGMENT_TAG_WORD_DETAIL";
     public static final String FRAGMENT_TAG_WORD_SEARCH_LIST = "FRAGMENT_TAG_WORD_SEARCH_LIST";
+
+    public static final String FILE_JSON_LANG_LIST_NAME = "list_lang.json";
 }
 

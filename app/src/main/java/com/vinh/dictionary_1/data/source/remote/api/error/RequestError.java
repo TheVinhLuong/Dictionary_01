@@ -1,7 +1,5 @@
 package com.vinh.dictionary_1.data.source.remote.api.error;
 
-import android.util.Log;
-import com.google.gson.Gson;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 
@@ -17,7 +15,6 @@ public abstract class RequestError implements Consumer<Throwable> {
      */
     @Override
     public void accept(@NonNull Throwable throwable) throws Exception {
-        Log.d("wtf", new Gson().toJson(throwable));
         if (throwable == null) {
             onRequestError(BaseException.toUnexpectedError(new Throwable("Unknown exception")));
             return;

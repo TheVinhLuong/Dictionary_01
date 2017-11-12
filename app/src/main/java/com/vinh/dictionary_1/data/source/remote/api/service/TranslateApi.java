@@ -11,9 +11,9 @@ import retrofit2.http.POST;
  */
 
 public interface TranslateApi {
-    @FormUrlEncoded
+
     @POST("/translate_a/single?client=gtx&dt=t")
+    @FormUrlEncoded
     Observable<JsonArray> translate(@Field("tl") String targetLanguage,
             @Field("sl") String sourceLanguage, @Field("q") String text);
-    
 }

@@ -2,7 +2,10 @@ package com.vinh.dictionary_1.utis.binding;
 
 import android.annotation.SuppressLint;
 import android.databinding.BindingAdapter;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -17,14 +20,19 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import com.vinh.dictionary_1.R;
 import com.vinh.dictionary_1.screen.home.HomeActivity;
 import com.vinh.dictionary_1.screen.home.wordlist.WordListFragment;
+import java.util.List;
 
 public final class BindingUtils {
 
@@ -139,5 +147,32 @@ public final class BindingUtils {
     @BindingAdapter("imageResource")
     public static void setImageResource(ImageView imageView, int resource) {
         imageView.setImageResource(resource);
+    }
+
+    @BindingAdapter("spinnerData")
+    public static void setSpinnerData(Spinner spinner, List<String> data) {
+        ArrayAdapter<String> dataAdapter =
+                new ArrayAdapter<String>(spinner.getContext(), android.R.layout.simple_spinner_item, data){
+                    @Override
+                    public boolean isEnabled(int position) {
+                        return position != 0;
+                    }
+
+                    @Override
+                    public View getDropDownView(int position, @Nullable View convertView,
+                            @NonNull ViewGroup parent) {
+                        View view = super.getDropDownView(position, convertView, parent);
+                        TextView tv = (TextView) view;
+                        if(position == 0){
+                            tv.setTextColor(Color.GRAY);
+                        }
+                        else {
+                            tv.setTextColor(Color.BLACK);
+                        }
+                        return view;
+                    }
+                };
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
     }
 }

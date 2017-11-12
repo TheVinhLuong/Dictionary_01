@@ -1,17 +1,21 @@
 <resources>
     <string name="app_name">SmartDictionary</string>
     <string name="msg_loading_please_wait">Đang tải, xin hãy chờ...</string>
+    <string name="msg_translate_network_error">Có sự cố xảy ra, xin kiểm tra lại mạng!</string>
     <string name="title_nav_bookmarked_words">Từ đã đánh dấu</string>
     <string name="title_nav_daily_words">Từ vựng hằng ngày</string>
     <string name="title_nav_online_translate">Dịch câu</string>
     <string name="title_nav_quick_search">Cửa sổ tra từ nhanh</string>
     <string name="title_db_vietnamese_english">V-A</string>
     <string name="title_db_english_vietnamese">A-V</string>
+    <string name="title_translate">Dịch</string>
     
     <string name="label_lang_uk">UK</string>
     <string name="label_lang_us">US</string>
     
     <string name="drawer_open_content_desc_res">Open drawer</string>
     <string name="drawer_close_content_desc_res">Close drawer</string>
-    <string name="search_word_hint">Nhập từ cần tra</string>
+    <string name="hint_search_word">Nhập từ cần tra</string>
+    <string name="hint_input_text">Nhập nội dung</string>
+    <string name="hint_choose_language">Chọn ngôn ngữ</string>
 </resources>
