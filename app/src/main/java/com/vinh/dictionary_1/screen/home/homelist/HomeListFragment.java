@@ -90,7 +90,7 @@ public class HomeListFragment extends BaseFragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        ((HomeActivity) getActivity()).onFragmentDetach(this);
+        ((HomeActivity) getActivity()).onFragmentDetach();
     }
 
     public void setUpBroadcastReceiver() {

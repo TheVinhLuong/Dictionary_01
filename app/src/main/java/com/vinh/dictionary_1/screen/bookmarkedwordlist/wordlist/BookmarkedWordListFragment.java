@@ -97,6 +97,6 @@ public class BookmarkedWordListFragment extends BaseFragment{
     @Override
     public void onDetach() {
         super.onDetach();
-        ((BookmarkedWordsActivity) getActivity()).onFragmentDetach(this);
+        ((BookmarkedWordsActivity) getActivity()).onFragmentDetach();
     }
 }

@@ -142,6 +142,7 @@ public class HomeActivity extends BaseActivity
         }
     }
 
+    @Override
     public void onFragmentCreated() {
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
         if (fragments.size() == 2) {
@@ -158,7 +159,8 @@ public class HomeActivity extends BaseActivity
         }
     }
 
-    public void onFragmentDetach(Fragment detachfragment) {
+    @Override
+    public void onFragmentDetach() {
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
         if (fragments.size() > 2) {
             return;

@@ -21,8 +21,8 @@ import com.vinh.dictionary_1.data.source.local.searchedworddatabase.SearchedWord
 import com.vinh.dictionary_1.data.source.local.vedictdatabase.VEDictDatabase;
 import com.vinh.dictionary_1.data.source.local.vedictdatabase.VEDictLocalDatasource;
 import com.vinh.dictionary_1.databinding.FragmentWordDetailBinding;
+import com.vinh.dictionary_1.screen.BaseActivity;
 import com.vinh.dictionary_1.screen.BaseFragment;
-import com.vinh.dictionary_1.screen.bookmarkedwordlist.BookmarkedWordsActivity;
 import com.vinh.dictionary_1.utis.Constant;
 
 /**
@@ -62,7 +62,9 @@ public class WordDetailFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        ((BookmarkedWordsActivity) getActivity()).onFragmentCreated();
+        if (getActivity() instanceof BaseActivity) {
+            ((BaseActivity) getActivity()).onFragmentCreated();
+        }
         FragmentWordDetailBinding binding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_word_detail, container, false);
         binding.setViewModel((WordDetailViewModel) mViewModel);
@@ -84,6 +86,8 @@ public class WordDetailFragment extends BaseFragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        ((BookmarkedWordsActivity) getActivity()).onFragmentDetach(this);
+        if (getActivity() instanceof BaseActivity) {
+            ((BaseActivity) getActivity()).onFragmentDetach();
+        }
     }
 }

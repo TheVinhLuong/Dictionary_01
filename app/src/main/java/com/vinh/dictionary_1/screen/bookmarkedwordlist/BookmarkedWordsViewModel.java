@@ -4,8 +4,10 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import com.vinh.dictionary_1.BR;
+import com.vinh.dictionary_1.screen.bookmarkedwordlist.wordlist.BookmarkedWordListFragment;
 
 /**
  * Exposes the data to be used in the BookmarkedWordList screen.
@@ -22,8 +24,7 @@ public class BookmarkedWordsViewModel extends BaseObservable
 
     BookmarkedWordsViewModel(Context context) {
         mContext = context;
-        //TODO: For later use
-//        setFragment(BookmarkedWordListFragment.newInstance());
+        setFragment(BookmarkedWordListFragment.newInstance());
     }
 
     @Override
@@ -48,10 +49,17 @@ public class BookmarkedWordsViewModel extends BaseObservable
 
     public void setFragment(Fragment fragment) {
         mFragment = fragment;
+        notifyPropertyChanged(BR.fragment);
     }
-    
+
     public void onBackArrowTouched() {
-        ((AppCompatActivity) mContext).finish();
+        FragmentManager fragmentManager =
+                ((AppCompatActivity) mContext).getSupportFragmentManager();
+        if (fragmentManager.getFragments().size() > 1) {
+            ((AppCompatActivity) mContext).onBackPressed();
+        } else {
+            ((AppCompatActivity) mContext).finish();
+        }
     }
 
     @Bindable

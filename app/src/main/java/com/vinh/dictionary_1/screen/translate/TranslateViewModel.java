@@ -15,6 +15,7 @@ import com.vinh.dictionary_1.utis.DialogManager;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -40,6 +41,7 @@ public class TranslateViewModel extends BaseObservable implements TranslateContr
             mMapLangList = gson.fromJson(inputStreamReader, HashMap.class);
             inputStreamReader.close();
             mLangNaturalNameList = new ArrayList<>(mMapLangList.keySet());
+            Collections.sort(mLangNaturalNameList, String.CASE_INSENSITIVE_ORDER);
             mLangNaturalNameList.add(0, context.getString(R.string.hint_choose_language));
         } catch (IOException e) {
             e.printStackTrace();

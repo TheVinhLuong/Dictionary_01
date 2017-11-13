@@ -100,7 +100,7 @@ public class WordListFragment extends BaseFragment implements TextWatcher {
     @Override
     public void onDetach() {
         super.onDetach();
-        ((HomeActivity) getActivity()).onFragmentDetach(this);
+        ((HomeActivity) getActivity()).onFragmentDetach();
     }
 
     @Override
