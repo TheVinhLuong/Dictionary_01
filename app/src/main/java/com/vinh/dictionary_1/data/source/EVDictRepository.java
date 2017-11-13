@@ -32,7 +32,7 @@ public class EVDictRepository implements EVDictDatasource.LocalDataSource {
     }
 
     @Override
-    public Flowable<Word> getLocalWordFromOffset(String queryWord, int offset) {
-        return mEVDictLocalDatasource.getLocalWordFromOffset(queryWord, offset);
+    public Flowable<Word> getRandomWord() {
+        return mEVDictLocalDatasource.getRandomWord();
     }
 }

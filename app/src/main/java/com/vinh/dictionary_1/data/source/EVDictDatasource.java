@@ -11,6 +11,6 @@ public interface EVDictDatasource {
     interface LocalDataSource extends DictDatasource.LocalDatasource {
         Word getLocalWordDetailSync(String queryWord);
 
-        Flowable<Word> getLocalWordFromOffset(String queryWord, int offset);
+        Flowable<Word> getRandomWord();
     }
 }
