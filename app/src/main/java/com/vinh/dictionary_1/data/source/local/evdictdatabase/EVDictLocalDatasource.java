@@ -41,9 +41,7 @@ public class EVDictLocalDatasource implements EVDictDatasource.LocalDataSource {
                         if (word.getShortDescription().contains("@")) {
                             derived = true;
                             Word originalWord = (getLocalWordDetailSync(
-                                    word.getShortDescription()
-                                            .replace("@", "")
-                                            .replace("-", " ")));
+                                    word.getShortDescription().replace("@", "").replace("-", " ")));
                             word.setEVDescription(originalWord.getEVDescription());
                             word.setShortDescription(originalWord.getShortDescription());
                         }

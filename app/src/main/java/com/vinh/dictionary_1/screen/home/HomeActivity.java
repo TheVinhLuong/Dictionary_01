@@ -55,7 +55,6 @@ public class HomeActivity extends BaseActivity
         mBurgerToArrowAnimator.setDuration(500);
 
         mBinding.setViewModel((HomeViewModel) mViewModel);
-
         mBinding.setActivity(this);
         mBinding.setToolbarDrawerToggle(mActionBarDrawerToggle);
     }
