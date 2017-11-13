@@ -3,8 +3,13 @@ package com.vinh.dictionary_1.screen.splash;
 import android.content.Context;
 import com.vinh.dictionary_1.MainApplication;
 import com.vinh.dictionary_1.R;
+import com.vinh.dictionary_1.data.model.DailyWord;
+import com.vinh.dictionary_1.data.source.DailyWordRepository;
+import com.vinh.dictionary_1.data.source.EVDictRepository;
 import com.vinh.dictionary_1.data.source.SettingRepository;
+import com.vinh.dictionary_1.data.source.UserInfoRepository;
 import com.vinh.dictionary_1.data.source.local.sharedpref.SettingLocalDataSource;
+import com.vinh.dictionary_1.data.source.local.sharedpref.UserInfoLocalDatasource;
 import com.vinh.dictionary_1.utis.rx.SchedulerProvider;
 import io.reactivex.Observable;
 import java.io.BufferedInputStream;
@@ -13,6 +18,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -27,10 +37,19 @@ final class SplashPresenter implements SplashContract.Presenter {
 
     private SplashContract.ViewModel mViewModel;
     private SettingRepository mSettingRepository;
+    private UserInfoRepository mUserInfoRepository;
+    private DailyWordRepository mDailyWordRepository;
+    private EVDictRepository mEVDictRepository;
+    private DateFormat mDateFormat;
 
-    SplashPresenter(SplashContract.ViewModel viewModel) {
+    SplashPresenter(SplashContract.ViewModel viewModel, EVDictRepository evDictRepository,
+            DailyWordRepository dailyWordRepository) {
         mViewModel = viewModel;
+        mEVDictRepository = evDictRepository;
+        mDailyWordRepository = dailyWordRepository;
         mSettingRepository = new SettingRepository(SettingLocalDataSource.getInstance());
+        mUserInfoRepository = new UserInfoRepository(UserInfoLocalDatasource.getInstance());
+        mDateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.US);
         assetHandler();
     }
 
@@ -43,14 +62,14 @@ final class SplashPresenter implements SplashContract.Presenter {
     }
 
     private void assetHandler() {
+        mViewModel.showLoadingDialog(
+                MainApplication.getInstance().getString(R.string.msg_loading_please_wait));
         if (mSettingRepository.getCurrentDictType().blockingSingle().equals("")) {
             mSettingRepository.setCurrentDictType(DB_NAME_ENGLISH_VIETNAMESE);
         }
         if (mSettingRepository.isDatabaseCopied().blockingSingle()) {
-            mViewModel.switchToHomeActivity();
+            dailyWordHandler();
         } else {
-            mViewModel.showLoadingDialog(
-                    MainApplication.getInstance().getString(R.string.msg_loading_please_wait));
             Observable observable = unzipDatabase(MainApplication.getInstance()).subscribeOn(
                     SchedulerProvider.getInstance().io())
                     .observeOn(SchedulerProvider.getInstance().ui())
@@ -58,7 +77,7 @@ final class SplashPresenter implements SplashContract.Presenter {
                     })
                     .doOnComplete(() -> {
                         mSettingRepository.setDatabaseState(true);
-                        mViewModel.dismissLoadingDialog();
+                        dailyWordHandler();
                     });
             observable.subscribe();
         }
@@ -100,5 +119,44 @@ final class SplashPresenter implements SplashContract.Presenter {
                 emitter.onError(e);
             }
         });
+    }
+
+    private void dailyWordHandler() {
+        Date currentDate = new Date();
+        if (mUserInfoRepository.getLastTimeUsageInfo() != null
+                && !mUserInfoRepository.getLastTimeUsageInfo().equals("")) {
+            Date lastDate = new Date(mUserInfoRepository.getLastTimeUsageInfo());
+            long elapsedDays = TimeUnit.DAYS.convert(currentDate.getTime() - lastDate.getTime(),
+                    TimeUnit.MILLISECONDS);
+            if (elapsedDays > 0) {
+                generateDailyWord(1, elapsedDays);
+            } else {
+                mViewModel.dismissLoadingDialog();
+                mViewModel.switchToHomeActivity();
+            }
+        } else {
+            generateDailyWord(1, 1);
+        }
+    }
+
+    private void generateDailyWord(long startNum, long endNum) {
+        mEVDictRepository.getRandomWord()
+                .subscribeOn(SchedulerProvider.getInstance().io())
+                .observeOn(SchedulerProvider.getInstance().ui())
+                .subscribe(word -> {
+                    if (startNum <= endNum) {
+                        DailyWord dailyWord = mDailyWordRepository.getWord(word.getWord());
+                        if (dailyWord == null) {
+                            mDailyWordRepository.insertDailyWord(new DailyWord(word));
+                            generateDailyWord(startNum + 1, endNum);
+                        } else {
+                            generateDailyWord(startNum, endNum);
+                        }
+                    } else {
+                        mUserInfoRepository.setLastTimeUsageInfo(mDateFormat.format(new Date()));
+                        mViewModel.dismissLoadingDialog();
+                        mViewModel.switchToHomeActivity();
+                    }
+                });
     }
 }
