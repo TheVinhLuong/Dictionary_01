@@ -5,7 +5,7 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
-import com.vinh.dictionary_1.data.model.BookmarkedWord;
+import com.vinh.dictionary_1.data.model.Word;
 import io.reactivex.Flowable;
 import java.util.List;
 
@@ -14,18 +14,18 @@ import java.util.List;
  */
 @Dao
 public interface BookmarkedWordDAO {
-    @Query("SELECT * FROM bookmarked_words WHERE word = :queryWord")
-    BookmarkedWord getBookmarkedWordByWord(String queryWord);
+    @Query("SELECT * FROM word_tbl WHERE word = :queryWord")
+    Word getBookmarkedWordByWord(String queryWord);
     
-    @Query("SELECT * FROM bookmarked_words")
-    Flowable<List<BookmarkedWord>> getAllBookmarkedWord();
+    @Query("SELECT * FROM word_tbl")
+    Flowable<List<Word>> getAllBookmarkedWord();
     
     @Delete
-    void deleteBookmarkedWord(BookmarkedWord bookmarkedWord);
+    void deleteBookmarkedWord(Word bookmarkedWord);
     
     @Insert
-    void insertBookmarkedWord(BookmarkedWord... bookmarkedWord);
+    void insertBookmarkedWord(Word... bookmarkedWord);
     
     @Update
-    void updateWord(BookmarkedWord... bookmarkedWord);
+    void updateWord(Word... bookmarkedWord);
 }

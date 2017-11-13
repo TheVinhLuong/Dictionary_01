@@ -1,6 +1,6 @@
 package com.vinh.dictionary_1.data.source;
 
-import com.vinh.dictionary_1.data.model.BookmarkedWord;
+import com.vinh.dictionary_1.data.model.Word;
 import io.reactivex.Flowable;
 import java.util.List;
 
@@ -9,13 +9,13 @@ import java.util.List;
  */
 
 public interface BookmarkedWordDatasource {
-    BookmarkedWord getBookmarkedWordByWord(String queryWord);
+    Word getBookmarkedWordByWord(String queryWord);
     
-    Flowable<List<BookmarkedWord>> getAllBookmarkedWord();
+    Flowable<List<Word>> getAllBookmarkedWord();
 
-    void deleteBookmarkedWord(BookmarkedWord bookmarkedWord);
+    void deleteBookmarkedWord(Word bookmarkedWord);
 
-    void insertBookmarkedWord(BookmarkedWord bookmarkedWord);
+    void insertBookmarkedWord(Word bookmarkedWord);
 
-    void updateWord(BookmarkedWord... bookmarkedWord);
+    void updateWord(Word... bookmarkedWord);
 }

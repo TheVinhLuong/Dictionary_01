@@ -1,6 +1,6 @@
 package com.vinh.dictionary_1.data.source;
 
-import com.vinh.dictionary_1.data.model.BookmarkedWord;
+import com.vinh.dictionary_1.data.model.Word;
 import io.reactivex.Flowable;
 import java.util.List;
 
@@ -24,27 +24,27 @@ public class BookmarkedWordRepository implements BookmarkedWordDatasource{
     }
 
     @Override
-    public BookmarkedWord getBookmarkedWordByWord(String queryWord) {
+    public Word getBookmarkedWordByWord(String queryWord) {
         return mLocalDatasource.getBookmarkedWordByWord(queryWord);
     }
 
     @Override
-    public Flowable<List<BookmarkedWord>> getAllBookmarkedWord() {
+    public Flowable<List<Word>> getAllBookmarkedWord() {
         return mLocalDatasource.getAllBookmarkedWord();
     }
 
     @Override
-    public void deleteBookmarkedWord(BookmarkedWord bookmarkedWord) {
+    public void deleteBookmarkedWord(Word bookmarkedWord) {
         mLocalDatasource.deleteBookmarkedWord(bookmarkedWord);
     }
 
     @Override
-    public void insertBookmarkedWord(BookmarkedWord bookmarkedWord) {
+    public void insertBookmarkedWord(Word bookmarkedWord) {
         mLocalDatasource.insertBookmarkedWord(bookmarkedWord);
     }
 
     @Override
-    public void updateWord(BookmarkedWord... bookmarkedWord) {
+    public void updateWord(Word... bookmarkedWord) {
         mLocalDatasource.updateWord(bookmarkedWord);
     }
 }

@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import com.vinh.dictionary_1.R;
-import com.vinh.dictionary_1.data.model.BookmarkedWord;
+import com.vinh.dictionary_1.data.model.Word;
 import com.vinh.dictionary_1.data.model.WordSpeaker;
 import com.vinh.dictionary_1.data.source.BookmarkedWordRepository;
 import com.vinh.dictionary_1.data.source.DictRepository;
@@ -32,7 +32,7 @@ final class WordDetailPresenter implements WordDetailContract.Presenter {
     private SearchedWordRepository mSearchedWordRepository;
     private DictRepository mDictRepository;
     private WordSpeaker mWordSpeaker;
-    private BookmarkedWord mBookmarkedWord;
+    private Word mBookmarkedWord;
 
     WordDetailPresenter(WordDetailContract.ViewModel viewModel, EVDictRepository evDictRepository,
             VEDictRepository veDictRepository, BookmarkedWordRepository bookmarkedWordRepository,
@@ -75,10 +75,10 @@ final class WordDetailPresenter implements WordDetailContract.Presenter {
     }
 
     @Override
-    public boolean isWordBookmarked(String word) {
-        mBookmarkedWord = mBookmarkedWordRepository.getBookmarkedWordByWord(word);
+    public boolean isWordBookmarked(Word word) {
+        mBookmarkedWord = mBookmarkedWordRepository.getBookmarkedWordByWord(word.getWord());
         if (mBookmarkedWord == null) {
-            mBookmarkedWord = new BookmarkedWord(word);
+            mBookmarkedWord = word;
             return false;
         } else {
             return true;

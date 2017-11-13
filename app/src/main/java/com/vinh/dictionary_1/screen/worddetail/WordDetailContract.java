@@ -28,7 +28,7 @@ interface WordDetailContract {
         SearchedWordRepository getSearchedWordRepository();
         void speakUS(String word);
         void speakUK(String word);
-        boolean isWordBookmarked(String word);
+        boolean isWordBookmarked(Word word);
         void onBookmarkIconTouch(boolean bookmark);
     }
 }

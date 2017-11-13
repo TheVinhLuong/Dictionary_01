@@ -41,7 +41,7 @@ public class WordDetailViewModel extends BaseObservable implements WordDetailCon
         mPresenter = presenter;
         mWordDetailWebViewClient = new WordDetailPresenter.WordDetailWebViewClient(mContext,
                 mPresenter.getDictRepository(), mPresenter.getSearchedWordRepository());
-        boolean isWordBookmarked = mPresenter.isWordBookmarked(mWord.getWord());
+        boolean isWordBookmarked = mPresenter.isWordBookmarked(mWord);
         mWord.setBookmarked(isWordBookmarked);
         setBookmarkState(isWordBookmarked);
     }

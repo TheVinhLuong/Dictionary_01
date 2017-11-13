@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -38,6 +39,9 @@ public class ServiceClient {
         if (interceptor != null) {
             httpClientBuilder.addInterceptor(interceptor);
         }
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        httpClientBuilder.addInterceptor(httpLoggingInterceptor);
         httpClientBuilder.readTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS);
         httpClientBuilder.connectTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS);
         Retrofit.Builder builder = new Retrofit.Builder().baseUrl(endPoint)
