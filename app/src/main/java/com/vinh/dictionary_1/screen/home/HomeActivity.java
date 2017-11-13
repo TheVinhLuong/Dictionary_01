@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import com.vinh.dictionary_1.R;
 import com.vinh.dictionary_1.databinding.ActivityHomeBinding;
 import com.vinh.dictionary_1.screen.BaseActivity;
-import com.vinh.dictionary_1.screen.bookmarkedwordlist.BookmarkedWordListActivity;
+import com.vinh.dictionary_1.screen.bookmarkedwordlist.BookmarkedWordsActivity;
 import com.vinh.dictionary_1.screen.translate.TranslateActivity;
 import com.vinh.dictionary_1.screen.worddetail.WordDetailFragment;
 import com.vinh.dictionary_1.utis.Constant;
@@ -95,7 +95,7 @@ public class HomeActivity extends BaseActivity
         Navigator navigator = new Navigator(this);
         switch (item.getItemId()) {
             case R.id.item_nav_bookmarked_words:
-                navigator.startActivity(BookmarkedWordListActivity.class);
+                navigator.startActivity(BookmarkedWordsActivity.class);
                 mBinding.navigationDrawerHome.closeDrawers();
                 break;
             case R.id.item_nav_daily_words:
