@@ -1,4 +1,4 @@
-package com.vinh.dictionary_1.screen.home.wordlist;
+package com.vinh.dictionary_1.screen.home.homelist;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -17,16 +17,14 @@ import java.util.List;
  * Created by VinhTL on 01/11/2017.
  */
 
-public class WordListAdapter extends BaseRecyclerViewAdapter<WordListAdapter.ItemViewHolder> {
+public class HomeListSearchedWordAdapter
+        extends BaseRecyclerViewAdapter<HomeListSearchedWordAdapter.ItemViewHolder> {
     private List<Word> mWords;
-    private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Word> mItemClickListener;
+    private OnRecyclerViewItemClickListener<Word> mItemClickListener;
 
-    WordListAdapter(@NonNull Context context, List<Word> words) {
+    protected HomeListSearchedWordAdapter(@NonNull Context context) {
         super(context);
         mWords = new ArrayList<>();
-        if (words != null) {
-            mWords.addAll(words);
-        }
     }
 
     @Override
@@ -61,10 +59,10 @@ public class WordListAdapter extends BaseRecyclerViewAdapter<WordListAdapter.Ite
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
         private ItemWordListHomeBinding mBinding;
-        private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Word> mItemClickListener;
+        private OnRecyclerViewItemClickListener<Word> mItemClickListener;
 
         ItemViewHolder(ItemWordListHomeBinding binding,
-                BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener<Word> listener) {
+                OnRecyclerViewItemClickListener<Word> listener) {
             super(binding.getRoot());
             mBinding = binding;
             mItemClickListener = listener;

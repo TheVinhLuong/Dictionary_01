@@ -1,19 +1,23 @@
 package com.vinh.dictionary_1.screen.worddetail;
 
 import android.content.Context;
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.webkit.WebViewClient;
+import com.vinh.dictionary_1.BR;
 import com.vinh.dictionary_1.data.model.Word;
 
 /**
  * Exposes the data to be used in the WordDetail screen.
  */
 
-public class WordDetailViewModel implements WordDetailContract.ViewModel {
+public class WordDetailViewModel extends BaseObservable implements WordDetailContract.ViewModel {
 
     private WordDetailContract.Presenter mPresenter;
     private Context mContext;
     private Word mWord;
     private String mWordDescription;
+    private boolean mBookmarkState;
     private WebViewClient mWordDetailWebViewClient;
 
     public WordDetailViewModel(Context context) {
@@ -35,6 +39,9 @@ public class WordDetailViewModel implements WordDetailContract.ViewModel {
         mPresenter = presenter;
         mWordDetailWebViewClient = new WordDetailPresenter.WordDetailWebViewClient(mContext,
                 mPresenter.getDictRepository());
+        boolean isWordBookmarked = mPresenter.isWordBookmarked(mWord.getWord());
+        mWord.setBookmarked(isWordBookmarked);
+        setBookmarkState(isWordBookmarked);
     }
 
     public Word getWord() {
@@ -58,7 +65,24 @@ public class WordDetailViewModel implements WordDetailContract.ViewModel {
 
     @Override
     public void speakUK(String word) {
-        mPresenter.speakUK(word);        
+        mPresenter.speakUK(word);
+    }
+
+    @Override
+    public void onBookmarkIconTouch() {
+        mPresenter.onBookmarkIconTouch(!mWord.isBookmarked());
+        mWord.setBookmarked(!mWord.isBookmarked());
+        setBookmarkState(mWord.isBookmarked());
+    }
+
+    @Bindable
+    public boolean isBookmarkState() {
+        return mBookmarkState;
+    }
+
+    public void setBookmarkState(boolean bookmarkState) {
+        mBookmarkState = bookmarkState;
+        notifyPropertyChanged(BR.bookmarkState);
     }
 
     public String getWordDescription() {
@@ -69,6 +93,7 @@ public class WordDetailViewModel implements WordDetailContract.ViewModel {
         mWordDescription = wordDescription;
     }
 
+    @Bindable
     public WebViewClient getWordDetailWebViewClient() {
         return mWordDetailWebViewClient;
     }
@@ -76,5 +101,6 @@ public class WordDetailViewModel implements WordDetailContract.ViewModel {
     public void setWordDetailWebViewClient(
             WordDetailPresenter.WordDetailWebViewClient wordDetailWebViewClient) {
         mWordDetailWebViewClient = wordDetailWebViewClient;
+        notifyPropertyChanged(BR.wordDetailWebViewClient);
     }
 }
