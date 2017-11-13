@@ -2,6 +2,7 @@ package com.vinh.dictionary_1.screen.worddetail;
 
 import com.vinh.dictionary_1.data.model.Word;
 import com.vinh.dictionary_1.data.source.DictRepository;
+import com.vinh.dictionary_1.data.source.SearchedWordRepository;
 import com.vinh.dictionary_1.screen.BasePresenter;
 import com.vinh.dictionary_1.screen.BaseViewModel;
 
@@ -24,6 +25,7 @@ interface WordDetailContract {
      */
     interface Presenter extends BasePresenter {
         DictRepository getDictRepository();
+        SearchedWordRepository getSearchedWordRepository();
         void speakUS(String word);
         void speakUK(String word);
         boolean isWordBookmarked(String word);

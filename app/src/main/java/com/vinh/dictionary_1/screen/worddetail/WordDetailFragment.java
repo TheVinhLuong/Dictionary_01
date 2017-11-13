@@ -10,11 +10,14 @@ import com.vinh.dictionary_1.R;
 import com.vinh.dictionary_1.data.model.Word;
 import com.vinh.dictionary_1.data.source.BookmarkedWordRepository;
 import com.vinh.dictionary_1.data.source.EVDictRepository;
+import com.vinh.dictionary_1.data.source.SearchedWordRepository;
 import com.vinh.dictionary_1.data.source.VEDictRepository;
 import com.vinh.dictionary_1.data.source.local.bookmarkerworddatabase.BookmarkedWordDatabase;
 import com.vinh.dictionary_1.data.source.local.bookmarkerworddatabase.BookmarkedWordLocalDatasource;
 import com.vinh.dictionary_1.data.source.local.evdictdatabase.EVDictDatabase;
 import com.vinh.dictionary_1.data.source.local.evdictdatabase.EVDictLocalDatasource;
+import com.vinh.dictionary_1.data.source.local.searchedworddatabase.SearchedWordDatabase;
+import com.vinh.dictionary_1.data.source.local.searchedworddatabase.SearchedWordLocalDatasource;
 import com.vinh.dictionary_1.data.source.local.vedictdatabase.VEDictDatabase;
 import com.vinh.dictionary_1.data.source.local.vedictdatabase.VEDictLocalDatasource;
 import com.vinh.dictionary_1.databinding.FragmentWordDetailBinding;
@@ -43,12 +46,15 @@ public class WordDetailFragment extends BaseFragment {
                 EVDictDatabase.getInstance(getActivity()).evDictDAO()));
         VEDictRepository veDictRepository = new VEDictRepository(VEDictLocalDatasource.getInstance(
                 VEDictDatabase.getInstance(getActivity()).veDictDAO()));
+        SearchedWordRepository searchedWordRepository = new SearchedWordRepository(
+                SearchedWordLocalDatasource.getInstance(
+                        SearchedWordDatabase.getInstance(getActivity()).searchedWordDAO()));
         BookmarkedWordRepository bookmarkedWordRepository = new BookmarkedWordRepository(
                 BookmarkedWordLocalDatasource.getInstance(
                         BookmarkedWordDatabase.getInstance(getActivity()).bookmarkedWordDAO()));
         WordDetailContract.Presenter presenter =
                 new WordDetailPresenter(mViewModel, evDictRepository, veDictRepository,
-                        bookmarkedWordRepository);
+                        bookmarkedWordRepository, searchedWordRepository);
         mViewModel.setPresenter(presenter);
     }
 

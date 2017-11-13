@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import com.vinh.dictionary_1.R;
 import com.vinh.dictionary_1.databinding.ActivityHomeBinding;
 import com.vinh.dictionary_1.screen.BaseActivity;
+import com.vinh.dictionary_1.screen.bookmarkedwordlist.BookmarkedWordListActivity;
 import com.vinh.dictionary_1.screen.translate.TranslateActivity;
 import com.vinh.dictionary_1.screen.worddetail.WordDetailFragment;
 import com.vinh.dictionary_1.utis.Constant;
@@ -91,15 +92,16 @@ public class HomeActivity extends BaseActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Navigator navigator = new Navigator(this);
         switch (item.getItemId()) {
             case R.id.item_nav_bookmarked_words:
-                //TODO: Implement handler;
+                navigator.startActivity(BookmarkedWordListActivity.class);
+                mBinding.navigationDrawerHome.closeDrawers();
                 break;
             case R.id.item_nav_daily_words:
                 //TODO: Implement handler;
                 break;
             case R.id.item_nav_online_translate:
-                Navigator navigator = new Navigator(this);
                 navigator.startActivity(TranslateActivity.class);
                 mBinding.navigationDrawerHome.closeDrawers();
                 break;

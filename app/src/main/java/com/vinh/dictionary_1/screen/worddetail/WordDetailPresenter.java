@@ -11,6 +11,7 @@ import com.vinh.dictionary_1.data.model.WordSpeaker;
 import com.vinh.dictionary_1.data.source.BookmarkedWordRepository;
 import com.vinh.dictionary_1.data.source.DictRepository;
 import com.vinh.dictionary_1.data.source.EVDictRepository;
+import com.vinh.dictionary_1.data.source.SearchedWordRepository;
 import com.vinh.dictionary_1.data.source.VEDictRepository;
 import com.vinh.dictionary_1.utis.Constant;
 import com.vinh.dictionary_1.utis.rx.SchedulerProvider;
@@ -28,18 +29,20 @@ final class WordDetailPresenter implements WordDetailContract.Presenter {
     private EVDictRepository mEVDictRepository;
     private VEDictRepository mVEDictRepository;
     private BookmarkedWordRepository mBookmarkedWordRepository;
+    private SearchedWordRepository mSearchedWordRepository;
     private DictRepository mDictRepository;
     private WordSpeaker mWordSpeaker;
     private BookmarkedWord mBookmarkedWord;
-    
-    WordDetailPresenter(WordDetailContract.ViewModel viewModel,
-            EVDictRepository evDictRepository, VEDictRepository veDictRepository,
-            BookmarkedWordRepository bookmarkedWordRepository) {
+
+    WordDetailPresenter(WordDetailContract.ViewModel viewModel, EVDictRepository evDictRepository,
+            VEDictRepository veDictRepository, BookmarkedWordRepository bookmarkedWordRepository,
+            SearchedWordRepository searchedWordRepository) {
         mViewModel = viewModel;
         mEVDictRepository = evDictRepository;
         mVEDictRepository = veDictRepository;
         mBookmarkedWordRepository = bookmarkedWordRepository;
         mDictRepository = new DictRepository(mEVDictRepository);
+        mSearchedWordRepository = searchedWordRepository;
         mWordSpeaker = WordSpeaker.getInstance();
     }
 
@@ -54,6 +57,11 @@ final class WordDetailPresenter implements WordDetailContract.Presenter {
     @Override
     public DictRepository getDictRepository() {
         return mDictRepository;
+    }
+
+    @Override
+    public SearchedWordRepository getSearchedWordRepository() {
+        return mSearchedWordRepository;
     }
 
     @Override
@@ -89,10 +97,13 @@ final class WordDetailPresenter implements WordDetailContract.Presenter {
     public static class WordDetailWebViewClient extends WebViewClient {
         private Context context;
         private DictRepository mDictRepository;
+        private SearchedWordRepository mSearchedWordRepository;
 
-        public WordDetailWebViewClient(Context context, DictRepository dictRepository) {
+        public WordDetailWebViewClient(Context context, DictRepository dictRepository,
+                SearchedWordRepository searchedWordRepository) {
             this.context = context;
             this.mDictRepository = dictRepository;
+            this.mSearchedWordRepository = searchedWordRepository;
         }
 
         @Override
@@ -105,6 +116,7 @@ final class WordDetailPresenter implements WordDetailContract.Presenter {
                         .subscribeOn(SchedulerProvider.getInstance().io())
                         .observeOn(SchedulerProvider.getInstance().ui())
                         .subscribe((word) -> {
+                            mSearchedWordRepository.insertSearchedWord(word);
                             if (word != null && word.getWord() != null) {
                                 bundle.putSerializable(Constant.ARGUMENT_WORD, word);
                                 wordDetailFragment.setArguments(bundle);

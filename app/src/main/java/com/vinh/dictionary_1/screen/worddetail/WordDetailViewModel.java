@@ -3,6 +3,7 @@ package com.vinh.dictionary_1.screen.worddetail;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.view.View;
 import android.webkit.WebViewClient;
 import com.vinh.dictionary_1.BR;
 import com.vinh.dictionary_1.data.model.Word;
@@ -19,6 +20,7 @@ public class WordDetailViewModel extends BaseObservable implements WordDetailCon
     private String mWordDescription;
     private boolean mBookmarkState;
     private WebViewClient mWordDetailWebViewClient;
+    private int mSpeakerVisibility;
 
     public WordDetailViewModel(Context context) {
         mContext = context;
@@ -38,7 +40,7 @@ public class WordDetailViewModel extends BaseObservable implements WordDetailCon
     public void setPresenter(WordDetailContract.Presenter presenter) {
         mPresenter = presenter;
         mWordDetailWebViewClient = new WordDetailPresenter.WordDetailWebViewClient(mContext,
-                mPresenter.getDictRepository());
+                mPresenter.getDictRepository(), mPresenter.getSearchedWordRepository());
         boolean isWordBookmarked = mPresenter.isWordBookmarked(mWord.getWord());
         mWord.setBookmarked(isWordBookmarked);
         setBookmarkState(isWordBookmarked);
@@ -53,8 +55,10 @@ public class WordDetailViewModel extends BaseObservable implements WordDetailCon
         mWord = word;
         if (mWord.getEVDescription() != null) {
             mWordDescription = mWord.getEVDescription();
+            setSpeakerVisibility(View.VISIBLE);
         } else {
             mWordDescription = mWord.getVEDescription();
+            setSpeakerVisibility(View.GONE);
         }
     }
 
@@ -102,5 +106,15 @@ public class WordDetailViewModel extends BaseObservable implements WordDetailCon
             WordDetailPresenter.WordDetailWebViewClient wordDetailWebViewClient) {
         mWordDetailWebViewClient = wordDetailWebViewClient;
         notifyPropertyChanged(BR.wordDetailWebViewClient);
+    }
+
+    @Bindable
+    public int getSpeakerVisibility() {
+        return mSpeakerVisibility;
+    }
+
+    public void setSpeakerVisibility(int speakerVisibility) {
+        mSpeakerVisibility = speakerVisibility;
+        notifyPropertyChanged(BR.speakerVisibility);
     }
 }
