@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import com.vinh.dictionary_1.R;
 import com.vinh.dictionary_1.databinding.ActivityHomeBinding;
 import com.vinh.dictionary_1.screen.BaseActivity;
+import com.vinh.dictionary_1.screen.home.wordlist.WordListFragment;
 import com.vinh.dictionary_1.screen.worddetail.WordDetailFragment;
 import java.util.List;
 
@@ -152,6 +153,11 @@ public class HomeActivity extends BaseActivity
             }
         }
         mBinding.linearLayoutSearchHelper.setVisibility(View.VISIBLE);
+        for (Fragment fragment : fragments) {
+            if (fragment instanceof WordListFragment && fragment != detachfragment) {
+                return;
+            }
+        }
         mBinding.navigationDrawerHome.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         mustPreventDrawerOpenOnNavIconTouch = false;
         mBurgerToArrowAnimator.start();

@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -112,5 +113,15 @@ public final class BindingUtils {
         } else {
             imageView.setImageResource(R.drawable.ic_star_bookmark);
         }
+    }
+
+    @BindingAdapter({ "snapHelper" })
+    public static void setSnapHelper(RecyclerView recyclerView, SnapHelper snapHelper) {
+        snapHelper.attachToRecyclerView(recyclerView);
+    }
+
+    @BindingAdapter("imageResource")
+    public static void setImageResource(ImageView imageView, int resource) {
+        imageView.setImageResource(resource);
     }
 }

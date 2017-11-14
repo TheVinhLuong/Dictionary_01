@@ -22,6 +22,7 @@ import com.vinh.dictionary_1.data.source.local.vedictdatabase.VEDictDatabase;
 import com.vinh.dictionary_1.data.source.local.vedictdatabase.VEDictLocalDatasource;
 import com.vinh.dictionary_1.databinding.FragmentWordListBinding;
 import com.vinh.dictionary_1.screen.BaseFragment;
+import com.vinh.dictionary_1.screen.home.HomeActivity;
 import com.vinh.dictionary_1.utis.Constant;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +73,12 @@ public class WordListFragment extends BaseFragment implements TextWatcher {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        ((HomeActivity) context).onWordDetailFragmentAttach();
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         mViewModel.onStart();
@@ -87,6 +94,12 @@ public class WordListFragment extends BaseFragment implements TextWatcher {
     public void onDestroy() {
         super.onDestroy();
         getActivity().unregisterReceiver(mBroadcastReceiver);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        ((HomeActivity) getActivity()).onWordDetailFragmentDetach(this);
     }
 
     @Override
