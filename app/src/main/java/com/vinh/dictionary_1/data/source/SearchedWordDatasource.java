@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 public interface SearchedWordDatasource {
-    Flowable<List<Word>> getAllSeachedWord();
+    Flowable<List<Word>> getSeachedWord(int page);
     
     void insertSearchedWord(Word... bookmarkedWord);
 }

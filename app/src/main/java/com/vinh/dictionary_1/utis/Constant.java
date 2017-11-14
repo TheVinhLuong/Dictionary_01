@@ -29,5 +29,8 @@ public class Constant {
     public static final String FRAGMENT_TAG_WORD_SEARCH_LIST = "FRAGMENT_TAG_WORD_SEARCH_LIST";
 
     public static final String FILE_JSON_LANG_LIST_NAME = "list_lang.json";
+    
+    public static final int NUM_OF_DAILY_WORD_PER_PAGE = 40;
+    public static final int NUM_OF_SEARCHED_WORD_PER_PAGE = 40;
 }
 

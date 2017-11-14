@@ -52,9 +52,7 @@ final class HomeListPresenter implements HomeListContract.Presenter {
 
     @Override
     public void onBroadcastReceiverReceive(Context context, Intent intent) {
-        mViewModel.clearDailyWordDataSet();
-        getDailyWord();
-        getSearchedWord();
+        refreshAllList();
     }
 
     @Override
@@ -67,8 +65,10 @@ final class HomeListPresenter implements HomeListContract.Presenter {
                 .subscribeOn(SchedulerProvider.getInstance().io())
                 .observeOn(SchedulerProvider.getInstance().ui())
                 .subscribe(dailyWords -> {
-                    if(dailyWords == null || dailyWords.size() == 0){
+                    if (dailyWords == null || dailyWords.size() == 0) {
                         --mDailyWordCurrentPage;
+                        mIsFetchingDailyWord = false;
+                        return;
                     }
                     mViewModel.appendDailyWordDataSet(dailyWords);
                     mIsFetchingDailyWord = false;
@@ -77,12 +77,30 @@ final class HomeListPresenter implements HomeListContract.Presenter {
 
     @Override
     public void getSearchedWord() {
-        if(mIsFetchingSearchedWord){
+        if (mIsFetchingSearchedWord) {
             return;
         }
-        mSearchedWordRepository.getAllSeachedWord()
+        mIsFetchingSearchedWord = true;
+        mSearchedWordRepository.getSeachedWord(mSearchedWordCurrentPage++)
                 .subscribeOn(SchedulerProvider.getInstance().io())
                 .observeOn(SchedulerProvider.getInstance().ui())
-                .subscribe(mViewModel::appendSearchedWordDataSet);
+                .subscribe(searchedWords -> {
+                    if (searchedWords == null || searchedWords.size() == 0) {
+                        --mSearchedWordCurrentPage;
+                        mIsFetchingSearchedWord = false;
+                        return;
+                    }
+                    mViewModel.appendSearchedWordDataSet(searchedWords);
+                    mIsFetchingSearchedWord = false;
+                });
+    }
+    
+    private void refreshAllList(){
+        mViewModel.clearDailyWordDataSet();
+        mDailyWordCurrentPage = 0;
+        getDailyWord();
+        mViewModel.clearSearchedWordDataSet();
+        mSearchedWordCurrentPage = 0;
+        getSearchedWord();
     }
 }

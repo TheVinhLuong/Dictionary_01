@@ -2,6 +2,7 @@ package com.vinh.dictionary_1.data.source.local.dailyworddatabase;
 
 import com.vinh.dictionary_1.data.model.DailyWord;
 import com.vinh.dictionary_1.data.source.DailyWordDatasource;
+import com.vinh.dictionary_1.utis.Constant;
 import io.reactivex.Flowable;
 import java.util.List;
 
@@ -19,14 +20,14 @@ public class DailyWordLocalDatasource implements DailyWordDatasource {
         }
         return sInstance;
     }
-    
-    public DailyWordLocalDatasource(DailyWordDAO dailyWordDAO) {
+
+    DailyWordLocalDatasource(DailyWordDAO dailyWordDAO) {
         mDailyWordDAO = dailyWordDAO;
     }
 
     @Override
     public Flowable<List<DailyWord>> getAllDailyWord(int page) {
-        return mDailyWordDAO.getAllDailyWord(page*2);
+        return mDailyWordDAO.getAllDailyWord(page * Constant.NUM_OF_DAILY_WORD_PER_PAGE);
     }
 
     @Override

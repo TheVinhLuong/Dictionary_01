@@ -24,8 +24,8 @@ public class SearchedWordRepository implements SearchedWordDatasource{
     }
 
     @Override
-    public Flowable<List<Word>> getAllSeachedWord() {
-        return mLocalDatasource.getAllSeachedWord();
+    public Flowable<List<Word>> getSeachedWord(int page) {
+        return mLocalDatasource.getSeachedWord(page);
     }
 
     @Override

@@ -14,7 +14,7 @@ import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
  */
 @Dao
 public interface DailyWordDAO {
-    @Query("SELECT * FROM daily_word_tbl LIMIT 2 OFFSET :offset")
+    @Query("SELECT * FROM daily_word_tbl ORDER BY rowid DESC LIMIT 40 OFFSET :offset")
     Flowable<List<DailyWord>> getAllDailyWord(int offset);
 
     @Insert(onConflict = REPLACE)

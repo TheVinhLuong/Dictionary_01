@@ -2,6 +2,7 @@ package com.vinh.dictionary_1.data.source.local.searchedworddatabase;
 
 import com.vinh.dictionary_1.data.model.Word;
 import com.vinh.dictionary_1.data.source.SearchedWordDatasource;
+import com.vinh.dictionary_1.utis.Constant;
 import io.reactivex.Flowable;
 import java.util.List;
 
@@ -20,13 +21,13 @@ public class SearchedWordLocalDatasource implements SearchedWordDatasource {
         return sInstance;
     }
 
-    public SearchedWordLocalDatasource(SearchedWordDAO searchedWordDAO) {
+    SearchedWordLocalDatasource(SearchedWordDAO searchedWordDAO) {
         mSearchedWordDAO = searchedWordDAO;
     }
 
     @Override
-    public Flowable<List<Word>> getAllSeachedWord() {
-        return mSearchedWordDAO.getAllSeachedWord();
+    public Flowable<List<Word>> getSeachedWord(int page) {
+        return mSearchedWordDAO.getSeachedWord(page * Constant.NUM_OF_SEARCHED_WORD_PER_PAGE);
     }
 
     @Override

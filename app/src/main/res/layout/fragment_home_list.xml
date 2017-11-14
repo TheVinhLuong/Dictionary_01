@@ -37,6 +37,7 @@
             android:layout_height="match_parent"
             app:layoutManager="LinearLayoutManager"
             app:recyclerAdapter="@{viewModel.searchedWordAdapter}"
+            app:scrollListener="@{viewModel.searchedWordScrollListener}"
             android:orientation="vertical"
             />
     </LinearLayout>
