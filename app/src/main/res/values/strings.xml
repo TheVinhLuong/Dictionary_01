@@ -10,6 +10,7 @@
     <string name="title_db_english_vietnamese">A-V</string>
     <string name="title_translate">Dịch</string>
     <string name="title_list_bookmarked_word">Danh sách từ đánh dấu</string>
+    <string name="title_list_daily_word">Danh sách từ hàng ngày</string>
     
     <string name="label_lang_uk">UK</string>
     <string name="label_lang_us">US</string>

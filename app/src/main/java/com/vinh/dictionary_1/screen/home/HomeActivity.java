@@ -20,6 +20,7 @@ import com.vinh.dictionary_1.R;
 import com.vinh.dictionary_1.databinding.ActivityHomeBinding;
 import com.vinh.dictionary_1.screen.BaseActivity;
 import com.vinh.dictionary_1.screen.bookmarkedwordlist.BookmarkedWordsActivity;
+import com.vinh.dictionary_1.screen.dailywordlist.DailyWordsActivity;
 import com.vinh.dictionary_1.screen.translate.TranslateActivity;
 import com.vinh.dictionary_1.screen.worddetail.WordDetailFragment;
 import com.vinh.dictionary_1.utis.Constant;
@@ -99,7 +100,8 @@ public class HomeActivity extends BaseActivity
                 mBinding.navigationDrawerHome.closeDrawers();
                 break;
             case R.id.item_nav_daily_words:
-                //TODO: Implement handler;
+                navigator.startActivity(DailyWordsActivity.class);
+                mBinding.navigationDrawerHome.closeDrawers();
                 break;
             case R.id.item_nav_online_translate:
                 navigator.startActivity(TranslateActivity.class);

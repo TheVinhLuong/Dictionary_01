@@ -32,6 +32,10 @@
             android:name=".screen.bookmarkedwordlist.BookmarkedWordsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".screen.dailywordlist.DailyWordsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>
