@@ -24,8 +24,8 @@ public class DailyWordRepository implements DailyWordDatasource{
     }
 
     @Override
-    public Flowable<List<DailyWord>> getAllDailyWord() {
-        return mLocalDatasource.getAllDailyWord();
+    public Flowable<List<DailyWord>> getAllDailyWord(int page) {
+        return mLocalDatasource.getAllDailyWord(page);
     }
 
     @Override

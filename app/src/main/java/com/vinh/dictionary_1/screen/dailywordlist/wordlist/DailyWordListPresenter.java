@@ -41,7 +41,7 @@ final class DailyWordListPresenter implements DailyWordListContract.Presenter {
     }
 
     private void setData() {
-        mDailyWordRepository.getAllDailyWord()
+        mDailyWordRepository.getAllDailyWord(0)
                 .subscribeOn(SchedulerProvider.getInstance().io())
                 .observeOn(SchedulerProvider.getInstance().ui())
                 .subscribe(mViewModel::changeDataSet);

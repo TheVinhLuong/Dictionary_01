@@ -18,9 +18,12 @@ final class HomeListPresenter implements HomeListContract.Presenter {
     private final HomeListContract.ViewModel mViewModel;
     private DailyWordRepository mDailyWordRepository;
     private SearchedWordRepository mSearchedWordRepository;
+    private int mDailyWordCurrentPage = 0;
+    private int mSearchedWordCurrentPage = 0;
+    private boolean mIsFetchingDailyWord = false;
+    private boolean mIsFetchingSearchedWord = false;
 
-    HomeListPresenter(HomeListContract.ViewModel viewModel,
-            DailyWordRepository dailyWordRepository,
+    HomeListPresenter(HomeListContract.ViewModel viewModel, DailyWordRepository dailyWordRepository,
             SearchedWordRepository searchedWordRepository) {
         mViewModel = viewModel;
         mDailyWordRepository = dailyWordRepository;
@@ -46,25 +49,40 @@ final class HomeListPresenter implements HomeListContract.Presenter {
     public void onItemSearchedWordListClicked(Word word) {
 
     }
-    
+
     @Override
     public void onBroadcastReceiverReceive(Context context, Intent intent) {
+        mViewModel.clearDailyWordDataSet();
         getDailyWord();
         getSearchedWord();
     }
-    
-    private void getDailyWord() {
-        mDailyWordRepository.getAllDailyWord()
+
+    @Override
+    public void getDailyWord() {
+        if (mIsFetchingDailyWord) {
+            return;
+        }
+        mIsFetchingDailyWord = true;
+        mDailyWordRepository.getAllDailyWord(mDailyWordCurrentPage++)
                 .subscribeOn(SchedulerProvider.getInstance().io())
                 .observeOn(SchedulerProvider.getInstance().ui())
-                .subscribe(mViewModel::changeDailyWordDataSet);
+                .subscribe(dailyWords -> {
+                    if(dailyWords == null || dailyWords.size() == 0){
+                        --mDailyWordCurrentPage;
+                    }
+                    mViewModel.appendDailyWordDataSet(dailyWords);
+                    mIsFetchingDailyWord = false;
+                });
     }
 
-    private void getSearchedWord() {
+    @Override
+    public void getSearchedWord() {
+        if(mIsFetchingSearchedWord){
+            return;
+        }
         mSearchedWordRepository.getAllSeachedWord()
                 .subscribeOn(SchedulerProvider.getInstance().io())
                 .observeOn(SchedulerProvider.getInstance().ui())
-                .subscribe(mViewModel::changeSearchedWordDataSet);
+                .subscribe(mViewModel::appendSearchedWordDataSet);
     }
-    
 }

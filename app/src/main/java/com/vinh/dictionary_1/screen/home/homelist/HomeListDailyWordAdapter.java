@@ -55,12 +55,15 @@ public class HomeListDailyWordAdapter
         mItemClickListener = itemClickListener;
     }
 
-    void changeDataSet(List<DailyWord> words) {
-        mDailyWord.clear();
+    void appendDataSet(List<DailyWord> words) {
         if (words != null) {
             mDailyWord.addAll(words);
         }
         notifyDataSetChanged();
+    }
+    
+    void clearDataSet(){
+        mDailyWord.clear();
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {

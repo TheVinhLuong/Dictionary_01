@@ -6,8 +6,7 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import com.vinh.dictionary_1.data.model.Word;
 
-import static com.vinh.dictionary_1.data.source.local.searchedworddatabase.SearchedWordDatabase
-        .DATABASE_VERSION;
+import static com.vinh.dictionary_1.data.source.local.searchedworddatabase.SearchedWordDatabase.DATABASE_VERSION;
 
 /**
  * Created by VinhTL on 06/11/2017.
@@ -29,13 +28,6 @@ public abstract class SearchedWordDatabase extends RoomDatabase {
                             .fallbackToDestructiveMigration()
                             .allowMainThreadQueries()
                             .build();
-            sSearchedWordDatabase.query(
-                    "CREATE TRIGGER IF NOT EXISTS delete_till_40 INSERT ON word_tbl WHEN (SELECT " 
-                            + "count(*) "
-                            + "from word_tbl)"
-                            + ">79 BEGIN DELETE FROM word_tbl WHERE rowid IN ( SELECT rowid FROM " 
-                            + "word_tbl ORDER "
-                            + "BY rowid ASC LIMIT 40); END;", null);
         }
         return sSearchedWordDatabase;
     }

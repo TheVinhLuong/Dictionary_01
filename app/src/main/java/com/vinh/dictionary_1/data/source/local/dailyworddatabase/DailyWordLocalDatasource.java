@@ -25,8 +25,8 @@ public class DailyWordLocalDatasource implements DailyWordDatasource {
     }
 
     @Override
-    public Flowable<List<DailyWord>> getAllDailyWord() {
-        return mDailyWordDAO.getAllDailyWord();
+    public Flowable<List<DailyWord>> getAllDailyWord(int page) {
+        return mDailyWordDAO.getAllDailyWord(page*2);
     }
 
     @Override

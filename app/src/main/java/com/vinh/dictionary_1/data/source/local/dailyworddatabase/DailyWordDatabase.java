@@ -28,6 +28,11 @@ public abstract class DailyWordDatabase extends RoomDatabase {
                             .fallbackToDestructiveMigration()
                             .allowMainThreadQueries()
                             .build();
+            sDailyWordDatabase.query(
+                    "CREATE TRIGGER IF NOT EXISTS delete_all INSERT ON daily_word_tbl WHEN (SELECT "
+                            + "count(*) "
+                            + "from daily_word_tbl)"
+                            + "> 62806 BEGIN DELETE FROM daily_word_tbl; END;", null);
         }
         return sDailyWordDatabase;
     }

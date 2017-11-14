@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 public interface DailyWordDatasource {
-    Flowable<List<DailyWord>> getAllDailyWord();
+    Flowable<List<DailyWord>> getAllDailyWord(int page);
     
     void insertDailyWord(DailyWord... dailyWord);
 

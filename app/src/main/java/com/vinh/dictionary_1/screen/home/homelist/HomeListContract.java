@@ -16,8 +16,10 @@ interface HomeListContract {
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter> {
-        void changeDailyWordDataSet(List<DailyWord> words);
-        void changeSearchedWordDataSet(List<Word> words);
+        void appendDailyWordDataSet(List<DailyWord> words);
+        void clearDailyWordDataSet();
+        void appendSearchedWordDataSet(List<Word> words);
+        void clearSearchedWordDataSet();
         void onBroadcastReceiverReceive(Context context, Intent intent);
     }
 
@@ -28,5 +30,7 @@ interface HomeListContract {
         void onItemDailyWordListClicked(DailyWord word);
         void onItemSearchedWordListClicked(Word word);
         void onBroadcastReceiverReceive(Context context, Intent intent);
+        void getDailyWord();
+        void getSearchedWord();
     }
 }

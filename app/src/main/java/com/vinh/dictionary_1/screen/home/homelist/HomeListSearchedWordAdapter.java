@@ -45,16 +45,20 @@ public class HomeListSearchedWordAdapter
         return mWords.size();
     }
 
-    public void setItemClickListener(OnRecyclerViewItemClickListener<Word> itemClickListener) {
+    void setItemClickListener(OnRecyclerViewItemClickListener<Word> itemClickListener) {
         mItemClickListener = itemClickListener;
     }
 
-    public void changeDataSet(List<Word> words) {
+    void appendDataSet(List<Word> words) {
         mWords.clear();
         if (words != null) {
             mWords.addAll(words);
         }
         notifyDataSetChanged();
+    }
+
+    void clearDataSet(){
+        mWords.clear();
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {

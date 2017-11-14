@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PagerSnapHelper;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.view.View;
 import com.vinh.dictionary_1.R;
@@ -12,6 +13,7 @@ import com.vinh.dictionary_1.data.model.DailyWord;
 import com.vinh.dictionary_1.data.model.Word;
 import com.vinh.dictionary_1.screen.worddetail.WordDetailFragment;
 import com.vinh.dictionary_1.utis.Constant;
+import com.vinh.dictionary_1.utis.OnEndScrollListener;
 import com.vinh.dictionary_1.utis.ViewUtils;
 import java.util.List;
 
@@ -25,6 +27,8 @@ public class HomeListViewModel implements HomeListContract.ViewModel,
     private HomeListContract.Presenter mPresenter;
     private HomeListDailyWordAdapter mDailyWordAdapter;
     private HomeListSearchedWordAdapter mSearchedWordAdapter;
+    private RecyclerView.OnScrollListener mDailyWordScrollListener;
+    private RecyclerView.OnScrollListener mSearchedWordScrollListener;
     private SnapHelper mSnapHelper;
 
     public HomeListViewModel(HomeListDailyWordAdapter dailyWordAdapter,
@@ -34,6 +38,8 @@ public class HomeListViewModel implements HomeListContract.ViewModel,
         mSearchedWordAdapter = homeListSearchedWordAdapter;
         mSearchedWordAdapter.setItemClickListener(this);
         mSnapHelper = new PagerSnapHelper();
+        initDailyWordScrollListener();
+        initSearchedWordScrollListener();
     }
 
     @Override
@@ -74,13 +80,23 @@ public class HomeListViewModel implements HomeListContract.ViewModel,
     }
 
     @Override
-    public void changeDailyWordDataSet(List<DailyWord> words) {
-        mDailyWordAdapter.changeDataSet(words);
+    public void appendDailyWordDataSet(List<DailyWord> words) {
+        mDailyWordAdapter.appendDataSet(words);
     }
 
     @Override
-    public void changeSearchedWordDataSet(List<Word> words) {
-        mSearchedWordAdapter.changeDataSet(words);
+    public void appendSearchedWordDataSet(List<Word> words) {
+        mSearchedWordAdapter.appendDataSet(words);
+    }
+
+    @Override
+    public void clearSearchedWordDataSet() {
+        mSearchedWordAdapter.clearDataSet();
+    }
+
+    @Override
+    public void clearDailyWordDataSet() {
+        mDailyWordAdapter.clearDataSet();
     }
 
     @Override
@@ -92,23 +108,27 @@ public class HomeListViewModel implements HomeListContract.ViewModel,
         return mDailyWordAdapter;
     }
 
-    public void setDailyWordAdapter(HomeListDailyWordAdapter dailyWordAdapter) {
-        mDailyWordAdapter = dailyWordAdapter;
-    }
-
     public HomeListSearchedWordAdapter getSearchedWordAdapter() {
         return mSearchedWordAdapter;
-    }
-
-    public void setSearchedWordAdapter(HomeListSearchedWordAdapter searchedWordAdapter) {
-        mSearchedWordAdapter = searchedWordAdapter;
     }
 
     public SnapHelper getSnapHelper() {
         return mSnapHelper;
     }
 
-    public void setSnapHelper(SnapHelper snapHelper) {
-        mSnapHelper = snapHelper;
+    private void initDailyWordScrollListener() {
+        mDailyWordScrollListener = new OnEndScrollListener(() -> mPresenter.getDailyWord());
+    }
+
+    private void initSearchedWordScrollListener() {
+        mSearchedWordScrollListener = new OnEndScrollListener(() -> mPresenter.getSearchedWord());
+    }
+
+    public RecyclerView.OnScrollListener getDailyWordScrollListener() {
+        return mDailyWordScrollListener;
+    }
+
+    public RecyclerView.OnScrollListener getSearchedWordScrollListener() {
+        return mSearchedWordScrollListener;
     }
 }

@@ -152,7 +152,8 @@ public final class BindingUtils {
     @BindingAdapter("spinnerData")
     public static void setSpinnerData(Spinner spinner, List<String> data) {
         ArrayAdapter<String> dataAdapter =
-                new ArrayAdapter<String>(spinner.getContext(), android.R.layout.simple_spinner_item, data){
+                new ArrayAdapter<String>(spinner.getContext(), android.R.layout.simple_spinner_item,
+                        data) {
                     @Override
                     public boolean isEnabled(int position) {
                         return position != 0;
@@ -163,10 +164,9 @@ public final class BindingUtils {
                             @NonNull ViewGroup parent) {
                         View view = super.getDropDownView(position, convertView, parent);
                         TextView tv = (TextView) view;
-                        if(position == 0){
+                        if (position == 0) {
                             tv.setTextColor(Color.GRAY);
-                        }
-                        else {
+                        } else {
                             tv.setTextColor(Color.BLACK);
                         }
                         return view;
@@ -174,5 +174,11 @@ public final class BindingUtils {
                 };
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(dataAdapter);
+    }
+
+    @BindingAdapter({ "scrollListener" })
+    public static void setScrollListener(RecyclerView recyclerView,
+            RecyclerView.OnScrollListener onScrollListener) {
+        recyclerView.addOnScrollListener(onScrollListener);
     }
 }
