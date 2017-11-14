@@ -51,12 +51,15 @@ public class BookmarkedWordListAdapter extends BaseRecyclerViewAdapter<Bookmarke
         mItemClickListener = itemClickListener;
     }
 
-    public void changeDataSet(List<Word> words) {
-        mWords.clear();
+    public void appendDataSet(List<Word> words) {
         if (words != null) {
             mWords.addAll(words);
         }
         notifyDataSetChanged();
+    }
+
+    void clearDataSet(){
+        mWords.clear();
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {

@@ -1,5 +1,6 @@
 package com.vinh.dictionary_1.screen.worddetail;
 
+import android.content.BroadcastReceiver;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -35,6 +36,8 @@ public class WordDetailFragment extends BaseFragment {
     public static WordDetailFragment newInstance() {
         return new WordDetailFragment();
     }
+
+    private BroadcastReceiver mBroadcastReceiver;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

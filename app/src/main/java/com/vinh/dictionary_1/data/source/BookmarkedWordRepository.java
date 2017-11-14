@@ -29,8 +29,8 @@ public class BookmarkedWordRepository implements BookmarkedWordDatasource{
     }
 
     @Override
-    public Flowable<List<Word>> getAllBookmarkedWord() {
-        return mLocalDatasource.getAllBookmarkedWord();
+    public Flowable<List<Word>> getBookmarkedWord(int page) {
+        return mLocalDatasource.getBookmarkedWord(page);
     }
 
     @Override

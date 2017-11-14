@@ -50,9 +50,9 @@
                     android:id="@+id/linear_layout_search_helper"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
                     android:descendantFocusability="beforeDescendants"
                     android:focusableInTouchMode="true"
+                    android:orientation="horizontal"
                     >
                     <EditText
                         android:id="@+id/input_field"
@@ -64,6 +64,8 @@
                         android:layout_weight="5"
                         android:background="@drawable/edit_text_background"
                         android:hint="@string/hint_search_word"
+                        android:imeOptions="actionDone"
+                        android:maxLines="1"
                         android:paddingLeft="@dimen/dp_12"
                         android:paddingRight="@dimen/dp_12"
                         android:paddingStart="@dimen/dp_12"

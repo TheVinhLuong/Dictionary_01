@@ -18,6 +18,7 @@ interface WordDetailContract {
         void speakUS(String word);
         void speakUK(String word);
         void onBookmarkIconTouch();
+        Word getWord();
     }
 
     /**

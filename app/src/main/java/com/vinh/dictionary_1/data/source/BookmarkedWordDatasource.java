@@ -11,7 +11,7 @@ import java.util.List;
 public interface BookmarkedWordDatasource {
     Word getBookmarkedWordByWord(String queryWord);
     
-    Flowable<List<Word>> getAllBookmarkedWord();
+    Flowable<List<Word>> getBookmarkedWord(int page);
 
     void deleteBookmarkedWord(Word bookmarkedWord);
 

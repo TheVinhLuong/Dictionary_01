@@ -30,8 +30,8 @@ public class BookmarkedWordLocalDatasource implements BookmarkedWordDatasource {
     }
 
     @Override
-    public Flowable<List<Word>> getAllBookmarkedWord() {
-        return mBookmarkedWordDAO.getAllBookmarkedWord();
+    public Flowable<List<Word>> getBookmarkedWord(int page) {
+        return mBookmarkedWordDAO.getAllBookmarkedWord(page);
     }
 
     @Override

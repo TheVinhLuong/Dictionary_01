@@ -130,8 +130,10 @@ final class SplashPresenter implements SplashContract.Presenter {
             Date lastDate = new Date(mUserInfoRepository.getLastTimeUsageInfo());
             long elapsedDays = TimeUnit.DAYS.convert(currentDate.getTime() - lastDate.getTime(),
                     TimeUnit.MILLISECONDS);
-            if (elapsedDays > 0) {
+            if (elapsedDays > 0 && elapsedDays < 365) {
                 generateDailyWord(1, elapsedDays);
+            } else if (elapsedDays > 365) {
+                generateDailyWord(1, 1);
             } else {
                 mViewModel.dismissLoadingDialog();
                 mViewModel.switchToHomeActivity();

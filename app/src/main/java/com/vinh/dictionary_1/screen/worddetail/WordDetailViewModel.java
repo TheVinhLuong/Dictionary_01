@@ -46,6 +46,7 @@ public class WordDetailViewModel extends BaseObservable implements WordDetailCon
         setBookmarkState(isWordBookmarked);
     }
 
+    @Override
     public Word getWord() {
         return mWord;
     }

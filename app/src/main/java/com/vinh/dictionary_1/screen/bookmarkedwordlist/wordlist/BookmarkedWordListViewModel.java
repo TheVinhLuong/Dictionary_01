@@ -9,6 +9,7 @@ import com.vinh.dictionary_1.data.model.Word;
 import com.vinh.dictionary_1.databinding.FragmentBookmarkedWordListBinding;
 import com.vinh.dictionary_1.screen.worddetail.WordDetailFragment;
 import com.vinh.dictionary_1.utis.Constant;
+import com.vinh.dictionary_1.utis.OnEndScrollListener;
 import com.vinh.dictionary_1.utis.ViewUtils;
 import java.util.List;
 
@@ -27,15 +28,9 @@ public class BookmarkedWordListViewModel
     BookmarkedWordListViewModel(BookmarkedWordListAdapter adapter) {
         mAdapter = adapter;
         mAdapter.setItemClickListener(this);
-        mOnScrollListener = new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
-                    ViewUtils.hideSoftKeyboard(recyclerView.getContext());
-                }
-            }
-        };
+        mOnScrollListener = new OnEndScrollListener(() -> {
+            mPresenter.getBookmarkedWords();
+        });
     }
 
     @Override
@@ -70,11 +65,18 @@ public class BookmarkedWordListViewModel
     }
 
     @Override
-    public void changeDataSet(List<Word> words) {
-        mAdapter.changeDataSet(words);
-        if (mFragmentBookmarkedWordListBinding != null) {
-            mFragmentBookmarkedWordListBinding.wordRecyclerView.getLayoutManager().scrollToPosition(0);
-        }
+    public void appendBookmarkedWordDataSet(List<Word> words) {
+        mAdapter.appendDataSet(words);
+    }
+
+    @Override
+    public void clearBookmarkedWordDataSet() {
+        mAdapter.clearDataSet();
+    }
+
+    @Override
+    public void refreshList() {
+        mPresenter.refreshList();
     }
 
     @Override

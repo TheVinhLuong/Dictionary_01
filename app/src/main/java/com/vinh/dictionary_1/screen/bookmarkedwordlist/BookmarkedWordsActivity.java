@@ -2,10 +2,12 @@ package com.vinh.dictionary_1.screen.bookmarkedwordlist;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import com.vinh.dictionary_1.R;
 import com.vinh.dictionary_1.databinding.ActivityBookmarkedWordsBinding;
 import com.vinh.dictionary_1.screen.BaseActivity;
+import com.vinh.dictionary_1.screen.bookmarkedwordlist.wordlist.BookmarkedWordListFragment;
 
 /**
  * BookmarkedWordList Screen.
@@ -49,7 +51,9 @@ public class BookmarkedWordsActivity extends BaseActivity {
 
     @Override
     public void onFragmentDetach() {
-        if (getSupportFragmentManager().getFragments().size() == 1) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (fragmentManager.getFragments().size() == 1) {
+            ((BookmarkedWordListFragment)fragmentManager.getFragments().get(0)).onVisibleAgain();
             mViewModel.setTitleVisibility(View.VISIBLE);
         }
     }

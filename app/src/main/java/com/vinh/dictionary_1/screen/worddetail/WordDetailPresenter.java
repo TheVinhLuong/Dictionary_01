@@ -3,6 +3,7 @@ package com.vinh.dictionary_1.screen.worddetail;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import com.vinh.dictionary_1.R;
@@ -41,8 +42,15 @@ final class WordDetailPresenter implements WordDetailContract.Presenter {
         mEVDictRepository = evDictRepository;
         mVEDictRepository = veDictRepository;
         mBookmarkedWordRepository = bookmarkedWordRepository;
-        mDictRepository = new DictRepository(mEVDictRepository);
+        if (mViewModel.getWord().getEVDescription() == null || mViewModel.getWord()
+                .getEVDescription()
+                .isEmpty()) {
+            mDictRepository = new DictRepository(mVEDictRepository);
+        } else {
+            mDictRepository = new DictRepository(mEVDictRepository);
+        }
         mSearchedWordRepository = searchedWordRepository;
+
         mWordSpeaker = WordSpeaker.getInstance();
     }
 
@@ -112,6 +120,7 @@ final class WordDetailPresenter implements WordDetailContract.Presenter {
             Bundle bundle = new Bundle();
             url = url.replace("file:///android_asset/", "");
             try {
+                Log.d("wtf", "worddd: " + URLDecoder.decode(url, "UTF-8"));
                 this.mDictRepository.getLocalWordDetail(URLDecoder.decode(url, "UTF-8"))
                         .subscribeOn(SchedulerProvider.getInstance().io())
                         .observeOn(SchedulerProvider.getInstance().ui())

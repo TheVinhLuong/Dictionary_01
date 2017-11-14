@@ -81,4 +81,8 @@ public class BookmarkedWordListFragment extends BaseFragment{
         super.onDetach();
         ((BookmarkedWordsActivity) getActivity()).onFragmentDetach();
     }
+    
+    public void onVisibleAgain(){
+        mViewModel.refreshList();
+    }
 }

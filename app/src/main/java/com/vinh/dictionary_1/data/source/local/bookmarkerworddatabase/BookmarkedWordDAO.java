@@ -17,8 +17,8 @@ public interface BookmarkedWordDAO {
     @Query("SELECT * FROM word_tbl WHERE word = :queryWord")
     Word getBookmarkedWordByWord(String queryWord);
     
-    @Query("SELECT * FROM word_tbl")
-    Flowable<List<Word>> getAllBookmarkedWord();
+    @Query("SELECT * FROM word_tbl ORDER BY rowid DESC LIMIT 40 OFFSET :offset")
+    Flowable<List<Word>> getAllBookmarkedWord(int offset);
     
     @Delete
     void deleteBookmarkedWord(Word bookmarkedWord);

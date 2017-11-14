@@ -14,14 +14,17 @@ interface BookmarkedWordListContract {
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter> {
-        void changeDataSet(List<Word> words);
+        void appendBookmarkedWordDataSet(List<Word> words);
 
         BookmarkedWordListAdapter getAdapter();
 
         void setAdapter(BookmarkedWordListAdapter adapter);
 
         void setBinding(FragmentBookmarkedWordListBinding fragmentWordListBinding);
- 
+
+        void clearBookmarkedWordDataSet();
+
+        void refreshList();
     }
 
     /**
@@ -29,6 +32,9 @@ interface BookmarkedWordListContract {
      */
     interface Presenter extends BasePresenter {
         void onItemWordListClicked(Word word);
-        
+
+        void getBookmarkedWords();
+
+        void refreshList();
     }
 }

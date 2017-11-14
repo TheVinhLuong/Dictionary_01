@@ -14,12 +14,14 @@ final class BookmarkedWordListPresenter implements BookmarkedWordListContract.Pr
 
     private final BookmarkedWordListContract.ViewModel mViewModel;
     private BookmarkedWordRepository mBookmarkedWordRepository;
+    private int mBookmarkedWordCurrentPage = 0;
+    private boolean mIsFetchingBookmarkedWord = false;
 
     BookmarkedWordListPresenter(BookmarkedWordListContract.ViewModel viewModel,
             BookmarkedWordRepository bookmarkedWordRepository) {
         mViewModel = viewModel;
         mBookmarkedWordRepository = bookmarkedWordRepository;
-        setData();
+        getBookmarkedWords();
     }
 
     @Override
@@ -35,10 +37,30 @@ final class BookmarkedWordListPresenter implements BookmarkedWordListContract.Pr
     public void onItemWordListClicked(Word word) {
     }
 
-    private void setData() {
-        mBookmarkedWordRepository.getAllBookmarkedWord()
+    @Override
+    public void getBookmarkedWords() {
+        if (mIsFetchingBookmarkedWord) {
+            return;
+        }
+        mIsFetchingBookmarkedWord = true;
+        mBookmarkedWordRepository.getBookmarkedWord(mBookmarkedWordCurrentPage++)
                 .subscribeOn(SchedulerProvider.getInstance().io())
                 .observeOn(SchedulerProvider.getInstance().ui())
-                .subscribe(mViewModel::changeDataSet);
+                .subscribe(words -> {
+                    if (words == null || words.size() == 0) {
+                        mIsFetchingBookmarkedWord = false;
+                        --mBookmarkedWordCurrentPage;
+                        return;
+                    }
+                    mViewModel.appendBookmarkedWordDataSet(words);
+                    mIsFetchingBookmarkedWord = false;
+                });
+    }
+
+    @Override
+    public void refreshList(){
+        mViewModel.clearBookmarkedWordDataSet();
+        mBookmarkedWordCurrentPage = 0;
+        getBookmarkedWords();
     }
 }
