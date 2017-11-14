@@ -32,7 +32,7 @@ public class EVDictRepository implements EVDictDatasource.LocalDataSource {
     }
 
     @Override
-    public Flowable<Word> getRandomWord() {
+    public Word getRandomWord() {
         return mEVDictLocalDatasource.getRandomWord();
     }
 }

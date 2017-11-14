@@ -20,5 +20,4 @@ public interface SearchedWordDAO {
 
     @Insert(onConflict = REPLACE)
     void insertSearchedWord(Word... searchedWord);
-    
 }

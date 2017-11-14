@@ -6,6 +6,7 @@ import com.vinh.dictionary_1.utis.Constant;
 import com.vinh.dictionary_1.utis.rx.SchedulerProvider;
 import io.reactivex.Flowable;
 import java.util.List;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -85,25 +86,24 @@ public class EVDictLocalDatasource implements EVDictDatasource.LocalDataSource {
     }
 
     @Override
-    public Flowable<Word> getRandomWord() {
-        return mEVDictDAO.getEVRandomWord()
-                .observeOn(SchedulerProvider.getInstance().io())
-                .map(word -> {
-                    boolean derived = false;
-                    if (word.getShortDescription().contains("@")) {
-                        derived = true;
-                        Word originalWord = (getLocalWordDetailSync(
-                                word.getShortDescription().replace("@", "").replace("-", " ")));
-                        word.setEVDescription(originalWord.getEVDescription());
-                        word.setShortDescription(originalWord.getShortDescription());
-                    }
-                    Matcher matcher = mPhoneticPattern.matcher(word.getEVDescription());
-                    if (!derived && matcher.find()) {
-                        word.setPronounce(matcher.group().replace("[", "/").replace("]", "/"));
-                    } else {
-                        word.setPronounce("");
-                    }
-                    return word;
-                });
+    public Word getRandomWord() {
+        Random random = new Random(System.currentTimeMillis());
+        int randomOffset = random.nextInt(125612) + 1;
+        Word word = mEVDictDAO.getEVRandomWord(randomOffset);
+        boolean derived = false;
+        if (word.getShortDescription().contains("@")) {
+            derived = true;
+            Word originalWord = (getLocalWordDetailSync(
+                    word.getShortDescription().replace("@", "").replace("-", " ")));
+            word.setEVDescription(originalWord.getEVDescription());
+            word.setShortDescription(originalWord.getShortDescription());
+        }
+        Matcher matcher = mPhoneticPattern.matcher(word.getEVDescription());
+        if (!derived && matcher.find()) {
+            word.setPronounce(matcher.group().replace("[", "/").replace("]", "/"));
+        } else {
+            word.setPronounce("");
+        }
+        return word;
     }
 }

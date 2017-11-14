@@ -4,6 +4,7 @@ import android.content.Context;
 import com.vinh.dictionary_1.MainApplication;
 import com.vinh.dictionary_1.R;
 import com.vinh.dictionary_1.data.model.DailyWord;
+import com.vinh.dictionary_1.data.model.Word;
 import com.vinh.dictionary_1.data.source.DailyWordRepository;
 import com.vinh.dictionary_1.data.source.EVDictRepository;
 import com.vinh.dictionary_1.data.source.SettingRepository;
@@ -141,27 +142,30 @@ final class SplashPresenter implements SplashContract.Presenter {
     }
 
     private void generateDailyWord(long startNum, long endNum) {
-        mEVDictRepository.getRandomWord()
+        long[] start = new long[1];
+        start[0] = startNum;
+        Observable.create(e -> {
+            while (start[0] <= endNum) {
+                Word word = mEVDictRepository.getRandomWord();
+                DailyWord dailyWord = mDailyWordRepository.getWord(word.getWord());
+                if (dailyWord == null) {
+                    dailyWord = new DailyWord(word);
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.add(Calendar.DATE, (int) (startNum - endNum));
+                    dailyWord.setDate(mDateFormat.format(calendar.getTime()));
+                    mDailyWordRepository.insertDailyWord(dailyWord);
+                    ++start[0];
+                }
+            }
+            mUserInfoRepository.setLastTimeUsageInfo(mDateFormat.format(new Date()));
+            e.onComplete();
+        })
                 .subscribeOn(SchedulerProvider.getInstance().io())
                 .observeOn(SchedulerProvider.getInstance().ui())
-                .subscribe(word -> {
-                    if (startNum <= endNum) {
-                        DailyWord dailyWord = mDailyWordRepository.getWord(word.getWord());
-                        if (dailyWord == null) {
-                            dailyWord = new DailyWord(word);
-                            Calendar calendar = Calendar.getInstance();
-                            calendar.add(Calendar.DATE, (int) (startNum - endNum));
-                            dailyWord.setDate(mDateFormat.format(calendar.getTime()));
-                            mDailyWordRepository.insertDailyWord(dailyWord);
-                            generateDailyWord(startNum + 1, endNum);
-                        } else {
-                            generateDailyWord(startNum, endNum);
-                        }
-                    } else {
-                        mUserInfoRepository.setLastTimeUsageInfo(mDateFormat.format(new Date()));
-                        mViewModel.dismissLoadingDialog();
-                        mViewModel.switchToHomeActivity();
-                    }
-                });
+                .doOnComplete(() -> {
+                    mViewModel.dismissLoadingDialog();
+                    mViewModel.switchToHomeActivity();
+                })
+                .subscribe();
     }
 }

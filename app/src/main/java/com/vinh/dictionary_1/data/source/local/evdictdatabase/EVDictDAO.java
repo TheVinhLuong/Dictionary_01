@@ -21,6 +21,6 @@ public interface EVDictDAO {
     @Query("SELECT word ,av  ,dnpn , mean FROM word_tbl WHERE word = :queryWord LIMIT 1")
     Word getEVWordDetailSync(String queryWord);
 
-    @Query("SELECT word ,av ,dnpn ,mean FROM word_tbl ORDER BY RANDOM() LIMIT 1")
-    Flowable<Word> getEVRandomWord();
+    @Query("SELECT word ,av ,dnpn ,mean FROM word_tbl LIMIT 1 OFFSET :offset")
+    Word getEVRandomWord(int offset);
 }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.vinh.dictionary_1.screen.dailywordlist.wordlist.DailyWordListViewModel"
+            />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_light_grey"
+        android:orientation="vertical"
+        tools:context=".screen.home.wordlist.WordListActivity"
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/word_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager"
+            app:recyclerAdapter="@{viewModel.adapter}"
+            app:recyclerViewOnScrollListener="@{viewModel.onScrollListener}"
+            />
+    </LinearLayout>
+</layout>

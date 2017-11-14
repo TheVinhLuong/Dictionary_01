@@ -29,6 +29,13 @@ public abstract class SearchedWordDatabase extends RoomDatabase {
                             .fallbackToDestructiveMigration()
                             .allowMainThreadQueries()
                             .build();
+            sSearchedWordDatabase.query(
+                    "CREATE TRIGGER IF NOT EXISTS delete_till_40 INSERT ON word_tbl WHEN (SELECT " 
+                            + "count(*) "
+                            + "from word_tbl)"
+                            + ">79 BEGIN DELETE FROM word_tbl WHERE rowid IN ( SELECT rowid FROM " 
+                            + "word_tbl ORDER "
+                            + "BY rowid ASC LIMIT 40); END;", null);
         }
         return sSearchedWordDatabase;
     }
