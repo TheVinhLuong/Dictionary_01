@@ -23,7 +23,8 @@ public class DailyWordsActivity extends BaseActivity {
         DailyWordsContract.Presenter presenter = new DailyWordsPresenter(mViewModel);
         mViewModel.setPresenter(presenter);
 
-        ActivityDailyWordsBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_daily_words);
+        ActivityDailyWordsBinding binding =
+                DataBindingUtil.setContentView(this, R.layout.activity_daily_words);
         binding.setViewModel((DailyWordsViewModel) mViewModel);
     }
 
@@ -41,16 +42,24 @@ public class DailyWordsActivity extends BaseActivity {
 
     @Override
     public void onFragmentCreated() {
-        if(getSupportFragmentManager().getFragments().size() == 2){
+        if (getSupportFragmentManager().getFragments().size() == 2) {
             mViewModel.setTitleVisibility(View.INVISIBLE);
         }
-
     }
 
     @Override
     public void onFragmentDetach() {
-        if(getSupportFragmentManager().getFragments().size() == 1){
+        if (getSupportFragmentManager().getFragments().size() == 1) {
             mViewModel.setTitleVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getFragments().size() == 1) {
+            finish();
+        } else {
+            super.onBackPressed();
         }
     }
 }

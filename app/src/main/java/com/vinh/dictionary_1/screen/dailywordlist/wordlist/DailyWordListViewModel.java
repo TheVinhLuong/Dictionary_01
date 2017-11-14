@@ -9,6 +9,7 @@ import com.vinh.dictionary_1.data.model.DailyWord;
 import com.vinh.dictionary_1.databinding.FragmentDailyWordListBinding;
 import com.vinh.dictionary_1.screen.worddetail.WordDetailFragment;
 import com.vinh.dictionary_1.utis.Constant;
+import com.vinh.dictionary_1.utis.OnEndScrollListener;
 import com.vinh.dictionary_1.utis.ViewUtils;
 import java.util.List;
 
@@ -27,15 +28,9 @@ public class DailyWordListViewModel implements DailyWordListContract.ViewModel,
     DailyWordListViewModel(DailyWordListAdapter adapter) {
         mAdapter = adapter;
         mAdapter.setItemClickListener(this);
-        mOnScrollListener = new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
-                    ViewUtils.hideSoftKeyboard(recyclerView.getContext());
-                }
-            }
-        };
+        mOnScrollListener = new OnEndScrollListener(() -> {
+            mPresenter.getDailyWords();
+        });
     }
 
     @Override
@@ -70,11 +65,16 @@ public class DailyWordListViewModel implements DailyWordListContract.ViewModel,
     }
 
     @Override
-    public void changeDataSet(List<DailyWord> words) {
-        mAdapter.changeDataSet(words);
+    public void appendDailyWordDataSet(List<DailyWord> words) {
+        mAdapter.appendDataSet(words);
         if (mFragmentDailyWordListBinding != null) {
             mFragmentDailyWordListBinding.wordRecyclerView.getLayoutManager().scrollToPosition(0);
         }
+    }
+
+    @Override
+    public void clearDailyWordDataSet() {
+        mAdapter.clearDataSet();
     }
 
     @Override

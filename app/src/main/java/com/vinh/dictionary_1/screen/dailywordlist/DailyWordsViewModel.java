@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import com.vinh.dictionary_1.BR;
+import com.vinh.dictionary_1.screen.dailywordlist.wordlist.DailyWordListFragment;
 
 /**
  * Exposes the data to be used in the DailyWordList screen.
@@ -21,8 +22,7 @@ public class DailyWordsViewModel extends BaseObservable implements DailyWordsCon
 
     public DailyWordsViewModel(Context context) {
         mContext = context;
-        //TODO: For later use
-//        setFragment(DailyWordListFragment.newInstance());
+        setFragment(DailyWordListFragment.newInstance());
     }
 
     @Override

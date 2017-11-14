@@ -51,7 +51,7 @@ final class SplashPresenter implements SplashContract.Presenter {
         mDailyWordRepository = dailyWordRepository;
         mSettingRepository = new SettingRepository(SettingLocalDataSource.getInstance());
         mUserInfoRepository = new UserInfoRepository(UserInfoLocalDatasource.getInstance());
-        mDateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.US);
+        mDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
         assetHandler();
     }
 
@@ -151,7 +151,7 @@ final class SplashPresenter implements SplashContract.Presenter {
                 if (dailyWord == null) {
                     dailyWord = new DailyWord(word);
                     Calendar calendar = Calendar.getInstance();
-                    calendar.add(Calendar.DATE, (int) (startNum - endNum));
+                    calendar.add(Calendar.DATE, (int) (start[0] - endNum));
                     dailyWord.setDate(mDateFormat.format(calendar.getTime()));
                     mDailyWordRepository.insertDailyWord(dailyWord);
                     ++start[0];

@@ -9,17 +9,8 @@ import android.view.ViewGroup;
 import com.vinh.dictionary_1.R;
 import com.vinh.dictionary_1.data.model.Word;
 import com.vinh.dictionary_1.data.source.BookmarkedWordRepository;
-import com.vinh.dictionary_1.data.source.EVDictRepository;
-import com.vinh.dictionary_1.data.source.SearchedWordRepository;
-import com.vinh.dictionary_1.data.source.VEDictRepository;
 import com.vinh.dictionary_1.data.source.local.bookmarkerworddatabase.BookmarkedWordDatabase;
 import com.vinh.dictionary_1.data.source.local.bookmarkerworddatabase.BookmarkedWordLocalDatasource;
-import com.vinh.dictionary_1.data.source.local.evdictdatabase.EVDictDatabase;
-import com.vinh.dictionary_1.data.source.local.evdictdatabase.EVDictLocalDatasource;
-import com.vinh.dictionary_1.data.source.local.searchedworddatabase.SearchedWordDatabase;
-import com.vinh.dictionary_1.data.source.local.searchedworddatabase.SearchedWordLocalDatasource;
-import com.vinh.dictionary_1.data.source.local.vedictdatabase.VEDictDatabase;
-import com.vinh.dictionary_1.data.source.local.vedictdatabase.VEDictLocalDatasource;
 import com.vinh.dictionary_1.databinding.FragmentBookmarkedWordListBinding;
 import com.vinh.dictionary_1.screen.BaseFragment;
 import com.vinh.dictionary_1.screen.bookmarkedwordlist.BookmarkedWordsActivity;
@@ -42,21 +33,12 @@ public class BookmarkedWordListFragment extends BaseFragment{
         List<Word> words = new ArrayList<>();
         BookmarkedWordListAdapter
                 bookmarkedWordListAdapter = new BookmarkedWordListAdapter(getActivity(), words);
-        EVDictRepository evDictRepository = new EVDictRepository(EVDictLocalDatasource.getInstance(
-                EVDictDatabase.getInstance(getActivity()).evDictDAO()));
-        VEDictRepository veDictRepository = new VEDictRepository(VEDictLocalDatasource.getInstance(
-                VEDictDatabase.getInstance(getActivity()).veDictDAO()));
-        SearchedWordRepository searchedWordRepository = new SearchedWordRepository(
-                SearchedWordLocalDatasource.getInstance(
-                        SearchedWordDatabase.getInstance(getActivity()).searchedWordDAO()));
         BookmarkedWordRepository bookmarkedWordRepository = new BookmarkedWordRepository(
                 BookmarkedWordLocalDatasource.getInstance(
                         BookmarkedWordDatabase.getInstance(getActivity()).bookmarkedWordDAO()));
         mViewModel = new BookmarkedWordListViewModel(bookmarkedWordListAdapter);
-
         BookmarkedWordListContract.Presenter presenter =
-                new BookmarkedWordListPresenter(mViewModel, evDictRepository, veDictRepository,
-                        searchedWordRepository, bookmarkedWordRepository);
+                new BookmarkedWordListPresenter(mViewModel, bookmarkedWordRepository);
         mViewModel.setPresenter(presenter);
     }
 

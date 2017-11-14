@@ -45,16 +45,19 @@ public class DailyWordListAdapter
         return mWords.size();
     }
 
-    public void setItemClickListener(OnRecyclerViewItemClickListener<DailyWord> itemClickListener) {
+    void setItemClickListener(OnRecyclerViewItemClickListener<DailyWord> itemClickListener) {
         mItemClickListener = itemClickListener;
     }
 
-    public void changeDataSet(List<DailyWord> words) {
-        mWords.clear();
+    void appendDataSet(List<DailyWord> words) {
         if (words != null) {
             mWords.addAll(words);
         }
         notifyDataSetChanged();
+    }
+
+    void clearDataSet(){
+        mWords.clear();
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {

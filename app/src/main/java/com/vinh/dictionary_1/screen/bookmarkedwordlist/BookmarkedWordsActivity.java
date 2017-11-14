@@ -20,11 +20,11 @@ public class BookmarkedWordsActivity extends BaseActivity {
 
         mViewModel = new BookmarkedWordsViewModel(this);
 
-        BookmarkedWordsContract.Presenter presenter =
-                new BookmarkedWordsPresenter(mViewModel);
+        BookmarkedWordsContract.Presenter presenter = new BookmarkedWordsPresenter(mViewModel);
         mViewModel.setPresenter(presenter);
 
-        ActivityBookmarkedWordsBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_bookmarked_words);
+        ActivityBookmarkedWordsBinding binding =
+                DataBindingUtil.setContentView(this, R.layout.activity_bookmarked_words);
         binding.setViewModel((BookmarkedWordsViewModel) mViewModel);
     }
 
@@ -42,16 +42,24 @@ public class BookmarkedWordsActivity extends BaseActivity {
 
     @Override
     public void onFragmentCreated() {
-      if(getSupportFragmentManager().getFragments().size() == 2){
-          mViewModel.setTitleVisibility(View.INVISIBLE);
-      }
-      
+        if (getSupportFragmentManager().getFragments().size() == 2) {
+            mViewModel.setTitleVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
     public void onFragmentDetach() {
-        if(getSupportFragmentManager().getFragments().size() == 1){
+        if (getSupportFragmentManager().getFragments().size() == 1) {
             mViewModel.setTitleVisibility(View.VISIBLE);
+        }
+    }
+    
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getFragments().size() == 1) {
+            finish();
+        } else {
+            super.onBackPressed();
         }
     }
 }

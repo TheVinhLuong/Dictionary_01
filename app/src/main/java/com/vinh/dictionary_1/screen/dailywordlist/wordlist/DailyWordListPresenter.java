@@ -16,6 +16,8 @@ final class DailyWordListPresenter implements DailyWordListContract.Presenter {
     private final DailyWordListContract.ViewModel mViewModel;
     private SearchedWordRepository mSearchedWordRepository;
     private DailyWordRepository mDailyWordRepository;
+    private int mDailyWordCurrentPage = 0;
+    private boolean mIsFetchingDailyWord = false;
 
     DailyWordListPresenter(DailyWordListContract.ViewModel viewModel,
             SearchedWordRepository searchedWordRepository,
@@ -23,7 +25,7 @@ final class DailyWordListPresenter implements DailyWordListContract.Presenter {
         mViewModel = viewModel;
         mSearchedWordRepository = searchedWordRepository;
         mDailyWordRepository = dailyWordRepository;
-        setData();
+        getDailyWords();
     }
 
     @Override
@@ -39,11 +41,24 @@ final class DailyWordListPresenter implements DailyWordListContract.Presenter {
     public void onItemWordListClicked(DailyWord word) {
         mSearchedWordRepository.insertSearchedWord(word.toWord());
     }
-
-    private void setData() {
-        mDailyWordRepository.getAllDailyWord(0)
+    
+    @Override
+    public void getDailyWords() {
+        if (mIsFetchingDailyWord) {
+            return;
+        }
+        mIsFetchingDailyWord = true;
+        mDailyWordRepository.getAllDailyWord(mDailyWordCurrentPage++)
                 .subscribeOn(SchedulerProvider.getInstance().io())
                 .observeOn(SchedulerProvider.getInstance().ui())
-                .subscribe(mViewModel::changeDataSet);
+                .subscribe(dailyWords -> {
+                    if (dailyWords == null || dailyWords.size() == 0) {
+                        --mDailyWordCurrentPage;
+                        mIsFetchingDailyWord = false;
+                        return;
+                    }
+                    mViewModel.appendDailyWordDataSet(dailyWords);
+                    mIsFetchingDailyWord = false;
+                });
     }
 }

@@ -14,14 +14,15 @@ interface DailyWordListContract {
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter> {
-        void changeDataSet(List<DailyWord> words);
+        void appendDailyWordDataSet(List<DailyWord> words);
 
         DailyWordListAdapter getAdapter();
 
         void setAdapter(DailyWordListAdapter adapter);
 
         void setBinding(FragmentDailyWordListBinding fragmentDailyWordListBinding);
- 
+
+        void clearDailyWordDataSet();
     }
 
     /**
@@ -29,6 +30,7 @@ interface DailyWordListContract {
      */
     interface Presenter extends BasePresenter {
         void onItemWordListClicked(DailyWord word);
-        
+
+        void getDailyWords();
     }
 }
