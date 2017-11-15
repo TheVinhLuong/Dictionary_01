@@ -122,7 +122,8 @@ public final class BindingUtils {
 
     @BindingAdapter({ "webViewContent" })
     public static void setWebViewContent(WebView webView, String content) {
-        webView.loadDataWithBaseURL("file:///android_asset/", content, "text/html", "UTF-8", null);
+        webView.loadDataWithBaseURL("file:///android_asset/", 
+                content, "text/html", "UTF-8", null);
     }
 
     @BindingAdapter({ "webViewClient" })

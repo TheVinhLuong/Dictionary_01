@@ -5,6 +5,7 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import com.vinh.dictionary_1.data.model.DailyWord;
+
 import static com.vinh.dictionary_1.data.source.local.dailyworddatabase.DailyWordDatabase
         .DATABASE_VERSION;
 
@@ -29,7 +30,8 @@ public abstract class DailyWordDatabase extends RoomDatabase {
                             .allowMainThreadQueries()
                             .build();
             sDailyWordDatabase.query(
-                    "CREATE TRIGGER IF NOT EXISTS delete_all INSERT ON daily_word_tbl WHEN (SELECT "
+                    "CREATE TRIGGER IF NOT EXISTS delete_all BEFORE INSERT ON" 
+                            + " daily_word_tbl WHEN (SELECT "
                             + "count(*) "
                             + "from daily_word_tbl)"
                             + "> 62806 BEGIN DELETE FROM daily_word_tbl; END;", null);

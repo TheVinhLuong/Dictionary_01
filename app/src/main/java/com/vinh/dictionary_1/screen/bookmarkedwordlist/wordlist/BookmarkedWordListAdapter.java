@@ -17,11 +17,12 @@ import java.util.List;
  * Created by VinhTL on 01/11/2017.
  */
 
-public class BookmarkedWordListAdapter extends BaseRecyclerViewAdapter<BookmarkedWordListAdapter.ItemViewHolder> {
+public class BookmarkedWordListAdapter
+        extends BaseRecyclerViewAdapter<BookmarkedWordListAdapter.ItemViewHolder> {
     private List<Word> mWords;
     private OnRecyclerViewItemClickListener<Word> mItemClickListener;
 
-    protected BookmarkedWordListAdapter(@NonNull Context context, List<Word> words) {
+    BookmarkedWordListAdapter(@NonNull Context context, List<Word> words) {
         super(context);
         mWords = new ArrayList<>();
         if (words != null) {
@@ -47,18 +48,18 @@ public class BookmarkedWordListAdapter extends BaseRecyclerViewAdapter<Bookmarke
         return mWords.size();
     }
 
-    public void setItemClickListener(OnRecyclerViewItemClickListener<Word> itemClickListener) {
+    void setItemClickListener(OnRecyclerViewItemClickListener<Word> itemClickListener) {
         mItemClickListener = itemClickListener;
     }
 
-    public void appendDataSet(List<Word> words) {
+    void appendDataSet(List<Word> words) {
         if (words != null) {
             mWords.addAll(words);
         }
         notifyDataSetChanged();
     }
 
-    void clearDataSet(){
+    void clearDataSet() {
         mWords.clear();
     }
 
@@ -66,7 +67,7 @@ public class BookmarkedWordListAdapter extends BaseRecyclerViewAdapter<Bookmarke
         private ItemBookmarkedWordListBinding mBinding;
         private OnRecyclerViewItemClickListener<Word> mItemClickListener;
 
-        public ItemViewHolder(ItemBookmarkedWordListBinding binding,
+        ItemViewHolder(ItemBookmarkedWordListBinding binding,
                 OnRecyclerViewItemClickListener<Word> listener) {
             super(binding.getRoot());
             mBinding = binding;

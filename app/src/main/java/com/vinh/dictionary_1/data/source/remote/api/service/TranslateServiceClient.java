@@ -9,12 +9,14 @@ public class TranslateServiceClient extends ServiceClient {
     private static TranslateApi mTranslateApiInstance;
 
     public static void initialize(@NonNull Application application) {
-        mTranslateApiInstance = createService(application, Constant.END_POINT_URL, TranslateApi.class);
+        mTranslateApiInstance =
+                createService(application, Constant.END_POINT_URL, TranslateApi.class);
     }
 
     public static TranslateApi getInstance() {
         if (mTranslateApiInstance == null) {
-            throw new RuntimeException("Need call method TranslateServiceClient#initialize() first");
+            throw new RuntimeException(
+                    "Need call method TranslateServiceClient#initialize() first");
         }
         return mTranslateApiInstance;
     }

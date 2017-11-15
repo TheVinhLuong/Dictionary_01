@@ -17,8 +17,8 @@ import java.util.List;
  * Exposes the data to be used in the WordList screen.
  */
 
-public class BookmarkedWordListViewModel
-        implements BookmarkedWordListContract.ViewModel, BookmarkedWordListAdapter.OnRecyclerViewItemClickListener {
+public class BookmarkedWordListViewModel implements BookmarkedWordListContract.ViewModel,
+        BookmarkedWordListAdapter.OnRecyclerViewItemClickListener {
     private static final String TAG = BookmarkedWordListViewModel.class.getSimpleName();
     private BookmarkedWordListContract.Presenter mPresenter;
     private BookmarkedWordListAdapter mAdapter;

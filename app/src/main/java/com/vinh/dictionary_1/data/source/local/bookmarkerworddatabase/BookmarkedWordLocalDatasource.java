@@ -2,6 +2,7 @@ package com.vinh.dictionary_1.data.source.local.bookmarkerworddatabase;
 
 import com.vinh.dictionary_1.data.model.Word;
 import com.vinh.dictionary_1.data.source.BookmarkedWordDatasource;
+import com.vinh.dictionary_1.utis.Constant;
 import io.reactivex.Flowable;
 import java.util.List;
 
@@ -31,7 +32,8 @@ public class BookmarkedWordLocalDatasource implements BookmarkedWordDatasource {
 
     @Override
     public Flowable<List<Word>> getBookmarkedWord(int page) {
-        return mBookmarkedWordDAO.getAllBookmarkedWord(page);
+        return mBookmarkedWordDAO.getAllBookmarkedWord(
+                page * Constant.NUM_OF_BOOKMARKED_WORD_PER_PAGE);
     }
 
     @Override

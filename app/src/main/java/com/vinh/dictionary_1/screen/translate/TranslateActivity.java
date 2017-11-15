@@ -20,15 +20,17 @@ public class TranslateActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TranslateRepository translateRepository = new TranslateRepository(new TranslateRemoteDatasource(
-                TranslateServiceClient.getInstance()));
+        TranslateRepository translateRepository = new TranslateRepository(
+                new TranslateRemoteDatasource(TranslateServiceClient.getInstance()));
 
         mViewModel = new TranslateViewModel(this);
 
-        TranslateContract.Presenter presenter = new TranslatePresenter(mViewModel, translateRepository);
+        TranslateContract.Presenter presenter =
+                new TranslatePresenter(mViewModel, translateRepository);
         mViewModel.setPresenter(presenter);
 
-        mActivityTranslateBinding = DataBindingUtil.setContentView(this, R.layout.activity_translate);
+        mActivityTranslateBinding =
+                DataBindingUtil.setContentView(this, R.layout.activity_translate);
         mActivityTranslateBinding.setViewModel((TranslateViewModel) mViewModel);
     }
 

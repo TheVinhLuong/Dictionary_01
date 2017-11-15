@@ -32,5 +32,6 @@ public class Constant {
     
     public static final int NUM_OF_DAILY_WORD_PER_PAGE = 40;
     public static final int NUM_OF_SEARCHED_WORD_PER_PAGE = 40;
+    public static final int NUM_OF_BOOKMARKED_WORD_PER_PAGE = 40;
 }
 
