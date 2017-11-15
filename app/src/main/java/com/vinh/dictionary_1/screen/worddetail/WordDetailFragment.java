@@ -1,6 +1,5 @@
 package com.vinh.dictionary_1.screen.worddetail;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -57,17 +56,11 @@ public class WordDetailFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-
+        ((HomeActivity) getActivity()).onFragmentCreated();
         FragmentWordDetailBinding binding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_word_detail, container, false);
         binding.setViewModel((WordDetailViewModel) mViewModel);
         return binding.getRoot();
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        ((HomeActivity) context).onWordDetailFragmentAttach();
     }
 
     @Override
@@ -85,6 +78,6 @@ public class WordDetailFragment extends BaseFragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        ((HomeActivity) getActivity()).onWordDetailFragmentDetach(this);
+        ((HomeActivity) getActivity()).onFragmentDetach(this);
     }
 }

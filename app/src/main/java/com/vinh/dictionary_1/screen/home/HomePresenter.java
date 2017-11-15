@@ -39,16 +39,16 @@ final class HomePresenter implements HomeContract.Presenter {
         if (mSettingRepository.getCurrentDictType()
                 .blockingSingle()
                 .equals(DB_NAME_ENGLISH_VIETNAMESE)) {
-            switchDictionary(DB_NAME_VIETNAMESE_ENGLISH);
+            switchDictionary(DB_NAME_VIETNAMESE_ENGLISH, R.string.title_db_vietnamese_english);
         } else {
-            switchDictionary(DB_NAME_ENGLISH_VIETNAMESE);
+            switchDictionary(DB_NAME_ENGLISH_VIETNAMESE, R.string.title_db_english_vietnamese);
         }
         Intent intent = new Intent(Constant.INTENT_ACTION_CHANGE_DICT);
         MainApplication.getInstance().sendBroadcast(intent);
     }
 
-    public void switchDictionary(@DictTypeName String toDictName) {
+    public void switchDictionary(@DictTypeName String toDictName, int stringId) {
         mSettingRepository.setCurrentDictType(toDictName);
-        mViewModel.setDictType(mViewModel.getStringResource(R.string.title_db_english_vietnamese));
+        mViewModel.setDictType(mViewModel.getStringResource(stringId));
     }
 }

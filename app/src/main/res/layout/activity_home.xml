@@ -19,6 +19,10 @@
             name="toolbarDrawerToggle"
             type="android.support.v7.app.ActionBarDrawerToggle"
             />
+        <variable
+            name="onTouchListener"
+            type="android.view.View.OnTouchListener"
+            />
     </data>
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/navigation_drawer_home"
@@ -47,6 +51,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
+                    android:descendantFocusability="beforeDescendants"
+                    android:focusableInTouchMode="true"
                     >
                     <EditText
                         android:id="@+id/input_field"
@@ -62,9 +68,9 @@
                         android:paddingRight="@dimen/dp_12"
                         android:paddingStart="@dimen/dp_12"
                         android:textCursorDrawable="@drawable/color_edittext_cursor"
+                        app:onTouchListener="@{onTouchListener}"
                         app:textWatcher="@{viewModel.textWatcher}"
                         >
-                        <requestFocus/>
                     </EditText>
                     <TextView
                         android:layout_width="@dimen/dp_0"
@@ -91,7 +97,6 @@
                 android:background="@color/color_light_grey"
                 app:fragment="@{viewModel.fragment}"
                 />
-
         </LinearLayout>
 
         <android.support.design.widget.NavigationView

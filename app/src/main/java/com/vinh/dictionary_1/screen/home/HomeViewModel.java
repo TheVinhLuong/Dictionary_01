@@ -6,12 +6,14 @@ import android.databinding.Bindable;
 import android.support.v4.app.Fragment;
 import android.text.TextWatcher;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import com.vinh.dictionary_1.BR;
 import com.vinh.dictionary_1.R;
 import com.vinh.dictionary_1.data.source.SettingRepository;
 import com.vinh.dictionary_1.data.source.local.sharedpref.SettingLocalDataSource;
-import com.vinh.dictionary_1.screen.home.wordlist.WordListFragment;
 import com.vinh.dictionary_1.screen.home.homelist.HomeListFragment;
+import com.vinh.dictionary_1.screen.home.wordlist.WordListFragment;
 import com.vinh.dictionary_1.utis.rx.SchedulerProvider;
 
 import static com.vinh.dictionary_1.data.model.annotation.DictTypeName.DB_NAME_ENGLISH_VIETNAMESE;
@@ -20,7 +22,8 @@ import static com.vinh.dictionary_1.data.model.annotation.DictTypeName.DB_NAME_E
  * Exposes the data to be used in the Home screen.
  */
 
-public class HomeViewModel extends BaseObservable implements HomeContract.ViewModel {
+public class HomeViewModel extends BaseObservable
+        implements HomeContract.ViewModel, View.OnTouchListener {
 
     private HomeContract.Presenter mPresenter;
 
@@ -33,8 +36,10 @@ public class HomeViewModel extends BaseObservable implements HomeContract.ViewMo
     private TextWatcher mTextWatcher;
 
     private SettingRepository mSettingRepository;
-    
+
     private Context mContext;
+
+    private WordListFragment mWordListFragment;
 
     HomeViewModel(Context context) {
         mContext = context;
@@ -114,9 +119,6 @@ public class HomeViewModel extends BaseObservable implements HomeContract.ViewMo
     public void setFragment(Fragment fragment) {
         mFragment = fragment;
         notifyPropertyChanged(BR.fragment);
-        if (fragment instanceof WordListFragment) {
-            setTextWatcher((WordListFragment) fragment);
-        }
     }
 
     @Bindable
@@ -127,5 +129,29 @@ public class HomeViewModel extends BaseObservable implements HomeContract.ViewMo
     public void setTextWatcher(TextWatcher textWatcher) {
         mTextWatcher = textWatcher;
         notifyPropertyChanged(BR.textWatcher);
+    }
+
+    public void onSearchWordEditTextTouch() {
+        if (mWordListFragment == null) {
+            mWordListFragment = WordListFragment.newInstance();
+            setTextWatcher(mWordListFragment);
+        }
+        setFragment(mWordListFragment);
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        switch (view.getId()) {
+            case R.id.input_field:
+                if (MotionEvent.ACTION_UP == motionEvent.getAction()) {
+                    if (mWordListFragment == null) {
+                        mWordListFragment = WordListFragment.newInstance();
+                        setTextWatcher(mWordListFragment);
+                    }
+                    setFragment(mWordListFragment);
+                }
+                break;
+        }
+        return false;
     }
 }
