@@ -19,17 +19,20 @@ public class DailyWord {
     @PrimaryKey
     @ColumnInfo(name = "word")
     private String mWord;
-    @ColumnInfo(name = "description", typeAffinity = ColumnInfo.BLOB)
-    @TypeConverters(DictTypeConverter.class)
-    private String mDescription;
     @ColumnInfo(name = "mean")
     private String mShortDescription;
     private String mPronounce;
     @ColumnInfo(name = "dnpn", typeAffinity = ColumnInfo.BLOB)
     @TypeConverters({ DictTypeConverter.class })
     private String mAlikeWord;
-    @ColumnInfo(name = "word_ko_dau")
-    private String mWordWithoutDiacritic;
+    @ColumnInfo(name = "date")
+    private String mDate;
+    @ColumnInfo(name = "va", typeAffinity = ColumnInfo.BLOB)
+    @TypeConverters(DictTypeConverter.class)
+    private String mVEDescription;
+    @ColumnInfo(name = "av", typeAffinity = ColumnInfo.BLOB)
+    @TypeConverters(DictTypeConverter.class)
+    private String mEVDescription;
     @Ignore
     private boolean mBookmarked;
 
@@ -39,15 +42,11 @@ public class DailyWord {
     public DailyWord(Word word) {
         this.mType = word.getType();
         this.mWord = word.getWord();
-        if (word.getEVDescription() == null || word.getEVDescription().equals("")) {
-            this.mDescription = word.getVEDescription();
-        } else {
-            this.mDescription = word.getEVDescription();
-        }
+        this.mVEDescription = word.getVEDescription();
+        this.mEVDescription = word.getEVDescription();
         this.mShortDescription = word.getShortDescription();
         this.mPronounce = word.getPronounce();
         this.mAlikeWord = word.getAlikeWord();
-        this.mWordWithoutDiacritic = word.getWordWithoutDiacritic();
         this.mBookmarked = word.isBookmarked();
     }
 
@@ -65,14 +64,6 @@ public class DailyWord {
 
     public void setWord(String word) {
         this.mWord = word;
-    }
-
-    public String getDescription() {
-        return mDescription;
-    }
-
-    public void setDescription(String evDescription) {
-        this.mDescription = evDescription;
     }
 
     public String getShortDescription() {
@@ -99,12 +90,28 @@ public class DailyWord {
         this.mAlikeWord = alikeWord;
     }
 
-    public String getWordWithoutDiacritic() {
-        return mWordWithoutDiacritic;
+    public String getDate() {
+        return mDate;
     }
 
-    public void setWordWithoutDiacritic(String wordWithoutDiacritic) {
-        mWordWithoutDiacritic = wordWithoutDiacritic;
+    public void setDate(String date) {
+        mDate = date;
+    }
+
+    public String getVEDescription() {
+        return mVEDescription;
+    }
+
+    public void setVEDescription(String veDescription) {
+        mVEDescription = veDescription;
+    }
+
+    public String getEVDescription() {
+        return mEVDescription;
+    }
+
+    public void setEVDescription(String evDescription) {
+        mEVDescription = evDescription;
     }
 
     public boolean isBookmarked() {
@@ -113,5 +120,18 @@ public class DailyWord {
 
     public void setBookmarked(boolean bookmarked) {
         mBookmarked = bookmarked;
+    }
+
+    public Word toWord() {
+        Word.WordBuilder wordBuilder = new Word.WordBuilder();
+        wordBuilder.word(mWord)
+                .alikeWord(mAlikeWord)
+                .evDescription(mEVDescription)
+                .veDescription(mVEDescription)
+                .pronounce(mPronounce)
+                .shortDescription(mShortDescription)
+                .alikeWord(mAlikeWord)
+                .setBookmarked(mBookmarked);
+        return wordBuilder.build();
     }
 }

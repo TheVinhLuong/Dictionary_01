@@ -12,6 +12,8 @@ public class Constant {
     
     public static final String INTENT_ACTION_CHANGE_DICT =
             "com.vinh.dictionary_1.action.change_dict";
+    public static final String INTENT_ACTION_UPDATE_SEARCHED_WORDS =
+            "com.vinh.dictionary_1.action.update_searched_word";
 
     public static final String ARGUMENT_WORD = "ARGUMENT_WORD";
 

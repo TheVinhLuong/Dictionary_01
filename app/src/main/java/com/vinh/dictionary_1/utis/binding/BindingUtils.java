@@ -1,10 +1,12 @@
 package com.vinh.dictionary_1.utis.binding;
 
+import android.annotation.SuppressLint;
 import android.databinding.BindingAdapter;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,6 +16,7 @@ import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
 import android.text.TextWatcher;
 import android.view.Gravity;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
@@ -21,7 +24,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import com.vinh.dictionary_1.R;
 import com.vinh.dictionary_1.screen.home.HomeActivity;
-import com.vinh.dictionary_1.utis.Constant;
+import com.vinh.dictionary_1.screen.home.wordlist.WordListFragment;
 
 public final class BindingUtils {
 
@@ -78,16 +81,29 @@ public final class BindingUtils {
 
     @BindingAdapter({ "fragment" })
     public static void setFragment(FrameLayout frameLayout, Fragment fragment) {
-        ((AppCompatActivity) frameLayout.getContext()).getSupportFragmentManager()
-                .beginTransaction()
-                .add(frameLayout.getId(), fragment, Constant.FRAGMENT_TAG_WORD_SEARCH_LIST)
+        FragmentManager fragmentManager =
+                ((AppCompatActivity) frameLayout.getContext()).getSupportFragmentManager();
+        if (fragment instanceof WordListFragment && fragmentManager.getFragments().size() > 1) {
+            fragmentManager.beginTransaction().show(fragment).commit();
+            return;
+        }
+        fragmentManager.beginTransaction()
+                .add(frameLayout.getId(), fragment)
                 .addToBackStack(null)
                 .commit();
     }
 
     @BindingAdapter({ "textWatcher" })
     public static void setTextWatcher(EditText editText, TextWatcher textWatcher) {
-        editText.addTextChangedListener(textWatcher);
+        if (textWatcher != null) {
+            editText.addTextChangedListener(textWatcher);
+        }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    @BindingAdapter({ "onTouchListener" })
+    public static void setOnTouchListener(EditText editText, View.OnTouchListener onTouchListener) {
+        editText.setOnTouchListener(onTouchListener);
     }
 
     @BindingAdapter({ "recyclerViewOnScrollListener" })

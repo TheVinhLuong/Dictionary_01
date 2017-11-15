@@ -86,6 +86,24 @@ public class EVDictLocalDatasource implements EVDictDatasource.LocalDataSource {
 
     @Override
     public Flowable<Word> getRandomWord() {
-        return mEVDictDAO.getEVRandomWord();
+        return mEVDictDAO.getEVRandomWord()
+                .observeOn(SchedulerProvider.getInstance().io())
+                .map(word -> {
+                    boolean derived = false;
+                    if (word.getShortDescription().contains("@")) {
+                        derived = true;
+                        Word originalWord = (getLocalWordDetailSync(
+                                word.getShortDescription().replace("@", "").replace("-", " ")));
+                        word.setEVDescription(originalWord.getEVDescription());
+                        word.setShortDescription(originalWord.getShortDescription());
+                    }
+                    Matcher matcher = mPhoneticPattern.matcher(word.getEVDescription());
+                    if (!derived && matcher.find()) {
+                        word.setPronounce(matcher.group().replace("[", "/").replace("]", "/"));
+                    } else {
+                        word.setPronounce("");
+                    }
+                    return word;
+                });
     }
 }
