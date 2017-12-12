@@ -12,5 +12,6 @@ public interface DictDatasource {
     interface LocalDatasource{
         Flowable<List<Word>> getLocalWordsDetail(String queryWord, int limitCount);
         Flowable<Word> getLocalWordDetail(String queryWord);
+        Word getLocalWordDetailSync(String queryWord);
     }
 }

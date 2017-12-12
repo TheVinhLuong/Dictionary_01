@@ -67,8 +67,10 @@ public class EVDictLocalDatasource implements EVDictDatasource.LocalDataSource {
                         derived = true;
                         Word originalWord = (getLocalWordDetailSync(
                                 word.getShortDescription().replace("@", "").replace("-", " ")));
-                        word.setEVDescription(originalWord.getEVDescription());
-                        word.setShortDescription(originalWord.getShortDescription());
+                        if(originalWord != null) {
+                            word.setEVDescription(originalWord.getEVDescription());
+                            word.setShortDescription(originalWord.getShortDescription());
+                        }
                     }
                     Matcher matcher = mPhoneticPattern.matcher(word.getEVDescription());
                     if (!derived && matcher.find()) {
@@ -82,7 +84,27 @@ public class EVDictLocalDatasource implements EVDictDatasource.LocalDataSource {
 
     @Override
     public Word getLocalWordDetailSync(String queryWord) {
-        return mEVDictDAO.getEVWordDetailSync(queryWord);
+        Word word = mEVDictDAO.getEVWordDetailSync(queryWord);
+        if(word == null){
+            return word;
+        }
+        boolean derived = false;
+        if (word.getShortDescription().contains("@")) {
+            derived = true;
+            Word originalWord = (getLocalWordDetailSync(
+                    word.getShortDescription().replace("@", "").replace("-", " ")));
+            if(originalWord != null) {
+                word.setEVDescription(originalWord.getEVDescription());
+                word.setShortDescription(originalWord.getShortDescription());
+            }
+        }
+        Matcher matcher = mPhoneticPattern.matcher(word.getEVDescription());
+        if (!derived && matcher.find()) {
+            word.setPronounce(matcher.group().replace("[", "/").replace("]", "/"));
+        } else {
+            word.setPronounce("");
+        }
+        return word;
     }
 
     @Override
@@ -95,8 +117,10 @@ public class EVDictLocalDatasource implements EVDictDatasource.LocalDataSource {
             derived = true;
             Word originalWord = (getLocalWordDetailSync(
                     word.getShortDescription().replace("@", "").replace("-", " ")));
-            word.setEVDescription(originalWord.getEVDescription());
-            word.setShortDescription(originalWord.getShortDescription());
+            if(originalWord != null) {
+                word.setEVDescription(originalWord.getEVDescription());
+                word.setShortDescription(originalWord.getShortDescription());
+            }
         }
         Matcher matcher = mPhoneticPattern.matcher(word.getEVDescription());
         if (!derived && matcher.find()) {

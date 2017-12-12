@@ -15,5 +15,5 @@ public interface TranslateApi {
     @POST("/translate_a/single?client=gtx&dt=t")
     @FormUrlEncoded
     Observable<JsonArray> translate(@Field("tl") String targetLanguage,
-            @Field("sl") String sourceLanguage, @Field("q") String text);
+            @Field("sl") String sourceLanguage, @Field(value="q", encoded = true) String text);
 }

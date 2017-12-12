@@ -15,14 +15,19 @@ public class VEDictRepository implements VEDictDatasource.LocalDataSource{
     public VEDictRepository(VEDictLocalDatasource VEDictLocalDatasource) {
         mVEDictLocalDatasource = VEDictLocalDatasource;
     }
-    
+
     @Override
     public Flowable<List<Word>> getLocalWordsDetail(String queryWord, int limitCount) {
         return mVEDictLocalDatasource.getLocalWordsDetail(queryWord, limitCount);
     }
-    
+
     @Override
     public Flowable<Word> getLocalWordDetail(String queryWord) {
         return mVEDictLocalDatasource.getLocalWordDetail(queryWord);
+    }
+
+    @Override
+    public Word getLocalWordDetailSync(String queryWord) {
+        return mVEDictLocalDatasource.getLocalWordDetailSync(queryWord);
     }
 }

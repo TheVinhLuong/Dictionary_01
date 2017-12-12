@@ -32,4 +32,9 @@ public class DictRepository implements DictDatasource.LocalDatasource {
     public Flowable<Word> getLocalWordDetail(String queryWord) {
         return mLocalDatasource.getLocalWordDetail(queryWord);
     }
+
+    @Override
+    public Word getLocalWordDetailSync(String queryWord) {
+        return mLocalDatasource.getLocalWordDetailSync(queryWord);
+    }
 }
